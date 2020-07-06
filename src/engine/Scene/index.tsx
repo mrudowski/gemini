@@ -7,13 +7,14 @@ type TImagePath = string;
 
 interface IScene {
   id: TSceneId,
-  imagePath?: TImagePath
+  imagePath?: TImagePath //TODO change to image
 }
 
 const Scene: React.FC<IScene> = (props) => {
   const {
     id,
-    imagePath
+    imagePath,
+    children
   } = props;
 
   const classes = classNames(
@@ -30,6 +31,7 @@ const Scene: React.FC<IScene> = (props) => {
       className={classes}
       style={styles}
     >
+      {children}
     </div>
   );
 

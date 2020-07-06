@@ -1,6 +1,10 @@
 import React from 'react';
 import sceneImage from './assets/images/teaShop.jpg';
+import teaShopImage from './assets/images/tableDirty.png';
 import Scene from '../../../engine/Scene';
+import Poi from '../../../engine/Poi';
+import ACTIONS_TYPES from '../../../engine/ActionMenu/actionsTypes';
+import actions from '../../../engine/actions';
 // TODO try lazy loading with supsense
 
 const TeaShopScene = () => {
@@ -12,16 +16,29 @@ const TeaShopScene = () => {
       imagePath={sceneImage}
       // image={''} optional thanks to great default but can be false/null
     >
-      {/*<Poi*/}
-      {/*  id="tableDirty"*/}
-      {/*  style={{*/}
-      {/*    top: 100,*/}
-      {/*    left: 100,*/}
-      {/*    width: 120,*/}
-      {/*    height: 80*/}
-      {/*    // zIndex: 1*/}
-      {/*  }}*/}
-      {/*  image={true} /!* true | false | imagePath as string *!/*/}
+      <Poi
+        id="tableDirty"
+        image={teaShopImage}
+        style={{
+          top: 279,
+          left: 146,
+          width: 112,
+          height: 78
+        }}
+        actionMenu={[
+          {
+            id: ACTIONS_TYPES.LOOK,
+            //when: sceneState.tableDirty,
+            script: [
+              actions.talk({text: 'test'}),
+            ]
+            // TODO short default
+            // id: ACTIONS_TYPES.LOOK,
+          },
+        ]}
+      />
+
+
       {/*  hotspot={{*/}
       {/*    top: 10,*/}
       {/*    left: 10,*/}
