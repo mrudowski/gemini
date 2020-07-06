@@ -1,13 +1,13 @@
+import { hot } from 'react-hot-loader/root';
 import React from 'react';
-// import logo from './logo.svg';
-import './App.css';
+import TeaShopScene from './sampleGame01/scenes/teaShop/TeaShopScene';
 
 function App() {
   return (
     <div className="App">
-      Scene 01
+      <TeaShopScene />
     </div>
   );
 }
 
-export default App;
+export default hot(App);

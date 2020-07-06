@@ -1,12 +1,12 @@
 # About
 
 ## gemini
-experimental react adventure game engine
-based on my older work which power A Grain of Truth games series https://www.rudowscy.com
+- experimental react adventure game engine
+- based on my older work which power A Grain of Truth games series https://www.rudowscy.com
 
 ## Main assumptions
 - sass for globals and inline styling where needed (positions, bg images etc)
-- for fun, learn and to help my bro again
+- for fun, learn and to help my bro again<br />
  
 - this time without https://www.styled-components.com/
 - and still without https://tailwindcss.com/
