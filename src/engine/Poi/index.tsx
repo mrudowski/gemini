@@ -2,6 +2,8 @@ import React, {CSSProperties} from 'react';
 import classNames from 'classnames';
 import './styles/PoiStyle.scss'
 import {IActionObject} from '../actions';
+import {useGemDispatch} from '../redux/store';
+import actionSlice, {incrementBy} from '../redux/actionSlice';
 
 type IPoiId = string; // TODO better?
 type TImagePath = string;
@@ -21,15 +23,30 @@ interface IPoi {
 }
 
 const Poi: React.FC<IPoi> = (props) => {
+  //const isDebug = useSelector(getIsDebug);
+  const dispatch = useGemDispatch();
+
   const {
     id,
     image,
     style
   } = props;
 
+  const onClick = (e) => {
+    //dispatch({type: 'incrementBy', payload: 10});
+    //dispatch(incrementBy(10));
+    dispatch(actionSlice.actions.increment());
+    //dispatch(showActionMenu());
+    //dispatch(poiClicked(e.target));
+
+    console.log('%c [poi] onClick', 'color: LIGHTSEAGREEN', id);
+    e.preventDefault();
+  }
+
   const classes = classNames(
     'Poi',
-    `Poi-${id}`
+    `Poi-${id}`,
+    //isDebug && 'Poi--image'
   );
 
   const styles = {
@@ -42,6 +59,11 @@ const Poi: React.FC<IPoi> = (props) => {
       className={classes}
       style={styles}
     >
+      <div
+        className="Poi__hotspot"
+        onClick={onClick}
+        // add onToucheEnd?
+      />
     </div>
   );
 
