@@ -1,13 +1,26 @@
-import {createAction, createSlice} from '@reduxjs/toolkit';
+import {createAction, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {TActionMenu} from '../Poi';
 
 export const incrementBy = createAction<number>('incrementBy');
+export const poiClicked = createAction<{x: number, y: number, actionMenu: TActionMenu}>('poiClicked');
+
+interface IActionState {
+  actionMenu: {}
+}
+
+const initialState: IActionState = {
+  actionMenu: {}
+};
 
 const actionSlice = createSlice({
   name: 'action',
-  initialState: 0,
+  initialState,
   reducers: {
-    increment: state => state + 1,
-    decrement: state => state - 1,
+    showMenu: (state: IActionState, action: PayloadAction<{}>) => {
+
+    },
+    // increment: state => state + 1,
+    // decrement: state => state - 1,
     // addTodo(state, action) {
     //   const { id, text } = action.payload
     //   state.push({ id, text, completed: false })
@@ -23,10 +36,24 @@ const actionSlice = createSlice({
   },
   // "builder callback API", recommended for TypeScript users
   extraReducers: builder => {
-    builder.addCase(incrementBy, (state, action) => {
-      console.log('%c addCase wow', 'background-color:Gold; color: black', action, state);
-      return state + action.payload
-    })
+    // builder.addCase(incrementBy, (state, action) => {
+    //   console.log('%c addCase wow', 'background-color:Gold; color: black', action, state);
+    //   return state + action.payload
+    // });
+    // TODO move to new reducer
+    builder.addCase(poiClicked, (state: IActionState, action) => {
+      const {
+        x,
+        y,
+        actionMenu
+      } = action.payload
+      state.actionMenu = {
+        active: true,
+        x,
+        y,
+        actionMenu
+      }
+    });
   }
 });
 

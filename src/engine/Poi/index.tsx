@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import './styles/PoiStyle.scss'
 import {IActionObject} from '../actions';
 import {useGemDispatch} from '../redux/store';
-import actionSlice, {incrementBy} from '../redux/actionSlice';
+import actionSlice, {incrementBy, poiClicked} from '../redux/actionSlice';
 
 type IPoiId = string; // TODO better?
 type TImagePath = string;
@@ -15,11 +15,13 @@ interface IActionItem {
   script?: IActionObject[]
 }
 
+export type TActionMenu = IActionItem[];
+
 interface IPoi {
   id: IPoiId,
   image?: TImagePath,
   style: CSSProperties,
-  actionMenu: IActionItem[]
+  actionMenu: TActionMenu
 }
 
 const Poi: React.FC<IPoi> = (props) => {
@@ -29,17 +31,22 @@ const Poi: React.FC<IPoi> = (props) => {
   const {
     id,
     image,
-    style
+    style,
+    actionMenu
   } = props;
 
-  const onClick = (e) => {
+  const onClick = (e: React.MouseEvent) => {
+    const {
+      pageX: x,
+      pageY: y
+    } = e;
+    console.log('%c [poi] onClick', 'color: LIGHTSEAGREEN', id, e.pageX);
     //dispatch({type: 'incrementBy', payload: 10});
     //dispatch(incrementBy(10));
-    dispatch(actionSlice.actions.increment());
-    //dispatch(showActionMenu());
-    //dispatch(poiClicked(e.target));
+    //dispatch(actionSlice.actions.increment());
+    //dispatch(showActionMenu(e.pageX, e.pageY, actionMenu));
+    dispatch(poiClicked({x, y, actionMenu}));
 
-    console.log('%c [poi] onClick', 'color: LIGHTSEAGREEN', id);
     e.preventDefault();
   }
 
