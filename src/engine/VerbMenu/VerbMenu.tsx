@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import classNames from 'classnames';
+import {AnimatePresence, motion} from 'framer-motion';
 import './styles/styles.scss'
 import {useTypedDispatch, useTypedSelector} from '../redux/store';
 import Backdrop from '../helpers/Backdrop';
@@ -37,7 +38,7 @@ const VerbMenu: React.FC<IVerbMenu> = (props) => {
 
   }, [verbMenuData]);
 
-  if (!verbMenuData) return null;
+  //if (!verbMenuData) return null;
 
   // --------------------------------------
 
@@ -50,27 +51,36 @@ const VerbMenu: React.FC<IVerbMenu> = (props) => {
     {'VerbMenu--show': positionStyle}
   );
 
-  let styles = {
+  const styles = {
     ...(positionStyle && positionStyle)
   };
 
-  if (verbMenuData) {
-    return (
-      <>
-        <Backdrop onClick={closeMenu} ref={backdropRef} />
-        <div
-          className={classes}
-          style={styles}
-          ref={menuRef}
-        >
-          {verbMenuData.y} / {verbMenuData.x}
-        </div>
-      </>
-    );
+  const variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 }
   }
 
-  return null;
-
+  return (
+    <AnimatePresence>
+      {verbMenuData && (
+        <>
+          <Backdrop onClick={closeMenu} ref={backdropRef} />
+          <motion.div
+            className={classes}
+            style={styles}
+            ref={menuRef}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={variants}
+            whileTap={{ scale: 0.9 }}
+          >
+          {verbMenuData.y} / {verbMenuData.x}
+          </motion.div>
+        </>
+        )}
+    </AnimatePresence>
+  );
 }
 
 export default VerbMenu;
