@@ -5,12 +5,13 @@ import {
   Action,
   ThunkAction
 } from '@reduxjs/toolkit';
+import { useSelector, TypedUseSelectorHook } from 'react-redux';
 import gemSlice from './gemSlice';
-import actionSlice from './actionSlice';
+import verbMenuReducer from '../VerbMenu/verbMenuSlice';
 
 const rootReducer = combineReducers({
   gem: gemSlice.reducer,
-  action: actionSlice.reducer,
+  verbMenu: verbMenuReducer
 });
 
 const getReducer = (): any => {
@@ -30,5 +31,6 @@ export const store = makeStore();
 export type IRootState = ReturnType<typeof rootReducer>;
 // TODO check it
 export type IDispatch = typeof store.dispatch;
-export const useGemDispatch = () => useDispatch<IDispatch>()
+export const useTypedDispatch = () => useDispatch<IDispatch>()
+export const useTypedSelector: TypedUseSelectorHook<IRootState> = useSelector;
 export type IThunk = ThunkAction<void, IRootState, null, Action<string>>;

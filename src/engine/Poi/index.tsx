@@ -1,39 +1,31 @@
 import React, {CSSProperties} from 'react';
 import classNames from 'classnames';
 import './styles/PoiStyle.scss'
-import {IActionObject} from '../actions';
-import {useGemDispatch} from '../redux/store';
-import actionSlice, {incrementBy, poiClicked} from '../redux/actionSlice';
+import {useTypedDispatch} from '../redux/store';
+import {IVerb, showVerbMenu} from '../VerbMenu/verbMenuSlice';
 
 type IPoiId = string; // TODO better?
 type TImagePath = string;
-
-
-interface IActionItem {
-  id: string,
-  when?: boolean,
-  script?: IActionObject[]
-}
-
-export type TActionMenu = IActionItem[];
 
 interface IPoi {
   id: IPoiId,
   image?: TImagePath,
   style: CSSProperties,
-  actionMenu: TActionMenu
+  verbs?: IVerb[]
 }
 
 const Poi: React.FC<IPoi> = (props) => {
   //const isDebug = useSelector(getIsDebug);
-  const dispatch = useGemDispatch();
+  const dispatch = useTypedDispatch();
 
   const {
     id,
     image,
     style,
-    actionMenu
+    verbs = []
   } = props;
+
+  const isInteractive = verbs.length > 0;
 
   const onClick = (e: React.MouseEvent) => {
     const {
@@ -44,8 +36,11 @@ const Poi: React.FC<IPoi> = (props) => {
     //dispatch({type: 'incrementBy', payload: 10});
     //dispatch(incrementBy(10));
     //dispatch(actionSlice.actions.increment());
-    //dispatch(showActionMenu(e.pageX, e.pageY, actionMenu));
-    dispatch(poiClicked({x, y, actionMenu}));
+    //dispatch(showVerbMenu(e.pageX, e.pageY, VerbMenu));
+    //dispatch(poiClicked({x, y, verbs}));
+    if (isInteractive) {
+      dispatch(showVerbMenu({x, y, verbs}));
+    }
 
     e.preventDefault();
   }
@@ -66,11 +61,13 @@ const Poi: React.FC<IPoi> = (props) => {
       className={classes}
       style={styles}
     >
-      <div
-        className="Poi__hotspot"
-        onClick={onClick}
-        // add onToucheEnd?
-      />
+      {isInteractive &&
+        <div
+          className="Poi__hotspot"
+          onClick={onClick}
+          // add onToucheEnd?
+        />
+      }
     </div>
   );
 

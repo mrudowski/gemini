@@ -1,4 +1,4 @@
-import ACTIONS_TYPES from './ActionMenu/actionsTypes';
+import VERBS from './VerbMenu/verbs';
 
 interface ITalkActionPayload {
   text: string
@@ -11,7 +11,7 @@ export interface IActionObject {
 
 const talk = (payload: ITalkActionPayload): IActionObject => {
   return {
-    id: ACTIONS_TYPES.TALK,
+    id: VERBS.TALK,
     payload
   }
 }

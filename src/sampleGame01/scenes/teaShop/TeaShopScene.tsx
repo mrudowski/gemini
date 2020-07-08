@@ -1,23 +1,24 @@
 import React from 'react';
-import sceneImage from './assets/images/teaShop.jpg';
-import teaShopImage from './assets/images/tableDirty.png';
 import Scene from '../../../engine/Scene';
 import Poi from '../../../engine/Poi';
-import ACTIONS_TYPES from '../../../engine/ActionMenu/actionsTypes';
+import VERBS from '../../../engine/VerbMenu/verbs';
 import actions from '../../../engine/actions';
-// TODO try lazy loading with supsense
+import POIS from '../../pois';
+import sceneImage from './assets/images/teaShop.jpg';
+import teaShopImage from './assets/images/tableDirty.png';
+import SCENES from '../../scenes';
 
 const TeaShopScene = () => {
   //const sceneState = useSelector(getSceneState);
 
   return (
     <Scene
-      id="teaShop"
+      id={SCENES.teaShop}
       imagePath={sceneImage}
       // image={''} optional thanks to great default but can be false/null
     >
       <Poi
-        id="tableDirty"
+        id={POIS.tableDirty}
         image={teaShopImage}
         style={{
           top: 279,
@@ -25,15 +26,15 @@ const TeaShopScene = () => {
           width: 112,
           height: 78
         }}
-        actionMenu={[
+        verbs={[
           {
-            id: ACTIONS_TYPES.LOOK,
+            id: VERBS.LOOK,
             //when: sceneState.tableDirty,
             script: [
               actions.talk({text: 'test'}),
             ]
             // TODO short default
-            // id: ACTIONS_TYPES.LOOK,
+            // id: VERBS.LOOK,
           },
         ]}
       />

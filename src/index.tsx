@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {store} from './engine/redux/store';
+import App from './engine/App/App';
+
+// React.StrictMode is a wrapper to help prepare apps for async rendering
+// https://reactjs.org/docs/strict-mode.html
+
+// StrictMode renders components twice (on dev but not production) in order to detect unexpected side effects in the render-phase lifecycles
+//            ────────────────────────
 
 ReactDOM.render(
   <React.StrictMode>
