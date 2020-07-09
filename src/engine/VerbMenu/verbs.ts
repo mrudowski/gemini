@@ -1,4 +1,5 @@
 const VERBS = {
+  examine: 'examine',
   LOOK: 'look',
   TALK: 'talk'
 }

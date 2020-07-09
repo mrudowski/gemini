@@ -3,6 +3,7 @@ import React, {Suspense} from 'react';
 import './styles/AppStyle.scss'
 import VerbMenu from '../VerbMenu/VerbMenu';
 // TODO works?
+// TODO it should be dynamically!
 const TeaShopScene = React.lazy(() => import('../../sampleGame01/scenes/teaShop/TeaShopScene'));
 
 function App() {

@@ -1,14 +1,14 @@
 import React, {useEffect, useRef, useState} from 'react';
 import classNames from 'classnames';
 import {AnimatePresence, motion} from 'framer-motion';
-import './styles/styles.scss'
+import './styles/VerbMenuStyle.scss'
 import {useTypedDispatch, useTypedSelector} from '../redux/store';
 import Backdrop from '../helpers/Backdrop';
-import {closeVerbMenu, getVerbMenuData} from './verbMenuSlice';
+import {closeVerbMenu, getVerbMenuData, IVerb} from './verbMenuSlice';
 import getTopLeftPosition from './utils/getTopLeftPosition';
+import VerbItem from './VerbItem';
 
 interface IVerbMenu {
-
 }
 
 const VerbMenu: React.FC<IVerbMenu> = (props) => {
@@ -38,12 +38,20 @@ const VerbMenu: React.FC<IVerbMenu> = (props) => {
 
   }, [verbMenuData]);
 
-  //if (!verbMenuData) return null;
-
-  // --------------------------------------
+  // we can't if we want to AnimatePresence to work
+  // if (!verbMenuData) return null;
 
   const closeMenu = () => {
     dispatch(closeVerbMenu());
+  }
+
+  const onVerbSelected = (verbId: string) => {
+    if (verbMenuData) {
+      //dispatch();
+      const verbDef = verbMenuData.verbs.find(verb => verb.id === verbId);
+      console.log('%c [onVerbSelected]', 'background-color:Gold; color: black', verbDef);
+    }
+    closeMenu();
   }
 
   const classes = classNames(
@@ -60,6 +68,16 @@ const VerbMenu: React.FC<IVerbMenu> = (props) => {
     visible: { opacity: 1 }
   }
 
+  // using flatMap
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap#For_adding_and_removing_items_during_a_map
+  const getVerbs = (verbs: IVerb[]) =>
+    verbs.flatMap(verb => {
+      if (verb.when === undefined || verb.when) {
+        return [<VerbItem id={verb.id} key={verb.id} onClick={onVerbSelected} />]
+      }
+      return [];
+    });
+
   return (
     <AnimatePresence>
       {verbMenuData && (
@@ -73,9 +91,9 @@ const VerbMenu: React.FC<IVerbMenu> = (props) => {
             animate="visible"
             exit="hidden"
             variants={variants}
-            whileTap={{ scale: 0.9 }}
+            // whileTap={{ scale: 0.95 }}
           >
-          {verbMenuData.y} / {verbMenuData.x}
+            {getVerbs(verbMenuData.verbs)}
           </motion.div>
         </>
         )}

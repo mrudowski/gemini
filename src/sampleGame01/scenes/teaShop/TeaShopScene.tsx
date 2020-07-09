@@ -7,6 +7,7 @@ import POIS from '../../pois';
 import sceneImage from './assets/images/teaShop.jpg';
 import teaShopImage from './assets/images/tableDirty.png';
 import SCENES from '../../scenes';
+import {t} from '../../../engine/translation';
 
 const TeaShopScene = () => {
   //const sceneState = useSelector(getSceneState);
@@ -28,10 +29,10 @@ const TeaShopScene = () => {
         }}
         verbs={[
           {
-            id: VERBS.LOOK,
+            id: VERBS.examine,
             //when: sceneState.tableDirty,
             script: [
-              actions.talk({text: 'test'}),
+              actions.talk({text: t.current.scenes.teaShop.tableDirtyLook}),
             ]
             // TODO short default
             // id: VERBS.LOOK,
