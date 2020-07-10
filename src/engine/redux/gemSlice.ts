@@ -2,11 +2,13 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {IRootState} from './store';
 
 interface IGemState {
-  currentLang: string
+  currentLang: string,
+  currentSceneId: string,
 }
 
 const initialState: IGemState = {
-  currentLang: 'en'
+  currentLang: 'en',
+  currentSceneId: 'teaShop', // TODO from journey ini!
 };
 
 const gemSlice = createSlice({
@@ -14,11 +16,13 @@ const gemSlice = createSlice({
   initialState,
   reducers: {
     setCurrentLang: (state: IGemState, action: PayloadAction<string>) => {
-      state.currentLang = action.payload
-    }
+      state.currentLang = action.payload;
+    },
   }
 });
 
-export const getCurrentLang = (state: IRootState) => state.gem.currentLang;
+export default gemSlice.reducer;
 
-export default gemSlice;
+export const getCurrentLang = (state: IRootState) => state.gem.currentLang;
+export const getCurrentSceneId = (state: IRootState) => state.gem.currentSceneId;
+

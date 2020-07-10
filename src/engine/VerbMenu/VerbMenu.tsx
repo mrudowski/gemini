@@ -4,7 +4,7 @@ import {AnimatePresence, motion} from 'framer-motion';
 import './styles/VerbMenuStyle.scss'
 import {useTypedDispatch, useTypedSelector} from '../redux/store';
 import Backdrop from '../helpers/Backdrop';
-import {closeVerbMenu, getVerbMenuData, IVerb} from './verbMenuSlice';
+import {closeVerbMenu, getVerbMenuData, interpretVerb, IVerb} from './verbMenuSlice';
 import getTopLeftPosition from './utils/getTopLeftPosition';
 import VerbItem from './VerbItem';
 
@@ -48,8 +48,12 @@ const VerbMenu: React.FC<IVerbMenu> = (props) => {
   const onVerbSelected = (verbId: string) => {
     if (verbMenuData) {
       //dispatch();
-      const verbDef = verbMenuData.verbs.find(verb => verb.id === verbId);
-      console.log('%c [onVerbSelected]', 'background-color:Gold; color: black', verbDef);
+      const verb = verbMenuData.verbs.find(verb => verb.id === verbId);
+      if (verb) {
+        dispatch(interpretVerb(verb));
+      } else {
+        console.log('%c [onVerbSelected] error - verbDef is not defined', 'background-color:red; color: white', verb);
+      }
     }
     closeMenu();
   }
@@ -91,7 +95,7 @@ const VerbMenu: React.FC<IVerbMenu> = (props) => {
             animate="visible"
             exit="hidden"
             variants={variants}
-            // whileTap={{ scale: 0.95 }}
+            whileTap={{ scale: 0.95 }}
           >
             {getVerbs(verbMenuData.verbs)}
           </motion.div>

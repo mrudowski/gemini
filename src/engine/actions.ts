@@ -4,21 +4,21 @@ interface ITalkActionPayload {
   text: string
 }
 
-export interface IActionObject {
+export interface IAction {
   id: string,
-  payload: {}
+  payload: object
 }
 
-const talk = (payload: ITalkActionPayload): IActionObject => {
+const talk = (payload: ITalkActionPayload): IAction => {
   return {
     id: VERBS.TALK,
     payload
-  }
-}
+  };
+};
 
 
-const actions = {
+const ACTIONS = {
   talk,
-}
+};
 
-export default actions;
+export default ACTIONS;

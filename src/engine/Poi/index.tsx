@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import './styles/PoiStyle.scss'
 import {useTypedDispatch} from '../redux/store';
 import {IVerb, showVerbMenu} from '../VerbMenu/verbMenuSlice';
+import {poiClicked} from '../redux/tempSlice';
 
 type IPoiId = string; // TODO better?
 type TImagePath = string;
@@ -39,7 +40,7 @@ const Poi: React.FC<IPoi> = (props) => {
     //dispatch(showVerbMenu(e.pageX, e.pageY, VerbMenu));
     //dispatch(poiClicked({x, y, verbs}));
     if (isInteractive) {
-      dispatch(showVerbMenu({x, y, verbs}));
+      dispatch(poiClicked({x, y, poiId: id, verbs}));
     }
 
     e.preventDefault();

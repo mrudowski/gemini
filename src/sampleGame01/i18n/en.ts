@@ -5,7 +5,7 @@ const en = {
   },
   scenes: {
     teaShop: {
-      tableDirtyLook: 'The table is dirty, it needs wiping'
+      tableDirtyExamine: 'The table is dirty, it needs wiping'
     }
   }
 }

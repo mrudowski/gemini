@@ -2,12 +2,12 @@ import React from 'react';
 import Scene from '../../../engine/Scene';
 import Poi from '../../../engine/Poi';
 import VERBS from '../../../engine/VerbMenu/verbs';
-import actions from '../../../engine/actions';
 import POIS from '../../pois';
+import SCENES from '../../scenes';
+import ACTIONS from '../../../engine/actions';
+import T from '../../../engine/translation';
 import sceneImage from './assets/images/teaShop.jpg';
 import teaShopImage from './assets/images/tableDirty.png';
-import SCENES from '../../scenes';
-import {t} from '../../../engine/translation';
 
 const TeaShopScene = () => {
   //const sceneState = useSelector(getSceneState);
@@ -32,10 +32,10 @@ const TeaShopScene = () => {
             id: VERBS.examine,
             //when: sceneState.tableDirty,
             script: [
-              actions.talk({text: t.current.scenes.teaShop.tableDirtyLook}),
+              ACTIONS.talk({text: T().scenes.teaShop.tableDirtyExamine}),
             ]
-            // TODO short default
-            // id: VERBS.LOOK,
+            // short default
+            // id: VERBS.examine,
           },
         ]}
       />
@@ -87,6 +87,6 @@ const TeaShopScene = () => {
     </Scene>
   );
 
-}
+};
 
 export default TeaShopScene;

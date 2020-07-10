@@ -1,0 +1,75 @@
+{
+  "extends": [
+    "react-app",
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "rules": {
+    // react/recommended override
+    "react/prop-types": "off",
+    // our own
+    "no-mixed-spaces-and-tabs": "warn",
+    "no-shadow": "warn",
+    "import/no-useless-path-segments": "warn",
+    "import/order": [
+      "warn",
+      {
+        "groups": [
+          "builtin",
+          [
+            "external",
+            "internal"
+          ],
+          [
+            "parent",
+            "sibling",
+            "index"
+          ]
+        ]
+      }
+    ],
+    // "max-len": ["warn", { "code": 100, "ignoreComments": true }], //turn off by mr for jul
+    "quotes": [
+      "warn",
+      "single"
+    ],
+    "no-unused-vars": [
+      "warn",
+      {
+        "ignoreRestSiblings": true
+      }
+    ], //adding ignoreRestSiblings
+    "consistent-return": "warn",
+    "func-names": "warn",
+    "semi": "warn",
+    "object-shorthand": "warn",
+    "no-multiple-empty-lines": "warn",
+    "prefer-const": "warn",
+    "camelcase": [
+      "warn",
+      {
+        "allow": [
+          "_"
+        ]
+      }
+    ], // extedned for _
+    "space-infix-ops": "warn",
+    // "arrow-body-style": "warn", //turn off by mr
+    "space-before-blocks": "warn",
+    "prefer-arrow-callback": ["warn", { "allowNamedFunctions": true } ],
+    "no-confusing-arrow": "warn",
+    "keyword-spacing": "warn",
+    "no-param-reassign": "warn",
+    "indent": [
+      "warn",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ], // decided in group
+    "react-hooks/exhaustive-deps": ["warn", { "additionalHooks": "(useCurrentCallback|useCurrentEffect)" }]
+    // "react/jsx-indent": ["warn", 4]
+    // "react/jsx-indent-props": ["warn", "tab"]
+    // "no-console": "off"
+  }
+}

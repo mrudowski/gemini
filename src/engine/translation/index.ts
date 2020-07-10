@@ -1,10 +1,7 @@
 import en from '../../sampleGame01/i18n/en';
-import {useSelector} from 'react-redux';
 
 type TLang = typeof en;
-let currentLangObj = {
-  current: en
-};
+let currentLang = en;
 
 //const langRef: { current: TLang } = { current: currentLangObj.current };
 // langRef.current = currentLangObj;
@@ -20,22 +17,24 @@ const loadLang = async (currentLang: string):Promise<TLang> => {
 
 const switchLang = (lang: string) => {
   loadLang(lang).then(newLang => {
-    currentLangObj.current = newLang;
-    console.log('%c switchLang --->', 'background-color:Gold; color: black', currentLangObj);
+    currentLang = newLang;
+    console.log('%c switchLang --->', 'background-color:Gold; color: black', currentLang);
   });
   // wont work without reloading app
   // should only change state - and then reload app - loadLang will be trigger before app
   // window.location.reload();
 };
 
+// TODO for test only
 window['switchLang'] = switchLang;
 
 loadLang('pl').then(newLang => {
-  currentLangObj.current = newLang;
-  console.log('%c load --->', 'background-color:Gold; color: black', currentLangObj);
+  currentLang = newLang;
+  console.log('%c load --->', 'background-color:Gold; color: black', currentLang);
 });
 
-export const t = currentLangObj
+//export const T = currentLang
+const T = () => currentLang;
 
 // export const t2 = (temp) => {
 //   console.log('%c [t]', 'background-color:Gold; color: black', currentLangObj);
@@ -43,7 +42,8 @@ export const t = currentLangObj
 // }
 
 
-export const useTranslation = () => {
-  return { t1: t };
-};
+// export const useTranslation = () => {
+//   return { t1: t };
+// };
 
+export default T;

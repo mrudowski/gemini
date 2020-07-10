@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import './styles/VerbItemStyle.scss'
-import {t, useTranslation} from '../translation';
+import './styles/VerbItemStyle.scss';
+import T from '../translation';
 
 interface IVerbItem {
   id: string,
@@ -15,12 +15,12 @@ const VerbItem: React.FC<IVerbItem> = (props) => {
   } = props;
 
   //const {t1} = useTranslation();
-  const t1 = t.current;
+  // const t1 = t.current;
 
 
   const onHandleClick = () => {
     onClick(id);
-  }
+  };
 
   const classes = classNames(
     'VerbItem',
@@ -31,9 +31,9 @@ const VerbItem: React.FC<IVerbItem> = (props) => {
       className={classes}
       onClick={onHandleClick}
     >
-      {t1.verbs.examine}
+      {T().verbs.examine}
     </div>
   );
-}
+};
 
 export default VerbItem;
