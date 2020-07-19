@@ -1,8 +1,10 @@
-import React from 'react';
-import classNames from 'classnames';
-import {AnimatePresence, motion} from 'framer-motion';
-import './styles/DialogueWindowStyle.scss'
-import Backdrop from '../helpers/Backdrop';
+import React, {useCallback, useEffect, useState} from 'react';
+import {AnimatePresence} from 'framer-motion';
+import './styles/DialogueWindowStyle.scss';
+import {useTypedDispatch, useTypedSelector} from '../redux/store';
+import {getTalkAction} from '../scriptPlayer/talkActionSlice';
+import {endAction} from '../scriptPlayer/scriptPlayerSlice';
+import Dialogue from './Dialogue';
 
 interface IDialogueWindow {
 }
@@ -11,40 +13,38 @@ const DialogueWindow: React.FC<IDialogueWindow> = (props) => {
   // const {
   // } = props;
 
-//  const verbMenuData = useTypedSelector(getVerbMenuData);
- // const dispatch = useTypedDispatch();
+  const action = useTypedSelector(getTalkAction);
+  const dispatch = useTypedDispatch();
+  const [isShow, setShow] = useState(false);
 
-  const closeMenu = () => {
-    //dispatch(closeVerbMenu());
-  }
+  useEffect(() => {
+    setShow(!!action);
+  }, [action]);
 
-  const classes = classNames(
-    'DialogueWindow',
-  );
+  const onClick = useCallback(() => {
+    // TODO we should get nextAction at start and here check if the same
+    //  if the same then we should play it without setShowfalse etc...
 
-  const variants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 }
-  }
+    setShow(false);
+  }, []);
+
+  //const isActive = !!action;
+  if (!action) return null;
+
+  const onExitComplete = () => {
+    dispatch(endAction());
+  };
 
   return (
-    <AnimatePresence>
-      {false && (
-        <>
-          <Backdrop onClick={closeMenu} />
-          <motion.div
-            className={classes}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            variants={variants}
-          >
-            dialogue...
-          </motion.div>
-        </>
-        )}
+    <AnimatePresence onExitComplete={onExitComplete}>
+      {isShow &&
+        <Dialogue
+          action={action}
+          onClick={onClick}
+        />
+      }
     </AnimatePresence>
   );
-}
+};
 
 export default DialogueWindow;

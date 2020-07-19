@@ -1,6 +1,8 @@
 import VERBS from './VerbMenu/verbs';
 
-interface ITalkActionPayload {
+// TODO move to actions?
+
+export interface ITalkActionPayload {
   text: string
 }
 

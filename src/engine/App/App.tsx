@@ -1,6 +1,6 @@
 import { hot } from 'react-hot-loader/root';
 import React, {Suspense} from 'react';
-import './styles/AppStyle.scss'
+import './styles/AppStyle.scss';
 import VerbMenu from '../VerbMenu/VerbMenu';
 import DialogueWindow from '../DialogueWindow/DialogueWindow';
 import {useTypedSelector} from '../redux/store';

@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import classNames from 'classnames';
 import {AnimatePresence, motion} from 'framer-motion';
-import './styles/VerbMenuStyle.scss'
+import './styles/VerbMenuStyle.scss';
 import {useTypedDispatch, useTypedSelector} from '../redux/store';
 import Backdrop from '../helpers/Backdrop';
 import {closeVerbMenu, getVerbMenuData, interpretVerb, IVerb} from './verbMenuSlice';
@@ -30,7 +30,7 @@ const VerbMenu: React.FC<IVerbMenu> = (props) => {
       const menuRect = menuRef.current.getBoundingClientRect();
       const topLeftPosition = {
         ...getTopLeftPosition(verbMenuData.x, verbMenuData.y, menuRect, viewportRect)
-      }
+      };
       setPositionStyle(topLeftPosition);
     } else {
       setPositionStyle(null);
@@ -43,7 +43,7 @@ const VerbMenu: React.FC<IVerbMenu> = (props) => {
 
   const closeMenu = () => {
     dispatch(closeVerbMenu());
-  }
+  };
 
   const onVerbSelected = (verbId: string) => {
     if (verbMenuData) {
@@ -56,7 +56,7 @@ const VerbMenu: React.FC<IVerbMenu> = (props) => {
       }
     }
     closeMenu();
-  }
+  };
 
   const classes = classNames(
     'VerbMenu',
@@ -70,20 +70,24 @@ const VerbMenu: React.FC<IVerbMenu> = (props) => {
   const variants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1 }
-  }
+  };
 
   // using flatMap
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap#For_adding_and_removing_items_during_a_map
   const getVerbs = (verbs: IVerb[]) =>
     verbs.flatMap(verb => {
       if (verb.when === undefined || verb.when) {
-        return [<VerbItem id={verb.id} key={verb.id} onClick={onVerbSelected} />]
+        return [<VerbItem id={verb.id} key={verb.id} onClick={onVerbSelected} />];
       }
       return [];
     });
 
+  const onExitComplete = () => {
+    // TODO
+  };
+
   return (
-    <AnimatePresence>
+    <AnimatePresence onExitComplete={onExitComplete}>
       {verbMenuData && (
         <>
           <Backdrop onClick={closeMenu} ref={backdropRef} />
@@ -100,9 +104,9 @@ const VerbMenu: React.FC<IVerbMenu> = (props) => {
             {getVerbs(verbMenuData.verbs)}
           </motion.div>
         </>
-        )}
+      )}
     </AnimatePresence>
   );
-}
+};
 
 export default VerbMenu;

@@ -10,12 +10,14 @@ import gemSliceReducer from './gemSlice';
 import tempSliceReducer from './tempSlice';
 import verbMenuReducer from '../VerbMenu/verbMenuSlice';
 import scriptPlayerReducer from '../scriptPlayer/scriptPlayerSlice';
+import talkActionReducer from '../scriptPlayer/talkActionSlice';
 
 const rootReducer = combineReducers({
   gem: gemSliceReducer,
   temp: tempSliceReducer,
   verbMenu: verbMenuReducer,
-  scriptPlayer: scriptPlayerReducer
+  scriptPlayer: scriptPlayerReducer,
+  talkAction: talkActionReducer,
 });
 
 const getReducer = (): any => {

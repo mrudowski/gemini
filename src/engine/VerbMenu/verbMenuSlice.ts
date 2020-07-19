@@ -52,7 +52,7 @@ export const interpretVerb = (verb: IVerb): IThunk => (dispatch, getState) => {
   const poiId = getCurrentPoiId(state);
 
   if (!poiId) {
-    throw Error('`poiId` should be set here but is: ' + poiId);
+    throw new Error('`poiId` should be set here but is: ' + poiId);
   }
 
   let script = verb.script;
