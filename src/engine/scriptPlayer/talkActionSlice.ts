@@ -15,7 +15,7 @@ const talkActionSlice = createSlice({
   name: 'talkAction',
   initialState,
   reducers: {
-    setTalkAction: (state: ITalkActionState, action: PayloadAction<{action: IAction}>) => {
+    startTalkAction: (state: ITalkActionState, action: PayloadAction<{action: IAction}>) => {
       const {
         action: actionToSet
       } = action.payload;
@@ -29,7 +29,7 @@ const talkActionSlice = createSlice({
 
 export default talkActionSlice.reducer;
 
-export const setTalkAction = talkActionSlice.actions.setTalkAction;
+export const startTalkAction = talkActionSlice.actions.startTalkAction;
 export const endTalkAction = talkActionSlice.actions.endTalkAction;
 
 // ------------ selectors

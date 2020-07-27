@@ -1,19 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import classNames from 'classnames';
 import {AnimatePresence, motion, usePresence} from 'framer-motion';
-import './styles/DialogueWindowStyle.scss';
 import Backdrop from '../helpers/Backdrop';
 import {useTypedDispatch, useTypedSelector} from '../redux/store';
 import {getTalkAction} from '../scriptPlayer/talkActionSlice';
 import {IAction, ITalkActionPayload} from '../actions';
 import {endAction} from '../scriptPlayer/scriptPlayerSlice';
+import './styles/DialogueWidgetStyle.scss';
 
 interface IDialogue {
   action: IAction,
   onClick
 }
 
-const Dialogue: React.FC<IDialogue> = (props) => {
+const DialogueWidget: React.FC<IDialogue> = (props) => {
   const {
     action, // TODO push payload as props
     onClick
@@ -30,7 +30,7 @@ const Dialogue: React.FC<IDialogue> = (props) => {
   } = action.payload as ITalkActionPayload;
 
   const classes = classNames(
-    'DialogueWindow',
+    'DialogueWidget',
   );
 
   const variants = {
@@ -56,4 +56,4 @@ const Dialogue: React.FC<IDialogue> = (props) => {
   );
 };
 
-export default Dialogue;
+export default DialogueWidget;

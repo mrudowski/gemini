@@ -1,15 +1,14 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {AnimatePresence} from 'framer-motion';
-import './styles/DialogueWindowStyle.scss';
 import {useTypedDispatch, useTypedSelector} from '../redux/store';
 import {getTalkAction} from '../scriptPlayer/talkActionSlice';
 import {endAction} from '../scriptPlayer/scriptPlayerSlice';
-import Dialogue from './Dialogue';
+import DialogueWidget from './DialogueWidget';
 
 interface IDialogueWindow {
 }
 
-const DialogueWindow: React.FC<IDialogueWindow> = (props) => {
+const Dialogue: React.FC<IDialogueWindow> = (props) => {
   // const {
   // } = props;
 
@@ -21,24 +20,28 @@ const DialogueWindow: React.FC<IDialogueWindow> = (props) => {
     setShow(!!action);
   }, [action]);
 
+  const onExitComplete = useCallback(() => {
+    dispatch(endAction());
+  }, [dispatch]);
+
   const onClick = useCallback(() => {
     // TODO we should get nextAction at start and here check if the same
     //  if the same then we should play it without setShowfalse etc...
 
-    setShow(false);
-  }, []);
+    if (true) {
+      onExitComplete();
+    } else {
+      setShow(false);
+    }
+  }, [onExitComplete]);
 
   //const isActive = !!action;
   if (!action) return null;
 
-  const onExitComplete = () => {
-    dispatch(endAction());
-  };
-
   return (
     <AnimatePresence onExitComplete={onExitComplete}>
       {isShow &&
-        <Dialogue
+        <DialogueWidget
           action={action}
           onClick={onClick}
         />
@@ -47,4 +50,4 @@ const DialogueWindow: React.FC<IDialogueWindow> = (props) => {
   );
 };
 
-export default DialogueWindow;
+export default Dialogue;

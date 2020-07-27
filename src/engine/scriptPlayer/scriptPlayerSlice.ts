@@ -3,7 +3,7 @@ import {batch} from 'react-redux';
 import {IAction, ITalkActionPayload} from '../actions';
 import {IRootState, IThunk} from '../redux/store';
 import VERBS from '../VerbMenu/verbs';
-import {endTalkAction, setTalkAction} from './talkActionSlice';
+import {endTalkAction, startTalkAction} from './talkActionSlice';
 
 interface IScriptPlayerState {
   script: IAction[] | null,
@@ -31,6 +31,7 @@ const scriptPlayerSlice = createSlice({
         sceneId,
         poiId
       } = action.payload;
+      console.log('%c [scriptPlayer] setScript', 'background-color:Gold; color: black', script);
       state.script = script;
       state.sceneId = sceneId;
       state.poiId = poiId;
@@ -75,12 +76,18 @@ const playNextAction = (): IThunk => (dispatch, getState) => {
   } = state.scriptPlayer; // selector
   const action = script?.[actionIndex]; // selector
   if (action) {
+    if (action.when) {
+      console.log('%c [playNextAction] when true', 'background-color:Gold; color: black', action.id);
+      dispatch(getActionSetter(action.id).startAction({action}));
+    } else {
+      console.log('%c [playNextAction] when false', 'background-color:Gold; color: black', action.id);
+      dispatch(endAction());
+    }
     // dispatch(setTalkAction({action}));
-    dispatch(getActionSetter(action.id).setTalkAction({action}));
     // action.interpreter(action.payload);
     // dispatch(executeAction({action}));
   } else {
-    console.log('%c [playNextAction]', 'background-color:Gold; color: black', 'END');
+    throw new Error('playNextAction could not get action from script at index: ' + actionIndex);
   }
 };
 
@@ -93,7 +100,7 @@ export const endAction = (): IThunk => (dispatch, getState) => {
   } = state.scriptPlayer; // selector
   const action = script?.[actionIndex]; // selector
   if (action) {
-    dispatch(getActionSetter(action.id).endTalkAction());
+    dispatch(getActionSetter(action.id).endAction());
   } else {
     throw new Error('endAction cannot find `action`!');
   }
@@ -134,8 +141,8 @@ export const endAction = (): IThunk => (dispatch, getState) => {
 
 const actionSettersMap = {
   [VERBS.TALK]: {
-    setTalkAction,
-    endTalkAction
+    startAction: startTalkAction,
+    endAction: endTalkAction
   }
 };
 

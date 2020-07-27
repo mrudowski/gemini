@@ -33,6 +33,7 @@ const TeaShopScene = () => {
             //when: sceneState.tableDirty,
             script: [
               ACTIONS.talk({text: T().scenes.teaShop.tableDirtyExamine}),
+              ACTIONS.talk({text: 'second line optional', when: false}),
               ACTIONS.talk({text: 'second line'}),
             ]
             // short default

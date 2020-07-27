@@ -1,23 +1,34 @@
 import VERBS from './VerbMenu/verbs';
 
-// TODO move to actions?
+export interface IActionPayload {
+  when?: boolean
+}
 
-export interface ITalkActionPayload {
+export interface ITalkActionPayload extends IActionPayload {
   text: string
 }
 
 export interface IAction {
   id: string,
+  when: boolean
   payload: object
 }
 
-const talk = (payload: ITalkActionPayload): IAction => {
+const getSpecifcAction = (id: string, payload: IActionPayload): IAction => {
+  const {
+    when = true,
+    ...actionSpecificPayload
+  } = payload;
+
   return {
-    id: VERBS.TALK,
-    payload
+    id,
+    when,
+    payload: actionSpecificPayload
   };
 };
 
+
+const talk = (payload: ITalkActionPayload): IAction => getSpecifcAction(VERBS.TALK, payload);
 
 const ACTIONS = {
   talk,
