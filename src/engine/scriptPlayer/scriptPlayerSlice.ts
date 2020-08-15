@@ -71,10 +71,9 @@ export const playScript = ({script, sceneId, poiId}: {script: IAction[], sceneId
 const playNextAction = (): IThunk => (dispatch, getState) => {
   const state = getState();
   const {
-    script,
     actionIndex
-  } = state.scriptPlayer; // selector
-  const action = script?.[actionIndex]; // selector
+  } = state.scriptPlayer; // selector?
+  const action = getActionByIndex(actionIndex)(state);
   if (action) {
     if (action.when) {
       console.log('%c [playNextAction] when true', 'background-color:Gold; color: black', action.id);
@@ -146,12 +145,33 @@ const actionSettersMap = {
   }
 };
 
-const getActionSetter = (actionId: string) => actionSettersMap[actionId];
-
 // ------------ selectors
 
-// const getCurrentScript = (state: IRootState) => state.scriptPlayer.script;
-// const getCurrentActionIndex = (state: IRootState) => state.scriptPlayer.actionIndex;
+const getActionSetter = (actionId: string) => actionSettersMap[actionId];
+// const getNextAction = () => {};
+
+const getCurrentScript = (state: IRootState) => state.scriptPlayer.script;
+const getCurrentActionIndex = (state: IRootState) => state.scriptPlayer.actionIndex;
+
+const getActionByIndex = (index: number) => createSelector(
+  [getCurrentScript],
+  (currentScript) =>  {
+    return currentScript?.[index] || null;
+  }
+);
+
+export const getNextActiveAction = createSelector(
+  [getCurrentScript, getCurrentActionIndex, (state: IRootState) => state],
+  (currentScript, currentActionIndex, state) =>  {
+    let nextIndex = currentActionIndex + 1;
+    let nextAction;
+    do {
+      nextAction = getActionByIndex(nextIndex)(state);
+      nextIndex++;
+    } while (nextAction && !nextAction.when);
+    return nextAction;
+  }
+);
 
 // export const getCurrentAction = createSelector(
 //   [getCurrentScript, getCurrentActionIndex],

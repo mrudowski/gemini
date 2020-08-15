@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {AnimatePresence} from 'framer-motion';
 import {useTypedDispatch, useTypedSelector} from '../redux/store';
 import {getTalkAction} from '../scriptPlayer/talkActionSlice';
-import {endAction} from '../scriptPlayer/scriptPlayerSlice';
+import {endAction, getNextActiveAction} from '../scriptPlayer/scriptPlayerSlice';
 import DialogueWidget from './DialogueWidget';
 
 interface IDialogueWindow {
@@ -13,6 +13,7 @@ const Dialogue: React.FC<IDialogueWindow> = (props) => {
   // } = props;
 
   const action = useTypedSelector(getTalkAction);
+  const nextAction = useTypedSelector(getNextActiveAction);
   const dispatch = useTypedDispatch();
   const [isShow, setShow] = useState(false);
 
@@ -25,15 +26,14 @@ const Dialogue: React.FC<IDialogueWindow> = (props) => {
   }, [dispatch]);
 
   const onClick = useCallback(() => {
-    // TODO we should get nextAction at start and here check if the same
-    //  if the same then we should play it without setShowfalse etc...
-
-    if (true) {
+    if (nextAction?.id === 'talk') {
+      // without animation
       onExitComplete();
     } else {
+      // with fade animation
       setShow(false);
     }
-  }, [onExitComplete]);
+  }, [onExitComplete, nextAction]);
 
   //const isActive = !!action;
   if (!action) return null;
