@@ -9,6 +9,8 @@ import T from '../../../engine/translation';
 import sceneImage from './assets/images/teaShop.jpg';
 import teaShopImage from './assets/images/tableDirty.png';
 
+const t = T();
+
 const TeaShopScene = () => {
   //const sceneState = useSelector(getSceneState);
 
@@ -32,7 +34,7 @@ const TeaShopScene = () => {
             id: VERBS.examine,
             //when: sceneState.tableDirty,
             script: [
-              ACTIONS.talk({text: T().scenes.teaShop.tableDirtyExamine}),
+              ACTIONS.talk({text: t.scenes.teaShop.tableDirtyExamine}),
               ACTIONS.talk({text: 'second line optional', when: false}),
               ACTIONS.talk({text: 'second line'}),
             ]
