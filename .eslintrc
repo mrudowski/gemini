@@ -2,11 +2,27 @@
   "extends": [
     "react-app",
     "eslint:recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
     // react/recommended override
     "react/prop-types": "off",
+    // replace by typescript because of interfaces and types
+    "no-unused-vars": "off",
+    //adding ignoreRestSiblings
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "ignoreRestSiblings": true
+      }
+    ],
+    // ignore some of plugin:@typescript-eslint/recommended:
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     // our own
     "no-mixed-spaces-and-tabs": "warn",
     "no-shadow": "warn",
@@ -33,12 +49,6 @@
       "warn",
       "single"
     ],
-    "no-unused-vars": [
-      "warn",
-      {
-        "ignoreRestSiblings": true
-      }
-    ], //adding ignoreRestSiblings
     "consistent-return": "warn",
     "func-names": "warn",
     "semi": "warn",

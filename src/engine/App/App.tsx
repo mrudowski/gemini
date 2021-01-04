@@ -1,4 +1,3 @@
-import { hot } from 'react-hot-loader/root';
 import React, {Suspense} from 'react';
 import './styles/AppStyle.scss';
 import {useTypedSelector} from '../redux/store';
@@ -28,4 +27,4 @@ function App() {
   );
 }
 
-export default hot(App);
+export default App;

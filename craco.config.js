@@ -1,11 +1,8 @@
-const { whenDev, whenProd, whenTest } = require("@craco/craco");
-const reactHotReloadPlugin = require('craco-plugin-react-hot-reload');
+const { whenDev, whenProd, whenTest } = require('@craco/craco');
 const imageOptimizer = require('craco-image-optimizer-plugin');
 
 module.exports = {
   plugins: [
-    { plugin: reactHotReloadPlugin },
-
     // alternative
     // https://www.npmjs.com/package/imagemin-webpack-plugin
     // https://www.npmjs.com/package/imagemin-webpack

@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import './styles/sceneStyle.scss'
+import './styles/sceneStyle.scss';
 
 type TSceneId = string; // TODO better?
 type TImagePath = string;
@@ -24,7 +24,7 @@ const Scene: React.FC<IScene> = (props) => {
 
   const styles = {
     backgroundImage: `url(${imagePath})`
-  }
+  };
 
   return (
     <div
@@ -35,6 +35,6 @@ const Scene: React.FC<IScene> = (props) => {
     </div>
   );
 
-}
+};
 
 export default Scene;

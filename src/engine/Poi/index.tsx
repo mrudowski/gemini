@@ -1,8 +1,8 @@
 import React, {CSSProperties} from 'react';
 import classNames from 'classnames';
-import './styles/PoiStyle.scss'
+import './styles/PoiStyle.scss';
 import {useTypedDispatch} from '../redux/store';
-import {IVerb, showVerbMenu} from '../VerbMenu/verbMenuSlice';
+import {IVerb} from '../VerbMenu/verbMenuSlice';
 import {poiClicked} from '../redux/tempSlice';
 
 type IPoiId = string; // TODO better?
@@ -44,7 +44,7 @@ const Poi: React.FC<IPoi> = (props) => {
     }
 
     e.preventDefault();
-  }
+  };
 
   const classes = classNames(
     'Poi',
@@ -55,7 +55,7 @@ const Poi: React.FC<IPoi> = (props) => {
   const styles = {
     ...style,
     backgroundImage: `url(${image})`
-  }
+  };
 
   return (
     <div
@@ -72,6 +72,6 @@ const Poi: React.FC<IPoi> = (props) => {
     </div>
   );
 
-}
+};
 
 export default Poi;

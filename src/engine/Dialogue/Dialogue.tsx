@@ -8,7 +8,7 @@ import DialogueWidget from './DialogueWidget';
 interface IDialogueWindow {
 }
 
-const Dialogue: React.FC<IDialogueWindow> = (props) => {
+const Dialogue: React.FC<IDialogueWindow> = () => {
   // const {
   // } = props;
 

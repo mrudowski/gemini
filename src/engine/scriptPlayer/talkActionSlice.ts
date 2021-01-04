@@ -1,5 +1,4 @@
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {batch} from 'react-redux';
 import {IAction} from '../actions';
 import {IRootState} from '../redux/store';
 

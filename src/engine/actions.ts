@@ -11,10 +11,10 @@ export interface ITalkActionPayload extends IActionPayload {
 export interface IAction {
   id: string,
   when: boolean
-  payload: object
+  payload: {key?: string} // TODO for now only
 }
 
-const getSpecifcAction = (id: string, payload: IActionPayload): IAction => {
+const getSpecificAction = (id: string, payload: IActionPayload): IAction => {
   const {
     when = true,
     ...actionSpecificPayload
@@ -28,7 +28,7 @@ const getSpecifcAction = (id: string, payload: IActionPayload): IAction => {
 };
 
 
-const talk = (payload: ITalkActionPayload): IAction => getSpecifcAction(VERBS.TALK, payload);
+const talk = (payload: ITalkActionPayload): IAction => getSpecificAction(VERBS.TALK, payload);
 
 const ACTIONS = {
   talk,

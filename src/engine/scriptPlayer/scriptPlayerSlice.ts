@@ -1,6 +1,6 @@
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {batch} from 'react-redux';
-import {IAction, ITalkActionPayload} from '../actions';
+import {IAction} from '../actions';
 import {IRootState, IThunk} from '../redux/store';
 import VERBS from '../VerbMenu/verbs';
 import {endTalkAction, startTalkAction} from './talkActionSlice';

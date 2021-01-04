@@ -1,11 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import {AnimatePresence, motion, usePresence} from 'framer-motion';
+import {motion} from 'framer-motion';
 import Backdrop from '../helpers/Backdrop';
-import {useTypedDispatch, useTypedSelector} from '../redux/store';
-import {getTalkAction} from '../scriptPlayer/talkActionSlice';
 import {IAction, ITalkActionPayload} from '../actions';
-import {endAction} from '../scriptPlayer/scriptPlayerSlice';
 import './styles/DialogueWidgetStyle.scss';
 
 interface IDialogue {

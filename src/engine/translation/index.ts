@@ -7,8 +7,8 @@ let currentLang = en;
 // langRef.current = currentLangObj;
 
 // in app
-const loadLang = async (currentLang: string):Promise<TLang> => {
-  const module = await import(`../../sampleGame01/i18n/${currentLang}`);
+const loadLang = async (lang: string):Promise<TLang> => {
+  const module = await import(`../../sampleGame01/i18n/${lang}`);
   const newLang = module.default;
   //t = newLang;
   console.log('%c [loadLang]', 'background-color:Gold; color: black', newLang);

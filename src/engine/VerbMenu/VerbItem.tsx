@@ -5,7 +5,7 @@ import T from '../translation';
 
 interface IVerbItem {
   id: string,
-  onClick: (script) => void
+  onClick: (script: any) => void
 }
 
 const VerbItem: React.FC<IVerbItem> = (props) => {

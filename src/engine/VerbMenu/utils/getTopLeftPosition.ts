@@ -13,7 +13,7 @@ const getTopLeftPosition = (x: number, y:number, childRect: DOMRect, parentRect:
   return {
     top,
     left
-  }
-}
+  };
+};
 
 export default getTopLeftPosition;

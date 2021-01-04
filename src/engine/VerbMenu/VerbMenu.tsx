@@ -11,7 +11,7 @@ import VerbItem from './VerbItem';
 interface IVerbMenu {
 }
 
-const VerbMenu: React.FC<IVerbMenu> = (props) => {
+const VerbMenu: React.FC<IVerbMenu> = () => {
   // const {
   // } = props;
 
@@ -48,11 +48,11 @@ const VerbMenu: React.FC<IVerbMenu> = (props) => {
   const onVerbSelected = (verbId: string) => {
     if (verbMenuData) {
       //dispatch();
-      const verb = verbMenuData.verbs.find(verb => verb.id === verbId);
-      if (verb) {
-        dispatch(interpretVerb(verb));
+      const selectedVerb = verbMenuData.verbs.find(verb => verb.id === verbId);
+      if (selectedVerb) {
+        dispatch(interpretVerb(selectedVerb));
       } else {
-        console.log('%c [onVerbSelected] error - verbDef is not defined', 'background-color:red; color: white', verb);
+        console.log('%c [onVerbSelected] error - verbDef is not defined', 'background-color:red; color: white', selectedVerb);
       }
     }
     closeMenu();
