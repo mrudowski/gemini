@@ -9,7 +9,6 @@ import App from './engine/App/App';
 // https://reactjs.org/docs/strict-mode.html
 
 // StrictMode renders components twice (on dev but not production) in order to detect unexpected side effects in the render-phase lifecycles
-//            ────────────────────────
 
 ReactDOM.render(
   <React.StrictMode>
