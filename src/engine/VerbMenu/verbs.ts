@@ -1,6 +1,6 @@
 const VERBS = {
-  examine: 'examine',
-  LOOK: 'look',
+  EXAMINE: 'examine',
+  TAKE: 'take',
   TALK: 'talk'
 };
 

@@ -5,15 +5,16 @@ import actions from '../actions';
 const capitalizedFirstLetter = (text) => text.charAt(0).toUpperCase() + text.slice(1);
 
 
-const getDefaultScriptForVerb = (verbId: string, sceneId: string, poiId: string) => {
-  switch (verbId) {
-    case VERBS.examine: {
+const getDefaultScriptForVerb = (verbName: string, sceneId: string, poiId: string) => {
+  switch (verbName) {
+    case VERBS.EXAMINE:
+    case VERBS.TAKE: {
       return [
-        actions.talk({text: T().scenes[sceneId][poiId + capitalizedFirstLetter(verbId)]}),
+        actions.talk({text: T().scenes[sceneId][poiId + capitalizedFirstLetter(verbName)]}),
       ];
     }
     default: {
-      throw new Error('We do not know this `verb`: ' + verbId);
+      throw new Error('We do not know this `verb`: ' + verbName);
     }
   }
 

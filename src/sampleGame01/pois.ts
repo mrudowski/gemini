@@ -1,5 +1,6 @@
 const POIS = {
-  tableDirty: 'tableDirty'
+  tableDishes: 'tableDishes',
+  dirtyTable: 'dirtyTable'
 };
 
 export default POIS;

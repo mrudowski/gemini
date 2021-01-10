@@ -4,13 +4,17 @@ import './styles/VerbItemStyle.scss';
 import T from '../translation';
 
 interface IVerbItem {
-  id: string,
+  id: number,
+  name: string,
   onClick: (script: any) => void
 }
+
+const t = T();
 
 const VerbItem: React.FC<IVerbItem> = (props) => {
   const {
     id,
+    name,
     onClick
   } = props;
 
@@ -31,7 +35,7 @@ const VerbItem: React.FC<IVerbItem> = (props) => {
       className={classes}
       onClick={onHandleClick}
     >
-      {T().verbs.examine}
+      {t.verbs[name] || `[${name}]` /* TODO make a util from it? */}
     </div>
   );
 };

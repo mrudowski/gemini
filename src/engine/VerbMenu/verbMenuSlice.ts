@@ -7,9 +7,9 @@ import {getCurrentSceneId} from '../redux/gemSlice';
 import {getCurrentPoiId} from '../redux/tempSlice';
 
 export interface IVerb {
-  id: string,
+  name: string,
   when?: boolean,
-  script?: IAction[] //script is just a set of actions
+  script?: IAction[] //script is just a set of actions // TODO better instructions?
 }
 
 interface IVerbMenuData {
@@ -57,7 +57,7 @@ export const interpretVerb = (verb: IVerb): IThunk => (dispatch, getState) => {
 
   let script = verb.script;
   if (!script) {
-    script = getDefaultScriptForVerb(verb.id, sceneId, poiId);
+    script = getDefaultScriptForVerb(verb.name, sceneId, poiId);
   }
   dispatch(playScript({script, sceneId, poiId}));
 };

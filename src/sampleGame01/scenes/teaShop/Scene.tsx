@@ -1,4 +1,5 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
 import Scene from '../../../engine/Scene';
 import Poi from '../../../engine/Poi';
 import VERBS from '../../../engine/VerbMenu/verbs';
@@ -7,21 +8,28 @@ import SCENES from '../../scenes';
 import ACTIONS from '../../../engine/actions';
 import T from '../../../engine/translation';
 import sceneImage from './assets/images/teaShop.jpg';
-import teaShopImage from './assets/images/tableDirty.png';
+// import teaShopImage from './assets/images/dirtyTable.png';
+import tableDishesImage from './assets/images/tableDishes.png';
+import {getCurrentSceneState} from '../../../engine/redux/worldSlice';
+import {ITeaShopSceneState} from './state';
 
 const t = T();
 
 const TeaShopScene = () => {
-  //const sceneState = useSelector(getSceneState);
+  const sceneState: ITeaShopSceneState = useSelector(getCurrentSceneState);
+  console.log('%c [TeaShopScene]', 'background-color:Gold; color: black', {sceneState});
+  const {tableDishesExamineCounter} = sceneState;
 
   return (
     <Scene
       id={SCENES.teaShop}
+      // TODO imagePath is wrong - should be image - or fix it
       imagePath={sceneImage}
       // image={''} optional thanks to great default but can be false/null
     >
+      { /*
       <Poi
-        id={POIS.tableDirty}
+        id={POIS.dirtyTable}
         image={teaShopImage}
         style={{
           top: 279,
@@ -29,17 +37,95 @@ const TeaShopScene = () => {
           width: 112,
           height: 78
         }}
+        // TODO when={sceneState.tableIsDirty}
+        // TODO why not actions? Because verbs is group of atomic actions? - ok
         verbs={[
           {
-            id: VERBS.examine,
-            //when: sceneState.tableDirty,
+            id: VERBS.EXAMINE,
+            when: false,
+            //when: sceneState.tableIsDirty, // TODO second alt way // show on other example -- for example: exitCity
             script: [
-              ACTIONS.talk({text: t.scenes.teaShop.tableDirtyExamine}),
-              ACTIONS.talk({text: 'second line optional', when: false}),
-              ACTIONS.talk({text: 'second line'}),
+              // no auto guessing when empty text and that's ok
+              ACTIONS.talk({text: t.scenes.teaShop.dirtyTableExamine}),
+              ACTIONS.talk({text: 'second line optional', when: false}), // TODO give it here real condition
+              ACTIONS.talk({text: 'third line'}),
             ]
-            // short default
-            // id: VERBS.examine,
+          },
+          {
+            id: VERBS.EXAMINE,
+            // TODO add fine when: thingksomething,
+            // no script - testing default script behavior // TODO remove it for our sake
+          },
+          {
+            id: 'test', //CUSTOM_VERBS.EXAMINE,
+            script: [
+              ACTIONS.talk({text: 'test line'}),
+            ]
+          },
+        ]}
+      />
+      */ }
+
+      <Poi
+        id={POIS.tableDishes}
+        image={tableDishesImage}
+        style={{
+          left: 152,
+          top: 285,
+          width: 112,
+          height: 78
+        }}
+        // when={!@tableDishesTaken && !@elinwarTeaShop}
+        // TODO when={sceneState.tableIsDirty}
+        // TODO why not actions? Because verbs is group of atomic actions? - ok
+        verbs={[
+          {
+            name: VERBS.EXAMINE,
+            when: (tableDishesExamineCounter % 2 === 0),
+            //when: false,
+            //when: sceneState.tableIsDirty, // TODO second alt way // show on other example -- for example: exitCity
+            script: [
+              // no auto guessing when empty text and that's ok
+              ACTIONS.talk({text: t.scenes.teaShop.tableDishesExamine}),
+              ACTIONS.talk({text: 'second line optional', when: false}), // TODO give it here real condition
+              ACTIONS.talk({text: 'third line'}),
+              // TODO how to typized it?
+              ACTIONS.setCurrentSceneState<ITeaShopSceneState>({
+                stateName: 'tableDishesExamineCounter',
+                stateValue: tableDishesExamineCounter + 1
+              })
+            ]
+          },
+          {
+            // example of double use (with when condition) of examine verb
+            name: VERBS.EXAMINE,
+            // TODO add some local condition -- move it higher as var - as example
+            //  and use it in above as well only with negation !
+            when: (tableDishesExamineCounter % 2 !== 0),
+            script: [
+              ACTIONS.talk({text: t.scenes.teaShop.tableDishesExamineAlternative}),
+              ACTIONS.setCurrentSceneState<ITeaShopSceneState>({
+                stateName: 'tableDishesExamineCounter',
+                stateValue: tableDishesExamineCounter + 1
+              })
+            ]
+
+            // TODO add fine when: thingksomething,
+            // no script - testing default script behavior // TODO remove it for our sake
+          },
+          {
+            name: VERBS.TAKE,
+            // no script - testing default script behavior // TODO is it worth it?
+            // as alt:
+            // script: [
+            //   ACTIONS.talk({text: t.scenes.teaShop.tableDishesTake}),
+            // ]
+          },
+          {
+            name: 'test', // TODO? //CUSTOM_VERBS.EXAMINE,
+            script: [
+              ACTIONS.talk({text: 'test line'}),
+            ]
           },
         ]}
       />

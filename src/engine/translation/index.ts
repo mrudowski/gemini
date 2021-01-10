@@ -1,4 +1,4 @@
-import en from '../../sampleGame01/i18n/en';
+import en from '../../sampleGame01/i18n/en'; // TODO should not be part of engine
 
 type TLang = typeof en;
 let currentLang = en;

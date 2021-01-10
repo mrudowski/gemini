@@ -45,10 +45,10 @@ const VerbMenu: React.FC<IVerbMenu> = () => {
     dispatch(closeVerbMenu());
   };
 
-  const onVerbSelected = (verbId: string) => {
+  const onVerbSelected = (verbIndex: number) => {
     if (verbMenuData) {
       //dispatch();
-      const selectedVerb = verbMenuData.verbs.find(verb => verb.id === verbId);
+      const selectedVerb = verbMenuData.verbs[verbIndex];
       if (selectedVerb) {
         dispatch(interpretVerb(selectedVerb));
       } else {
@@ -75,9 +75,10 @@ const VerbMenu: React.FC<IVerbMenu> = () => {
   // using flatMap
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap#For_adding_and_removing_items_during_a_map
   const getVerbs = (verbs: IVerb[]) =>
-    verbs.flatMap(verb => {
+    verbs.flatMap((verb, index) => {
       if (verb.when === undefined || verb.when) {
-        return [<VerbItem id={verb.id} key={verb.id} onClick={onVerbSelected} />];
+        // index as id because we can have many `examine` verbs (hidden by `when` condition)
+        return [<VerbItem id={index} key={verb.name} name={verb.name} onClick={onVerbSelected} />];
       }
       return [];
     });

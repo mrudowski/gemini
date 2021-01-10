@@ -1,11 +1,16 @@
+/* eslint quotes: ["error", "double", { "allowTemplateLiterals": true }] */
+
 const pl = {
   verbs: {
-    examine: 'Zbadaj',
-    talk: 'Porozmawiaj',
+    examine: "Zbadaj",
+    take: "Weź",
+    talk: "Porozmawiaj",
   },
   scenes: {
     teaShop: {
-      tableDirtyExamine: 'Stolik jest brudny, muszę go wytrzeć'
+      tableDishesExamine: "Stolik jest brudny, muszę go wytrzeć. Tylko najpierw sprzątnę naczynia.",
+      tableDishesExamineAlternative: "Wciąż brudny",
+      tableDishesTake: "W rękach? Za dużo ich, lepiej wezmę tacę.",
     }
   }
 };
