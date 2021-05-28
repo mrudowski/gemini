@@ -1,0 +1,124 @@
+.DevTools {
+
+	// https://css-tricks.com/snippets/css/system-font-stack/
+	// https://getbootstrap.com/docs/5.0/content/reboot/#native-font-stack
+
+	font-family:
+		system-ui,
+			// Safari for macOS and iOS (San Francisco)
+		-apple-system,
+			// Chrome < 56 for macOS (San Francisco)
+		BlinkMacSystemFont,
+			// Windows
+		"Segoe UI",
+			// Android
+		Roboto,
+			// Basic web fallback
+		"Helvetica Neue", Arial,
+			// Linux
+		"Noto Sans",
+		"Liberation Sans",
+			// Sans serif fallback
+		sans-serif;
+
+	font-size: 12px;
+	line-height: 1.2em;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	color: #ccc;
+}
+
+.devPanel {
+	display: block;
+	position: absolute;
+	padding: 5px 10px;
+	background-color: rgba(0,0,0,0.5);
+}
+
+/*-----------------------------------------------------
+	left side - toolbox
+-----------------------------------------------------*/
+
+.devToolBox {
+	top: 0;
+	left: -120px;
+	width: 100px;
+}
+
+.devToolBox a {
+	color: #ccc;
+	display: block;
+	margin-bottom: 3px;
+
+	&.active {
+		color: #a7c41f;
+	}
+}
+
+/*-----------------------------------------------------
+	right side - infobox
+-----------------------------------------------------*/
+
+.devInfoBox {
+	top: 0;
+	right: -220px;
+	width: 200px;
+}
+
+.devStateBox {
+	overflow: auto;
+	height: 420px;
+}
+
+.devStateBox ul {
+	list-style-position: outside;
+	list-style-image: none;
+	list-style-type: none;
+	margin: 0;
+}
+
+.devStateBox ul ul {
+	margin-left: 20px;
+}
+
+.devStateBox ul li {
+	margin: 0;
+	padding: 0;
+}
+.devStateBox ul li.parent {
+	color: #ccc;
+}
+.devStateBox ul li.arrayElement {
+	color: #999;
+}
+.devStateBox ul li.true {
+	color: #a7c41f;
+}
+.devStateBox ul li.false {
+	color: #b64926;
+}
+.devStateBox ul li.value {
+	color: #349cc8;
+}
+.devStateBox ul li.string {
+	color: #ecc04e;
+}
+
+/*-----------------------------------------------------
+	right side - locationBox
+-----------------------------------------------------*/
+
+.devLocationBox {
+	top: 450px;
+	right: -220px;
+	width: 200px;
+	padding: 10px;
+
+	select {
+		width: 100%;
+	}
+}

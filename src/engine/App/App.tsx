@@ -4,6 +4,7 @@ import {useTypedSelector} from '../redux/store';
 import {getCurrentSceneId} from '../redux/gemSlice';
 import VerbMenu from '../VerbMenu/VerbMenu';
 import Dialogue from '../Dialogue/Dialogue';
+import DevTools from '../DevTools/DevTools';
 // TODO works?
 // TODO it should be dynamically!
 
@@ -16,6 +17,7 @@ function App() {
 
   return (
     <div className="App">
+      <DevTools/>
       <div className="App__viewport">
         <Suspense fallback={<div>loading...</div>}>
           <CurrentScene />
