@@ -4,12 +4,14 @@ import './styles/PoiStyle.scss';
 import {useTypedDispatch} from '../redux/store';
 import {IVerb} from '../VerbMenu/verbMenuSlice';
 import {poiClicked} from '../redux/tempSlice';
+import imageCache from '../imageCache';
 
 type IPoiId = string; // TODO better?
 type TImagePath = string;
 
 interface IPoi {
   id: IPoiId,
+  isDebug?: boolean,
   image?: TImagePath,
   style: CSSProperties,
   verbs?: IVerb[]
@@ -21,10 +23,14 @@ const Poi: React.FC<IPoi> = (props) => {
 
   const {
     id,
+    isDebug,
     image,
     style,
     verbs = []
   } = props;
+
+  // will throw promise - which works with suspens and suspend component till
+  image && imageCache.preload(image);
 
   const isInteractive = verbs.length > 0;
 
@@ -49,7 +55,7 @@ const Poi: React.FC<IPoi> = (props) => {
   const classes = classNames(
     'Poi',
     `Poi-${id}`,
-    //isDebug && 'Poi--image'
+    isDebug && 'Poi--debug'
   );
 
   const styles = {
@@ -64,7 +70,7 @@ const Poi: React.FC<IPoi> = (props) => {
     >
       {isInteractive &&
         <div
-          className="Poi__hotspot"
+          className="Poi__hotspot gem-hotspot"
           onClick={onClick}
           // add onToucheEnd?
         />

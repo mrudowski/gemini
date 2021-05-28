@@ -1,0 +1,157 @@
+@import "../../sass/variables";
+
+/*-----------------------------------------------------
+	base
+-----------------------------------------------------*/
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+
+	-webkit-text-size-adjust: none;
+	-webkit-tap-highlight-color: rgba(0, 0 ,0, 0);
+	-webkit-touch-callout: none;
+
+	cursor: url(../assets/images/cursor_arrow.png), default;
+	background: #000 url(../assets/images/background.jpg) center scroll no-repeat;
+	background-size: cover;
+
+	font-family: 'Kalam', cursive;
+	font-size: $gem-font-size;
+	line-height: $gem-line-height;
+	color: $gem-text-color;
+
+	display: grid;
+	place-items: center;
+
+	min-width: $gem-viewport-width;
+	min-height: $gem-viewport-height;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+
+/*-----------------------------------------------------
+	forms
+-----------------------------------------------------*/
+
+input, select, textarea, button {
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+	color: #333;
+}
+
+input, textarea {
+	margin: 0 0 $gem-gap 0;
+	width: 100%;
+	padding: 3px 5px;
+	border: 0 none;
+	border-top: 1px solid rgba(0,0,0,0.25);
+	border-left: 1px solid rgba(0,0,0,0.25);
+
+	&:focus {
+		outline: 0 none;
+	}
+}
+
+textarea {
+	resize: none;
+}
+
+/*-----------------------------------------------------
+	paragraphs
+-----------------------------------------------------*/
+
+h1 {
+	font-size: 1.4em;
+	font-weight: bold;
+}
+
+h2,h3,h4,h5,h6 {
+	font-size: 1.4em;
+	font-weight: normal;
+}
+
+p,h1,h2,h3,h4,h5,h6,ul,ol,blockquote,code {
+	margin-bottom: $gem-gap;
+}
+
+em {
+	font-style: italic;
+}
+
+strong {
+	font-weight: bold;
+}
+
+img {
+	display: block;
+}
+
+/*-----------------------------------------------------
+	list
+-----------------------------------------------------*/
+
+ul {
+	list-style-position: outside;
+	list-style-image: none;
+	list-style-type: disc;
+	margin-left: $gem-gap;
+}
+
+ol {
+	list-style-position: outside;
+	list-style-type: decimal;
+	margin-left: $gem-gap;
+}
+
+ul ul {
+	list-style-type: circle;
+	margin-left: $gem-gap;
+	margin-top: 5px;
+}
+
+ol ol {
+	list-style-type: lower-alpha;
+	margin-left: $gem-gap;
+	margin-top: 5px;
+}
+
+li {
+	padding-left: 5px;
+}
+
+/*-----------------------------------------------------
+	links, focus and selection
+-----------------------------------------------------*/
+
+a {
+	color: #208AB3;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+/*-----------------------------------------------------
+	gemini special global classes
+-----------------------------------------------------*/
+
+.gem-hotspot {
+	cursor: url(../assets/images/cursor_arrow_pointer.png), pointer;
+}

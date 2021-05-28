@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import {useSelector} from 'react-redux';
 import Scene from '../../../engine/Scene';
 import Poi from '../../../engine/Poi';
@@ -92,7 +92,7 @@ const TeaShopScene = () => {
               // TODO how to typized it?
               ACTIONS.setCurrentSceneState<ITeaShopSceneState>({
                 stateName: 'tableDishesExamineCounter',
-                stateValue: tableDishesExamineCounter + 1
+                stateValue: tableDishesExamineCounter + 1,
               })
             ]
           },

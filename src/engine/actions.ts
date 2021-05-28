@@ -1,5 +1,4 @@
 import VERBS from './VerbMenu/verbs';
-import {ITeaShopSceneState} from '../sampleGame01/scenes/teaShop/state';
 
 export interface IActionPayload {
   when?: boolean
@@ -11,7 +10,7 @@ export interface ITalkActionPayload extends IActionPayload {
 
 export interface ISetSceneStateActionPayload<T> extends IActionPayload {
   stateName: keyof T
-  stateValue: unknown
+  stateValue: T[keyof T]
 }
 
 export interface IAction {

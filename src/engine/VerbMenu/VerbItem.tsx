@@ -27,7 +27,7 @@ const VerbItem: React.FC<IVerbItem> = (props) => {
   };
 
   const classes = classNames(
-    'VerbItem',
+    'VerbItem gem-hotspot',
   );
 
   return (

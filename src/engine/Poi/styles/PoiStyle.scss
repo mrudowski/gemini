@@ -1,12 +1,19 @@
+@import "../../sass/variables";
+
 .Poi {
 	position: absolute;
 
 	&__hotspot {
-		cursor: pointer;
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
+	}
+
+	.Scene--debug &,
+	&--debug {
+		box-shadow: 0 0 0 1px $gem-color-debug;
+		background-color: rgba($gem-color-debug, .25);
 	}
 }

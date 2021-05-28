@@ -142,6 +142,10 @@ const actionSettersMap = {
   [VERBS.TALK]: {
     startAction: startTalkAction,
     endAction: endTalkAction
+  },
+  [VERBS.TALK]: {
+    startAction: startTalkAction,
+    endAction: endTalkAction
   }
 };
 
