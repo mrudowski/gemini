@@ -1,8 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import './styles/DevTools.scss';
+import {IWorldState, worldInitialState} from '../../sampleGame01/worldState';
 
 interface IDevTools {
 }
+
+const buildLocationList = (scenes: IWorldState['scenes']) => Object.keys(scenes).map((sceneId) => (
+  <option key={sceneId} value={sceneId}>{sceneId}</option>
+));
 
 const DevTools: React.FC<IDevTools> = () => {
 
@@ -23,6 +28,11 @@ const DevTools: React.FC<IDevTools> = () => {
     e.preventDefault();
   };
 
+  const gotoScene = e => {
+    console.log('%c [mr] gotoScene', 'background-color:Gold; color: black', e.value);
+    //gem.world.gotoScene($(this).val());
+  };
+
   return (
     <div className="DevTools">
       <div className="devPanel devToolBox">
@@ -35,7 +45,9 @@ const DevTools: React.FC<IDevTools> = () => {
         <a href="#" onClick={resetState}>reset</a>
       </div>
       <div className="devPanel devLocationBox">
-        <select></select>
+        <select onChange={gotoScene}>
+          {buildLocationList(worldInitialState.scenes)}
+        </select>
       </div>
     </div>
   );
