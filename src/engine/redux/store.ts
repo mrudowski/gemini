@@ -12,6 +12,7 @@ import tempSliceReducer from './tempSlice';
 import verbMenuReducer from '../VerbMenu/verbMenuSlice';
 import scriptPlayerReducer from '../scriptPlayer/scriptPlayerSlice';
 import talkActionReducer from '../scriptPlayer/talkActionSlice';
+import waitActionReducer from '../scriptPlayer/waitActionSlice';
 
 const rootReducer = combineReducers({
   gem: gemSliceReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   verbMenu: verbMenuReducer, // TODO slice?
   scriptPlayer: scriptPlayerReducer,
   talkAction: talkActionReducer,
+  waitAction: waitActionReducer,
 });
 
 const getReducer = (): any => {

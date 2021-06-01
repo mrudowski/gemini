@@ -10,6 +10,16 @@
 	box-sizing: border-box;
 }
 
+html, body, div, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, acronym, address, code, del, dfn, img,
+dl, dt, dd, ol, ul, li, input, textarea,
+fieldset, form, label, legend,
+table, caption, tr, th, td {
+	margin: 0;
+	padding: 0;
+}
+
 html,body {
 	height: 100%;
 }

@@ -17,7 +17,7 @@ const t = T();
 
 const TeaShopScene = () => {
   const sceneState: ITeaShopSceneState = useSelector(getCurrentSceneState);
-  console.log('%c [TeaShopScene]', 'background-color:Gold; color: black', {sceneState});
+  console.log('%c [TeaShopScene]', 'background-color:Orange; color: black', {sceneState});
   const {tableDishesExamineCounter} = sceneState;
 
   return (
@@ -90,6 +90,7 @@ const TeaShopScene = () => {
               ACTIONS.talk({text: 'second line optional', when: false}), // TODO give it here real condition
               ACTIONS.talk({text: 'third line'}),
               // TODO how to typized it?
+              // TODO it shouldn't break (close) the dialog!
               ACTIONS.setCurrentSceneState<ITeaShopSceneState>({
                 stateName: 'tableDishesExamineCounter',
                 stateValue: tableDishesExamineCounter + 1,
@@ -116,6 +117,7 @@ const TeaShopScene = () => {
           {
             name: VERBS.TAKE,
             // no script - testing default script behavior // TODO is it worth it?
+            // TODO is not - and we have to guess/remember translation key name
             // as alt:
             // script: [
             //   ACTIONS.talk({text: t.scenes.teaShop.tableDishesTake}),
@@ -128,6 +130,17 @@ const TeaShopScene = () => {
             ]
           },
         ]}
+      />
+
+      <Poi
+        id="test"
+        style={{
+          left: 10,
+          top: 10,
+          width: 100,
+          height: 100
+        }}
+        when={tableDishesExamineCounter % 2 === 0}
       />
 
 

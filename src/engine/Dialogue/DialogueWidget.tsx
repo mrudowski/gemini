@@ -4,6 +4,7 @@ import {motion} from 'framer-motion';
 import Backdrop from '../helpers/Backdrop';
 import {IAction, ITalkActionPayload} from '../actions';
 import './styles/DialogueWidgetStyle.scss';
+import variants from '../commons/motion/variants';
 
 interface IDialogue {
   action: IAction,
@@ -29,11 +30,6 @@ const DialogueWidget: React.FC<IDialogue> = (props) => {
   const classes = classNames(
     'DialogueWidget',
   );
-
-  const variants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 }
-  };
 
   return (
     <motion.div

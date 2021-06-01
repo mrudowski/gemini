@@ -1,0 +1,48 @@
+.devStateBox {
+	top: 0;
+	right: -220px;
+	width: 200px;
+}
+
+.devStateList {
+	overflow: auto;
+	height: 520px;
+	margin-bottom: 10px;
+	font-size: 10px;
+}
+
+.devStateList ul {
+	list-style-position: outside;
+	list-style-image: none;
+	list-style-type: none;
+	margin: 0;
+}
+
+.devStateList ul ul {
+	margin-left: 10px;
+}
+
+.devStateList ul li {
+	margin: 0;
+	padding: 0;
+	white-space: nowrap;
+}
+.devStateList ul li.parent {
+	color: #ccc;
+}
+.devStateList ul li.arrayElement {
+	color: #999;
+}
+.devStateList ul li.true {
+	color: #a7c41f;
+}
+.devStateList ul li.false {
+	color: #b64926;
+}
+.devStateList ul li.number {
+	color: #349cc8;
+}
+.devStateList ul li.string {
+	color: #ecc04e;
+}
+

@@ -1,7 +1,6 @@
-import VERBS from './VerbMenu/verbs';
-
 export interface IActionPayload {
   when?: boolean
+  [key: string]: unknown
 }
 
 export interface ITalkActionPayload extends IActionPayload {
@@ -16,7 +15,7 @@ export interface ISetSceneStateActionPayload<T> extends IActionPayload {
 export interface IAction {
   id: string,
   when: boolean
-  payload: {key?: string} // TODO for now only
+  payload: Record<string, unknown> | Record<string, never> // TODO for now only
 }
 
 const getSpecificAction = (id: string, payload: IActionPayload): IAction => {
@@ -33,8 +32,8 @@ const getSpecificAction = (id: string, payload: IActionPayload): IAction => {
 };
 
 export const ACTIONS_IDS = {
-  TALK: VERBS.TALK, // TODO small/capital letters?
-  SET_CURRENT_SCENE_STATE: 'SET_CURRENT_SCENE_STATE'
+  TALK: 'talk',
+  SET_CURRENT_SCENE_STATE: 'setCurrentSceneState'
 };
 
 const talk = (payload: ITalkActionPayload): IAction => getSpecificAction(ACTIONS_IDS.TALK, payload);

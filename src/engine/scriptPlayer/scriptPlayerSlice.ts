@@ -1,9 +1,9 @@
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {batch} from 'react-redux';
-import {IAction} from '../actions';
+import {ACTIONS_IDS, IAction} from '../actions';
 import {IRootState, IThunk} from '../redux/store';
-import VERBS from '../VerbMenu/verbs';
-import {endTalkAction, startTalkAction} from './talkActionSlice';
+import {startTalkAction, endTalkAction} from './talkActionSlice';
+import {startSetCurrentSceneStateAction, endSetCurrentSceneStateAction} from './setCurrentSceneStateActionThunk';
 
 interface IScriptPlayerState {
   script: IAction[] | null,
@@ -77,7 +77,7 @@ const playNextAction = (): IThunk => (dispatch, getState) => {
   if (action) {
     if (action.when) {
       console.log('%c [playNextAction] when true', 'background-color:Gold; color: black', action.id);
-      dispatch(getActionSetter(action.id).startAction({action}));
+      dispatch(getActionSetter(action.id).startAction({action}) as any);
     } else {
       console.log('%c [playNextAction] when false', 'background-color:Gold; color: black', action.id);
       dispatch(endAction());
@@ -99,7 +99,7 @@ export const endAction = (): IThunk => (dispatch, getState) => {
   } = state.scriptPlayer; // selector
   const action = script?.[actionIndex]; // selector
   if (action) {
-    dispatch(getActionSetter(action.id).endAction());
+    dispatch(getActionSetter(action.id).endAction() as any);
   } else {
     throw new Error('endAction cannot find `action`!');
   }
@@ -139,13 +139,13 @@ export const endAction = (): IThunk => (dispatch, getState) => {
 // };
 
 const actionSettersMap = {
-  [VERBS.TALK]: {
+  [ACTIONS_IDS.TALK]: {
     startAction: startTalkAction,
     endAction: endTalkAction
   },
-  [VERBS.TALK]: {
-    startAction: startTalkAction,
-    endAction: endTalkAction
+  [ACTIONS_IDS.SET_CURRENT_SCENE_STATE]: {
+    startAction: startSetCurrentSceneStateAction,
+    endAction: endSetCurrentSceneStateAction
   }
 };
 

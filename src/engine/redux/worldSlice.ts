@@ -8,18 +8,19 @@ const worldSlice = createSlice({
   name: 'world',
   initialState: worldInitialState,
   reducers: {
-    setSceneState: (state: IWorldState, action: PayloadAction<{sceneId: string, newState: any}>) => {
+    setSceneState: (state: IWorldState, action: PayloadAction<{sceneId: string, stateName: string, stateValue: unknown}>) => {
       // get global with help of trunk...
-      const {sceneId, newState} = action.payload;
-      state.scenes[sceneId] = {
-        ...state.scenes[sceneId],
-        newState
-      };
+      const {sceneId, stateName, stateValue} = action.payload;
+      state.scenes[sceneId][stateName] = stateValue;
     },
   }
 });
 
 export default worldSlice.reducer;
+
+export const setSceneState = worldSlice.actions.setSceneState;
+
+// selectors
 
 export const getWorldState = (state: IRootState) => state.world;
 export const getScenes = (state: IRootState) => state.world.scenes;

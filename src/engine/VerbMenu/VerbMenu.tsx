@@ -7,6 +7,7 @@ import Backdrop from '../helpers/Backdrop';
 import {closeVerbMenu, getVerbMenuData, interpretVerb, IVerb} from './verbMenuSlice';
 import getTopLeftPosition from './utils/getTopLeftPosition';
 import VerbItem from './VerbItem';
+import variants from '../commons/motion/variants';
 
 interface IVerbMenu {
 }
@@ -65,11 +66,6 @@ const VerbMenu: React.FC<IVerbMenu> = () => {
 
   const styles = {
     ...(positionStyle && positionStyle)
-  };
-
-  const variants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 }
   };
 
   // using flatMap
