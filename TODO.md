@@ -1,8 +1,8 @@
 # TODO
 
-- click on devStateBox (number ingress/decrees (onRightClick) by 1)
 - persist state
 - wait
+- devTools - working as old (all details we can see in chrome react dev tools)
 - inventory + take (dishes)
 - use z cloth
 

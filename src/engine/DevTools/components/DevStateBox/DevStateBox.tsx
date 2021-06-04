@@ -2,7 +2,8 @@ import React from 'react';
 import './styles/DevStateBox.scss';
 import {useSelector} from 'react-redux';
 import {IWorldState} from '../../../../sampleGame01/worldState';
-import {getWorldState} from '../../../redux/worldSlice';
+import {getWorldState, setSceneState} from '../../../redux/worldSlice';
+import {IDispatch, useTypedDispatch} from '../../../redux/store';
 
 interface IDevStateBox {
 }
@@ -17,17 +18,22 @@ const StateKey = ({styleClass, keyName}) => {
   return <span>{keyName}</span>;
 };
 
-const onClick = (e) => {
+const setState = ({e, dispatch, sceneId, stateName, stateValue, stateType}) => {
   e.preventDefault();
-  console.log('%c [mr] TODO', 'background-color:Gold; color: black', 'click');
+  let newStateValue;
+  if (stateType === 'number') {
+    newStateValue = (e.type === 'contextmenu' ? stateValue - 1 : stateValue + 1);
+  } else {
+    newStateValue = !stateValue;
+  }
+  dispatch(setSceneState({
+    sceneId,
+    stateName,
+    stateValue: newStateValue
+  }));
 };
 
-const onContextMenu = (e) => {
-  e.preventDefault();
-  console.log('%c [mr] TODO', 'background-color:Gold; color: black', 'right click');
-};
-
-const parseState = (stateObj: IWorldState, statePath) => {
+const parseState = (stateObj: IWorldState, dispatch: IDispatch, statePath) => {
   const nodes:any = [];
   Object.entries(stateObj).forEach(([key, value]) => {
     statePath.push(key);
@@ -51,8 +57,35 @@ const parseState = (stateObj: IWorldState, statePath) => {
       styleClass = 'number';
     }
 
+    const isInteractive = styleClass === 'number'
+      || styleClass === 'true'
+      || styleClass === 'false';
+
+    // TODO for now only only scenes keys
+    const sceneId = statePath[Math.max(0, statePath.length - 2)];
+
+    const setStateMethod = (e) => {
+      if (!isInteractive) return;
+      setState({
+        e,
+        dispatch,
+        sceneId,
+        stateName: key,
+        stateValue: value,
+        stateType: styleClass
+      });
+    };
+
     nodes.push(
-      <li className={styleClass} onClick={onClick} onContextMenu={onContextMenu}>
+      <li
+        className={styleClass}
+        {...(isInteractive && {
+          onClick: setStateMethod,
+        })}
+        {...(isInteractive && styleClass === 'number' && {
+          onContextMenu: setStateMethod
+        })}
+      >
         <StateKey keyName={key} styleClass={styleClass} />
         {(styleClass === 'string' ||  styleClass === 'number') && (
           <span> = {value}</span>
@@ -61,7 +94,7 @@ const parseState = (stateObj: IWorldState, statePath) => {
     );
 
     if (styleClass === 'parent' || styleClass === 'arrayElement') {
-      nodes.push(parseState(value, statePath));
+      nodes.push(parseState(value, dispatch, statePath));
     }
 
     statePath.pop();
@@ -75,14 +108,15 @@ const parseState = (stateObj: IWorldState, statePath) => {
 
 };
 
-const buildStateList = (stateObj) => {
-  const list = parseState(stateObj,[]);
+const buildStateList = (stateObj, dispatch) => {
+  const list = parseState(stateObj, dispatch, []);
   return list;
 };
 
 const DevStateBox: React.FC<IDevStateBox> = () => {
 
   const worldState = useSelector(getWorldState);
+  const dispatch = useTypedDispatch();
 
   const resetState = e => {
     e.preventDefault();
@@ -92,7 +126,7 @@ const DevStateBox: React.FC<IDevStateBox> = () => {
   return (
     <div className="devPanel devStateBox">
       <div className="devStateList">
-        {buildStateList(worldState)}
+        {buildStateList(worldState, dispatch)}
       </div>
       <a href="#" onClick={resetState}>reset</a>
     </div>

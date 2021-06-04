@@ -34,15 +34,19 @@
 	color: #999;
 }
 .devStateList ul li.true {
+	cursor: pointer;
 	color: #a7c41f;
 }
 .devStateList ul li.false {
+	cursor: pointer;
 	color: #b64926;
 }
 .devStateList ul li.number {
+	cursor: pointer;
 	color: #349cc8;
 }
 .devStateList ul li.string {
+	cursor: pointer;
 	color: #ecc04e;
 }
 
