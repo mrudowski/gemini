@@ -78,6 +78,7 @@ const parseState = (stateObj: IWorldState, dispatch: IDispatch, statePath) => {
 
     nodes.push(
       <li
+        key={key}
         className={styleClass}
         {...(isInteractive && {
           onClick: setStateMethod,
@@ -101,7 +102,7 @@ const parseState = (stateObj: IWorldState, dispatch: IDispatch, statePath) => {
   });
 
   return (
-    <ul>
+    <ul key={`level-${statePath.length}-${statePath[statePath.length - 1]}`}>
       {nodes}
     </ul>
   );

@@ -4,7 +4,7 @@ import {motion} from 'framer-motion';
 import './style.scss';
 
 interface IBackdrop {
-  onClick: () => void,
+  onClick?: () => void,
   dimmed?: boolean
 }
 

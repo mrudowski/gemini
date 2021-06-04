@@ -1,9 +1,10 @@
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {IAction} from '../actions';
-import {IRootState} from '../redux/store';
+import {IWaitAction} from '../actions';
+import {IRootState, IThunk} from '../redux/store';
+import {endAction} from './scriptPlayerSlice';
 
 interface IWaitActionState {
-  action: IAction | null,
+  action: IWaitAction | null,
 }
 
 const initialState: IWaitActionState = {
@@ -14,7 +15,7 @@ const waitActionSlice = createSlice({
   name: 'waitAction',
   initialState,
   reducers: {
-    startWaitAction: (state: IWaitActionState, action: PayloadAction<{action: IAction}>) => {
+    startWaitActionPrivate: (state: IWaitActionState, action: PayloadAction<{action: IWaitAction}>) => {
       const {
         action: actionToSet
       } = action.payload;
@@ -29,8 +30,21 @@ const waitActionSlice = createSlice({
 
 export default waitActionSlice.reducer;
 
-export const startWaitAction = waitActionSlice.actions.startWaitAction;
+const startWaitActionPrivate = waitActionSlice.actions.startWaitActionPrivate;
 export const endWaitAction = waitActionSlice.actions.endWaitAction;
+
+// ------------ thunk
+
+export const startWaitAction = ({action}: {action: IWaitAction}): IThunk => (dispatch) => {
+  const {duration = 1000} = action.payload;
+
+  console.log('%c [mr] duration', 'background-color:Gold; color: black', duration);
+
+  dispatch(startWaitActionPrivate({action}));
+  setTimeout(() => {
+    dispatch(endAction());
+  }, duration);
+};
 
 // ------------ selectors
 

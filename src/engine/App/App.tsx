@@ -5,6 +5,7 @@ import {getCurrentSceneId} from '../redux/gemSlice';
 import VerbMenu from '../VerbMenu/VerbMenu';
 import Dialogue from '../Dialogue/Dialogue';
 import DevTools from '../DevTools/DevTools';
+import Wait from '../GemLock/GemLock';
 // TODO works?
 // TODO it should be dynamically!
 
@@ -24,6 +25,7 @@ function App() {
         </Suspense>
         <Dialogue />
         <VerbMenu />
+        <Wait />
       </div>
     </div>
   );

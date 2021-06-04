@@ -4,6 +4,7 @@ import {ACTIONS_IDS, IAction} from '../actions';
 import {IRootState, IThunk} from '../redux/store';
 import {startTalkAction, endTalkAction} from './talkActionSlice';
 import {startSetCurrentSceneStateAction, endSetCurrentSceneStateAction} from './setCurrentSceneStateActionThunk';
+import {endWaitAction, startWaitAction} from './waitActionSlice';
 
 interface IScriptPlayerState {
   script: IAction[] | null,
@@ -90,8 +91,9 @@ const playNextAction = (): IThunk => (dispatch, getState) => {
   }
 };
 
+const notEndedActions: any = [];
 
-export const endAction = (): IThunk => (dispatch, getState) => {
+export const endAction = (playNextOverCurrent = false): IThunk => (dispatch, getState) => {
   const state = getState();
   const {
     script,
@@ -99,7 +101,11 @@ export const endAction = (): IThunk => (dispatch, getState) => {
   } = state.scriptPlayer; // selector
   const action = script?.[actionIndex]; // selector
   if (action) {
-    dispatch(getActionSetter(action.id).endAction() as any);
+    if (!playNextOverCurrent) {
+      dispatch(getActionSetter(action.id).endAction() as any);
+    } else {
+      notEndedActions.push(getActionSetter(action.id));
+    }
   } else {
     throw new Error('endAction cannot find `action`!');
   }
@@ -109,7 +115,13 @@ export const endAction = (): IThunk => (dispatch, getState) => {
       dispatch(playNextAction());
     });
   } else {
-    console.log('%c [endAction]', 'background-color:Gold; color: black');
+    console.log('%c [endAction]', 'background-color:Gold; color: black', notEndedActions);
+    // end not ended actions
+    if (notEndedActions.length > 0) {
+      const notEndedAction = notEndedActions.pop();
+      console.log('%c [notEndedAction]', 'background-color:Gold; color: black', notEndedAction);
+      dispatch(notEndedAction.endAction());
+    }
   }
 };
 
@@ -139,13 +151,21 @@ export const endAction = (): IThunk => (dispatch, getState) => {
 // };
 
 const actionSettersMap = {
+  [ACTIONS_IDS.SET_CURRENT_SCENE_STATE]: {
+    startAction: startSetCurrentSceneStateAction,
+    endAction: endSetCurrentSceneStateAction // TODO could be without it
+  },
   [ACTIONS_IDS.TALK]: {
     startAction: startTalkAction,
     endAction: endTalkAction
   },
-  [ACTIONS_IDS.SET_CURRENT_SCENE_STATE]: {
-    startAction: startSetCurrentSceneStateAction,
-    endAction: endSetCurrentSceneStateAction
+  [ACTIONS_IDS.END_TALK]: {
+    startAction: endTalkAction, // TODO dirty
+    endAction: endTalkAction
+  },
+  [ACTIONS_IDS.WAIT]: {
+    startAction: startWaitAction,
+    endAction: endWaitAction
   }
 };
 

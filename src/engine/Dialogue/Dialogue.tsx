@@ -18,29 +18,35 @@ const Dialogue: React.FC<IDialogueWindow> = () => {
   const [isShow, setShow] = useState(false);
 
   useEffect(() => {
+    console.log('%c [mr] useEffect', 'background-color:Gold; color: black', action);
     setShow(!!action);
   }, [action]);
 
-  const onExitComplete = useCallback(() => {
-    dispatch(endAction());
+  const onExitComplete = useCallback((playNextOverCurrent = false) => {
+    dispatch(endAction(playNextOverCurrent));
   }, [dispatch]);
 
   const onClick = useCallback(() => {
-    if (nextAction?.id === 'talk') {
+    if (!nextAction) {
+      setShow(false);
+      return;
+    }
+    if (nextAction.id === 'talk') {
       // without animation
       onExitComplete();
     } else {
-      // with fade animation
-      setShow(false);
+      // playing next action without close dialogue
+      // good for setCurrentSceneState, wait, etc
+      onExitComplete(true);
     }
   }, [onExitComplete, nextAction]);
 
   //const isActive = !!action;
-  if (!action) return null;
+  //if (!action) return null;
 
   return (
     <AnimatePresence onExitComplete={onExitComplete}>
-      {isShow &&
+      {isShow && action &&
         <DialogueWidget
           action={action}
           onClick={onClick}

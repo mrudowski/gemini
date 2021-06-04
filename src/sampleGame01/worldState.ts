@@ -3,11 +3,17 @@ import {ITeaShopSceneState, teaShopSceneInitialState} from './scenes/teaShop/sta
 export interface IWorldState {
   scenes: {
     teaShop: ITeaShopSceneState,
+    test: {
+      test1: number
+    }
   },
 }
 
 export const worldInitialState: IWorldState = {
   scenes: {
-    teaShop: teaShopSceneInitialState
+    teaShop: teaShopSceneInitialState,
+    test: {
+      test1: 1
+    }
   }
 };
