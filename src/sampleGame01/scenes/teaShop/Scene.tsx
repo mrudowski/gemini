@@ -112,7 +112,7 @@ const TeaShopScene = () => {
                 stateName: 'tableDishesExamineCounter',
                 stateValue: tableDishesExamineCounter + 1
               }),
-              ACTIONS.wait({duration: 3000}),
+              ACTIONS.wait({duration: 3}),
               ACTIONS.talk({text: 'and here we open with again'}),
             ]
 
@@ -131,11 +131,9 @@ const TeaShopScene = () => {
           {
             name: 'test', // TODO? //CUSTOM_VERBS.EXAMINE,
             script: [
-              ACTIONS.talk({text: 'testing autoplay 1...', autoPlay: true}),
-              ACTIONS.talk({text: '2...', autoPlay: true}),
-              ACTIONS.talk({text: '3...', autoPlay: true}),
-              ACTIONS.talk({text: '4...', autoPlay: true}),
-              ACTIONS.talk({text: '5...', autoPlay: true}),
+              ACTIONS.talk({text: 'testing autoplay 1...', autoPlayAfter: 3}),
+              ACTIONS.talk({text: '2...', autoPlayAfter: 1}),
+              ACTIONS.talk({text: '3...', autoPlayAfter: 1}),
             ]
           },
         ]}

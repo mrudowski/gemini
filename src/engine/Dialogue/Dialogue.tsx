@@ -8,6 +8,8 @@ import DialogueWidget from './DialogueWidget';
 interface IDialogueWindow {
 }
 
+let timeoutId;
+
 const Dialogue: React.FC<IDialogueWindow> = () => {
   // const {
   // } = props;
@@ -43,13 +45,14 @@ const Dialogue: React.FC<IDialogueWindow> = () => {
   }, [onExitComplete, nextAction]);
 
   useEffect(() => {
-    if (action?.payload.autoPlay) {
-      setTimeout(() => {
-        // should be
-        console.log('%c [talk setTimeout]', 'background-color:Gold; color: black');
+    if (action?.payload.autoPlayAfter) {
+      timeoutId = setTimeout(() => {
         playNext();
-      }, 1000);
+      }, action.payload.autoPlayAfter * 1000);
     }
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [action, playNext]);
 
   // const isActive = !!action;

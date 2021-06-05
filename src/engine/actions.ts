@@ -2,6 +2,11 @@ export interface IActionPayload {
   when?: boolean
 }
 
+/**
+ * duration in seconds
+ */
+type IDuration = number;
+
 export interface ISetSceneStateActionPayload<T> extends IActionPayload {
   stateName: keyof T
   stateValue: T[keyof T]
@@ -9,11 +14,11 @@ export interface ISetSceneStateActionPayload<T> extends IActionPayload {
 
 export interface ITalkActionPayload extends IActionPayload {
   text: string,
-  autoPlay?: boolean
+  autoPlayAfter?: IDuration
 }
 
 export interface IWaitActionPayload extends IActionPayload {
-  duration?: number
+  duration?: IDuration
 }
 
 export interface IAction {

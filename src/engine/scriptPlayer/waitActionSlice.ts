@@ -38,14 +38,14 @@ export const endWaitAction = waitActionSlice.actions.endWaitAction;
 // ------------ thunk
 
 export const startWaitAction = ({action}: {action: IWaitAction}): IThunk => (dispatch) => {
-  const {duration = 1000} = action.payload;
+  const {duration = 1} = action.payload;
 
   console.log('%c [mr] duration', 'background-color:Gold; color: black', duration);
 
   dispatch(startWaitActionPrivate({action}));
   setTimeout(() => {
     dispatch(endAction());
-  }, duration);
+  }, duration * 1000);
 };
 
 // ------------ selectors
