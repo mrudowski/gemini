@@ -31,12 +31,16 @@ const DialogueWidget: React.FC<IDialogue> = (props) => {
     'DialogueWidget',
   );
 
+  // when added transition with static duration > 0.5
+  // we omit flickering when hide/show during autoplay
+
   return (
     <motion.div
       initial="hidden"
       animate="visible"
       exit="hidden"
       variants={variants}
+      transition={{ duration: 0.5 }}
     >
       <Backdrop onClick={onClick} dimmed={true} />
       <div

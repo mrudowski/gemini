@@ -1,7 +1,9 @@
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {IWaitAction} from '../actions';
+import {ISpecifiedAction, IWaitActionPayload} from '../actions';
 import {IRootState, IThunk} from '../redux/store';
 import {endAction} from './scriptPlayerSlice';
+
+type IWaitAction = ISpecifiedAction<IWaitActionPayload>;
 
 interface IWaitActionState {
   action: IWaitAction | null,

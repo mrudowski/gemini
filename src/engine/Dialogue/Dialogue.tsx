@@ -23,10 +23,11 @@ const Dialogue: React.FC<IDialogueWindow> = () => {
   }, [action]);
 
   const onExitComplete = useCallback((playNextOverCurrent = false) => {
+    console.log('%c [mr] onExitComplete', 'background-color:Gold; color: black');
     dispatch(endAction(playNextOverCurrent));
   }, [dispatch]);
 
-  const onClick = useCallback(() => {
+  const playNext = useCallback(() => {
     if (!nextAction) {
       setShow(false);
       return;
@@ -41,7 +42,17 @@ const Dialogue: React.FC<IDialogueWindow> = () => {
     }
   }, [onExitComplete, nextAction]);
 
-  //const isActive = !!action;
+  useEffect(() => {
+    if (action?.payload.autoPlay) {
+      setTimeout(() => {
+        // should be
+        console.log('%c [talk setTimeout]', 'background-color:Gold; color: black');
+        playNext();
+      }, 1000);
+    }
+  }, [action, playNext]);
+
+  // const isActive = !!action;
   //if (!action) return null;
 
   return (
@@ -49,7 +60,7 @@ const Dialogue: React.FC<IDialogueWindow> = () => {
       {isShow && action &&
         <DialogueWidget
           action={action}
-          onClick={onClick}
+          onClick={playNext}
         />
       }
     </AnimatePresence>

@@ -1,6 +1,5 @@
 export interface IActionPayload {
   when?: boolean
-  [key: string]: unknown
 }
 
 export interface ISetSceneStateActionPayload<T> extends IActionPayload {
@@ -9,25 +8,23 @@ export interface ISetSceneStateActionPayload<T> extends IActionPayload {
 }
 
 export interface ITalkActionPayload extends IActionPayload {
-  text: string
+  text: string,
+  autoPlay?: boolean
 }
 
 export interface IWaitActionPayload extends IActionPayload {
   duration?: number
 }
 
-
 export interface IAction {
   id: string,
   when: boolean
   // TODO ? divide it on payload and options (id, when)
-  payload: Record<string, unknown> | Record<string, never> // TODO for now only
+  payload: any // TODO for now only
 }
 
-export interface IWaitAction {
-  id: string,
-  when: boolean
-  payload: IWaitActionPayload
+export interface ISpecifiedAction<T> extends IAction {
+  payload: Omit<T, 'when'>
 }
 
 const getSpecificAction = (id: string, payload: IActionPayload = {}): IAction => {
@@ -50,10 +47,10 @@ export const ACTIONS_IDS = {
   WAIT: 'wait'
 };
 
-const setCurrentSceneState = <T>(payload: ISetSceneStateActionPayload<T>): IAction => getSpecificAction(ACTIONS_IDS.SET_CURRENT_SCENE_STATE, payload);
-const talk = (payload: ITalkActionPayload): IAction => getSpecificAction(ACTIONS_IDS.TALK, payload);
+const setCurrentSceneState = <T>(payload: ISetSceneStateActionPayload<T>): ISpecifiedAction<ISetSceneStateActionPayload<T>> => getSpecificAction(ACTIONS_IDS.SET_CURRENT_SCENE_STATE, payload);
+const talk = (payload: ITalkActionPayload): ISpecifiedAction<ITalkActionPayload> => getSpecificAction(ACTIONS_IDS.TALK, payload);
 const endTalk = (): IAction => getSpecificAction(ACTIONS_IDS.END_TALK);
-const wait = (payload?: IWaitActionPayload): IAction => getSpecificAction(ACTIONS_IDS.WAIT, payload);
+const wait = (payload?: IWaitActionPayload): ISpecifiedAction<IWaitActionPayload> => getSpecificAction(ACTIONS_IDS.WAIT, payload);
 
 const ACTIONS = {
   setCurrentSceneState,

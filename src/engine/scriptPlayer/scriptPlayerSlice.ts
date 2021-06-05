@@ -115,7 +115,7 @@ export const endAction = (playNextOverCurrent = false): IThunk => (dispatch, get
       dispatch(playNextAction());
     });
   } else {
-    console.log('%c [endAction]', 'background-color:Gold; color: black', notEndedActions);
+    console.log('%c [endAction]', 'background-color:Gold; color: black');
     // end not ended actions
     if (notEndedActions.length > 0) {
       const notEndedAction = notEndedActions.pop();

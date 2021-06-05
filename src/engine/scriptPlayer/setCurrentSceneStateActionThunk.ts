@@ -1,10 +1,12 @@
-import {IAction,} from '../actions';
+import {ISetSceneStateActionPayload, ISpecifiedAction} from '../actions';
 import {IThunk} from '../redux/store';
 import {endAction} from './scriptPlayerSlice';
 import {setSceneState} from '../redux/worldSlice';
 import {getCurrentSceneId} from '../redux/gemSlice';
 
-export const startSetCurrentSceneStateAction = ({action}: {action: IAction}): IThunk => (dispatch, getState) => {
+type ISetSceneStateAction<T> = ISpecifiedAction<ISetSceneStateActionPayload<T>>;
+
+export const startSetCurrentSceneStateAction = <T>({action}: {action: ISetSceneStateAction<T>}): IThunk => (dispatch, getState) => {
   console.log('%c [mr] startSetCurrentSceneStateAction', 'background-color:Gold; color: black', action);
 
   const {payload: {stateName, stateValue}} = action;

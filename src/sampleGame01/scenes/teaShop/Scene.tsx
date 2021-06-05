@@ -131,7 +131,11 @@ const TeaShopScene = () => {
           {
             name: 'test', // TODO? //CUSTOM_VERBS.EXAMINE,
             script: [
-              ACTIONS.talk({text: 'test line'}),
+              ACTIONS.talk({text: 'testing autoplay 1...', autoPlay: true}),
+              ACTIONS.talk({text: '2...', autoPlay: true}),
+              ACTIONS.talk({text: '3...', autoPlay: true}),
+              ACTIONS.talk({text: '4...', autoPlay: true}),
+              ACTIONS.talk({text: '5...', autoPlay: true}),
             ]
           },
         ]}
