@@ -2,12 +2,13 @@ import React from 'react';
 import classNames from 'classnames';
 import {motion} from 'framer-motion';
 import Backdrop from '../helpers/Backdrop';
-import {IAction, ITalkActionPayload} from '../actions';
+import {ISpecifiedAction, ITalkActionPayload, ITalkOptionsActionPayload} from '../actions';
 import './styles/DialogueWidgetStyle.scss';
 import variants from '../commons/motion/variants';
+import DialogueOptionsWidget from './DialogueOptionsWidget';
 
 interface IDialogue {
-  action: IAction,
+  action: ISpecifiedAction<ITalkActionPayload> | ISpecifiedAction<ITalkOptionsActionPayload>,
   onClick
 }
 
@@ -26,6 +27,10 @@ const DialogueWidget: React.FC<IDialogue> = (props) => {
   const {
     text,
   } = action.payload as ITalkActionPayload;
+
+  const {
+    options
+  } = action.payload as ITalkOptionsActionPayload;
 
   const classes = classNames(
     'DialogueWidget',
@@ -47,7 +52,13 @@ const DialogueWidget: React.FC<IDialogue> = (props) => {
         className={classes}
       >
         <h2>Myosotis</h2>
-        {text}
+        {options ? (
+          <DialogueOptionsWidget options={options} />
+        ) : (
+          <div>
+            {text}
+          </div>
+        )}
       </div>
     </motion.div>
   );

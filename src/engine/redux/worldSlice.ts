@@ -29,7 +29,8 @@ export const setSceneState = worldSlice.actions.setSceneState;
 // selectors
 
 export const getWorldState = (state: IRootState) => state.world;
-export const getScenes = (state: IRootState) => state.world.scenes;
+const getScenes = (state: IRootState) => state.world.scenes;
+export const getActors = (state: IRootState) => state.world.actors;
 
 export const getCurrentSceneState = createSelector(
   [getScenes, getCurrentSceneId],

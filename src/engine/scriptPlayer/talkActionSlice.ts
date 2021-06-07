@@ -1,11 +1,12 @@
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {ISpecifiedAction, ITalkActionPayload} from '../actions';
+import {ISpecifiedAction, ITalkActionPayload, ITalkOptionsActionPayload} from '../actions';
 import {IRootState} from '../redux/store';
 
-type ITalkAction = ISpecifiedAction<ITalkActionPayload>;
+export type ITalkAction = ISpecifiedAction<ITalkActionPayload>;
+export type ITalkOptionsAction = ISpecifiedAction<ITalkOptionsActionPayload>;
 
 interface ITalkActionState {
-  action: ITalkAction | null,
+  action: ITalkAction | ITalkOptionsAction | null,
 }
 
 const initialState: ITalkActionState = {
@@ -16,7 +17,7 @@ const talkActionSlice = createSlice({
   name: 'talkAction',
   initialState,
   reducers: {
-    startTalkAction: (state: ITalkActionState, action: PayloadAction<{action: ITalkAction}>) => {
+    startTalkAction: (state: ITalkActionState, action: PayloadAction<{action: ITalkAction | ITalkOptionsAction}>) => {
       const {
         action: actionToSet
       } = action.payload;

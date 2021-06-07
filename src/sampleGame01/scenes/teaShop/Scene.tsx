@@ -137,13 +137,14 @@ const TeaShopScene = () => {
           {
             name: t.verbs.talkAlt,
             script: [
-              ACTIONS.talkOptions({options: [
+              ACTIONS.talkOptions({id: 'talkOptions', actor: 'salammon', options: [
                 {id: TALK_OPTIONS.myo},
                 {id: TALK_OPTIONS.salammon, next: TALK_OPTIONS.salammon, when: examineExecutedEvenTimes},
                 {id: TALK_OPTIONS.end, text: 'Stop talking (custom option text)'},
               ]}),
               ACTIONS.talk({id: TALK_OPTIONS.myo, text: 'Your name is Myo', actor: ACTORS.salammon}),
-              ACTIONS.talk({id: TALK_OPTIONS.salammon, text: 'I\'m Salammon', actor: ACTORS.salammon}),
+              ACTIONS.talk({text: 'Correct!', next: 'talkOptions'}),
+              ACTIONS.talk({id: TALK_OPTIONS.salammon, text: 'I\'m Salammon', actor: ACTORS.salammon, next: 'talkOptions'}),
 
               // { stepId: "optionsStep", id: "talkOptions", actor: "salammon", options: [
               //     { text: "talkOptions.myo", next: "myoStep" },
@@ -174,51 +175,6 @@ const TeaShopScene = () => {
         }}
         when={tableDishesExamineCounter % 2 === 0}
       />
-
-
-      {/*  hotspot={{*/}
-      {/*    top: 10,*/}
-      {/*    left: 10,*/}
-      {/*    right: 10,*/}
-      {/*    bottom: 10*/}
-      {/*  }}*/}
-      {/*  when={sceneState.tableDirty && !sceneState.tableDirtyWet}*/}
-      {/*  contextMenu={[*/}
-      {/*    {*/}
-      {/*      labelKey: "look",*/}
-      {/*      when: sceneState.tableDirty,*/}
-      {/*      script: [*/}
-      {/*        actions.look(),*/}
-      {/*        actions.talk({text: 'test'})*/}
-      {/*      ]*/}
-      {/*    },*/}
-      {/*    {*/}
-      {/*      labelKey: "useWith",*/}
-      {/*      script: [*/}
-      {/*        actions.useWith([*/}
-      {/*          {*/}
-      {/*            inventoryItemId: inventory.trayFull.id, // or const inventory_trayFull*/}
-      {/*            script: [*/}
-      {/*              talk({text: "@tableDirtyUseTrayFull", continueUseWithAction: true}) // preperea talk not execute talk*/}
-      {/*            ]*/}
-      {/*          },*/}
-      {/*          {*/}
-      {/*            inventoryItemId: inventory.cloth.id, // ? Cloth as cont*/}
-      {/*            script: [*/}
-      {/*              action.hideInventory(),*/}
-      {/*              action.talk({text: '@tableDirtyUseClothTableWet'}),*/}
-      {/*              action.changeState({state: sceneState.tableDirty, value: false}),*/}
-      {/*              action.wait({duration: 1500}),*/}
-      {/*              action.talk({text: '@thePartIsBroken', actor: actors.gofung, when: sceneState.salammonTea}),*/}
-      {/*              action.get({inventoryItemId: inventory.partsBroken, when: sceneState.salammonTea})*/}
-      {/*            ]*/}
-      {/*          }*/}
-      {/*          // [inventory.trayFull.id]: [ ?*/}
-      {/*        ])*/}
-      {/*      ]*/}
-      {/*    }*/}
-      {/*  ]}*/}
-      {/*/>*/}
     </Scene>
   );
 

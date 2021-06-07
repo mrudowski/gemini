@@ -5,6 +5,8 @@
 - jump to path, return, etc
 - actor (portrait)
 
+- svg drawer
+- https://bennettfeely.com/clippy/
 
 - persist state
 - dialogue - disable click as next

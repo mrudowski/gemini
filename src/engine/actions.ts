@@ -3,13 +3,15 @@ import TALK_OPTIONS from '../sampleGame01/talkOptions';
 
 export interface IActionPayload {
   id?: string,
-  when?: boolean
+  when?: boolean,
+  next?: string
 }
 
 /**
  * duration in seconds
  */
 type IDuration = number;
+type IActorsIds = keyof typeof ACTORS;
 
 export interface ISetSceneStateActionPayload<T> extends IActionPayload {
   stateName: keyof T
@@ -19,7 +21,7 @@ export interface ISetSceneStateActionPayload<T> extends IActionPayload {
 export interface ITalkActionPayload extends IActionPayload {
   text: string,
   autoPlayAfter?: IDuration,
-  actor?: keyof typeof ACTORS
+  actor?: IActorsIds
 }
 
 interface ITalkOption {
@@ -30,6 +32,7 @@ interface ITalkOption {
 }
 
 export interface ITalkOptionsActionPayload extends IActionPayload {
+  actor?: IActorsIds
   options: ITalkOption[]
 }
 

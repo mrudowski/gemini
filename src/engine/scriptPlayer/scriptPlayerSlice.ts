@@ -159,6 +159,10 @@ const actionSettersMap = {
     startAction: startTalkAction,
     endAction: endTalkAction
   },
+  [ACTIONS_IDS.TALK_OPTIONS]: {
+    startAction: startTalkAction,
+    endAction: endTalkAction
+  },
   [ACTIONS_IDS.END_TALK]: {
     startAction: endTalkAction, // TODO dirty
     endAction: endTalkAction
