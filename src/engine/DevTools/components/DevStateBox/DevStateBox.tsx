@@ -2,7 +2,7 @@ import React from 'react';
 import './styles/DevStateBox.scss';
 import {useSelector} from 'react-redux';
 import {IWorldState} from '../../../../sampleGame01/worldState';
-import {getWorldState, setSceneState} from '../../../redux/worldSlice';
+import {getWorldState, setWorldState} from '../../../redux/worldSlice';
 import {IDispatch, useTypedDispatch} from '../../../redux/store';
 
 interface IDevStateBox {
@@ -18,7 +18,7 @@ const StateKey = ({styleClass, keyName}) => {
   return <span>{keyName}</span>;
 };
 
-const setState = ({e, dispatch, sceneId, stateName, stateValue, stateType}) => {
+const setState = ({e, dispatch, statePath, stateValue, stateType}) => {
   e.preventDefault();
   let newStateValue;
   if (stateType === 'number') {
@@ -26,9 +26,8 @@ const setState = ({e, dispatch, sceneId, stateName, stateValue, stateType}) => {
   } else {
     newStateValue = !stateValue;
   }
-  dispatch(setSceneState({
-    sceneId,
-    stateName,
+  dispatch(setWorldState({
+    statePath,
     stateValue: newStateValue
   }));
 };
@@ -61,16 +60,16 @@ const parseState = (stateObj: IWorldState, dispatch: IDispatch, statePath) => {
       || styleClass === 'true'
       || styleClass === 'false';
 
-    // TODO for now only only scenes keys
-    const sceneId = statePath[Math.max(0, statePath.length - 2)];
+    const scenePathForAction = [
+      ...statePath
+    ];
 
     const setStateMethod = (e) => {
       if (!isInteractive) return;
       setState({
         e,
         dispatch,
-        sceneId,
-        stateName: key,
+        statePath: scenePathForAction,
         stateValue: value,
         stateType: styleClass
       });

@@ -1,10 +1,13 @@
 /* eslint quotes: ["error", "double", { "allowTemplateLiterals": true }] */
 
-const pl = {
+import en from "./en";
+
+const pl: typeof en = {
   verbs: {
     examine: "Zbadaj",
     take: "Weź",
     talk: "Porozmawiaj",
+    talkAlt: "Pogawędka",
   },
   scenes: {
     teaShop: {
@@ -12,6 +15,11 @@ const pl = {
       tableDishesExamineAlternative: "Wciąż brudny",
       tableDishesTake: "W rękach? Za dużo ich, lepiej wezmę tacę.",
     }
+  },
+  talkOptions: {
+    myo: "O mnie",
+    salammon: "Salammon",
+    end: "ZAKOŃCZ"
   }
 };
 

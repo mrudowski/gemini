@@ -2,7 +2,6 @@ import React  from 'react';
 import {useSelector} from 'react-redux';
 import Scene from '../../../engine/Scene';
 import Poi from '../../../engine/Poi';
-import VERBS from '../../../engine/VerbMenu/verbs';
 import POIS from '../../pois';
 import SCENES from '../../scenes';
 import ACTIONS from '../../../engine/actions';
@@ -12,6 +11,8 @@ import sceneImage from './assets/images/teaShop.jpg';
 import tableDishesImage from './assets/images/tableDishes.png';
 import {getCurrentSceneState} from '../../../engine/redux/worldSlice';
 import {ITeaShopSceneState} from './state';
+import ACTORS from '../../actors';
+import TALK_OPTIONS from '../../talkOptions';
 
 const t = T();
 
@@ -83,7 +84,7 @@ const TeaShopScene = () => {
         // TODO why not actions? Because verbs is group of atomic actions? - ok
         verbs={[
           {
-            name: VERBS.EXAMINE,
+            name: t.verbs.examine,
             when: examineExecutedEvenTimes,
             //when: sceneState.tableIsDirty, // TODO second alt way // show on other example -- for example: exitCity
             script: [
@@ -102,7 +103,7 @@ const TeaShopScene = () => {
           },
           {
             // example of double use (with when condition) of examine verb
-            name: VERBS.EXAMINE,
+            name: t.verbs.examine,
             when: !examineExecutedEvenTimes,
             script: [
               ACTIONS.talk({text: t.scenes.teaShop.tableDishesExamineAlternative}),
@@ -120,22 +121,46 @@ const TeaShopScene = () => {
             // no script - testing default script behavior // TODO remove it for our sake
           },
           {
-            name: VERBS.TAKE,
-            // no script - testing default script behavior // TODO is it worth it?
-            // TODO is not - and we have to guess/remember translation key name
-            // as alt:
-            // script: [
-            //   ACTIONS.talk({text: t.scenes.teaShop.tableDishesTake}),
-            // ]
+            name: t.verbs.take,
+            script: [
+              ACTIONS.talk({text: t.scenes.teaShop.tableDishesTake}),
+            ]
           },
           {
-            name: 'test', // TODO? //CUSTOM_VERBS.EXAMINE,
+            name: t.verbs.talk, // TODO? //CUSTOM_VERBS.EXAMINE,
             script: [
               ACTIONS.talk({text: 'testing autoplay 1...', autoPlayAfter: 3}),
               ACTIONS.talk({text: '2...', autoPlayAfter: 1}),
               ACTIONS.talk({text: '3...', autoPlayAfter: 1}),
             ]
           },
+          {
+            name: t.verbs.talkAlt,
+            script: [
+              ACTIONS.talkOptions({options: [
+                {id: TALK_OPTIONS.myo},
+                {id: TALK_OPTIONS.salammon, next: TALK_OPTIONS.salammon, when: examineExecutedEvenTimes},
+                {id: TALK_OPTIONS.end, text: 'Stop talking (custom option text)'},
+              ]}),
+              ACTIONS.talk({id: TALK_OPTIONS.myo, text: 'Your name is Myo', actor: ACTORS.salammon}),
+              ACTIONS.talk({id: TALK_OPTIONS.salammon, text: 'I\'m Salammon', actor: ACTORS.salammon}),
+
+              // { stepId: "optionsStep", id: "talkOptions", actor: "salammon", options: [
+              //     { text: "talkOptions.myo", next: "myoStep" },
+              //     { text: "talkOptions.you", next: "youStep", when: "!afterDeath"},
+              //     { text: "talkOptions.teaShop", next: "teaShopStep", when: "!afterDeath"},
+              //     { text: "talkOptions.inspection", next: "inspectionStep", when: "@inspectionQuestion && !afterDeath"},
+              //     { text: "talkOptions.machine", next: "machineStep", when: "@machineFixing && !dayTwo"},
+              //     { text: "talkOptions.shadows", next: "shadowsStep", when: "dayThree"},
+              //     { text: "talkOptions.destilation", next: "destilationStep", when: "scenes.teaShop.machineOpen && !scenes.teaShop.machineFixedAgain"},
+              //     { text: "talkOptions.fire", next: "fireStep", when: "afterDeath"},
+              //     { text: "talkOptions.teaShopStory", next: "teaShopStoryStep", when: "lastDay"},
+              //     { text: "talkOptions.dreamSummary", next: "dreamSummaryStep", when: "dreamSummaryBurned && !inventory.dreamSummary"},
+              //     { text: "talkOptions.motherIsDew", next: "motherIsDewStep", when: "motherIsDew"},
+              //     { text: "talkOptions.end", next: "endHere"}
+              //   ]},
+            ]
+          }
         ]}
       />
 

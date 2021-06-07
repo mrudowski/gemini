@@ -2,14 +2,13 @@ import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {IAction} from '../actions';
 import {IRootState, IThunk} from '../redux/store';
 import {playScript} from '../scriptPlayer/scriptPlayerSlice';
-import getDefaultScriptForVerb from './getDefaultScriptsForVerbs';
 import {getCurrentSceneId} from '../redux/gemSlice';
 import {getCurrentPoiId} from '../redux/tempSlice';
 
 export interface IVerb {
   name: string,
   when?: boolean,
-  script?: IAction[] //script is just a set of actions // TODO better instructions?
+  script: IAction[]
 }
 
 interface IVerbMenuData {
@@ -55,10 +54,10 @@ export const interpretVerb = (verb: IVerb): IThunk => (dispatch, getState) => {
     throw new Error('`poiId` should be set here but is: ' + poiId);
   }
 
-  let script = verb.script;
-  if (!script) {
-    script = getDefaultScriptForVerb(verb.name, sceneId, poiId);
-  }
+  const script = verb.script;
+  // if (!script) {
+  //   script = getDefaultScriptForVerb(verb.name, sceneId, poiId);
+  // }
   dispatch(playScript({script, sceneId, poiId}));
 };
 

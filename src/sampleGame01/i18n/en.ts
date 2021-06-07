@@ -5,6 +5,7 @@ const en = {
     examine: "Examine",
     take: "Take",
     talk: "Talk",
+    talkAlt: "Small talk",
   },
   scenes: {
     teaShop: {
@@ -12,6 +13,11 @@ const en = {
       tableDishesExamineAlternative: "Still dirty",
       tableDishesTake: "Just like that? There's too many of these, I need a tray.",
     }
+  },
+  talkOptions: {
+    myo: "About me",
+    salammon: "Salammon",
+    end: "FINISH"
   }
 };
 
