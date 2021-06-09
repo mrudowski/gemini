@@ -14,6 +14,7 @@ type TImagePath = string;
 interface IPoi {
   id: IPoiId,
   style: CSSProperties,
+  hotspot?: CSSProperties,
   isDebug?: boolean,
   image?: TImagePath,
   when?: boolean,
@@ -26,6 +27,7 @@ const Poi: React.FC<IPoi> = ({
   isDebug,
   image,
   style,
+  hotspot,
   when,
   verbs = []
 }) => {
@@ -89,6 +91,7 @@ const Poi: React.FC<IPoi> = ({
             <div
               className="Poi__hotspot gem-hotspot"
               onClick={onClick}
+              style={hotspot}
               // add onToucheEnd?
             />
           )}

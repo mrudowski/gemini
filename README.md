@@ -9,7 +9,7 @@
 ## Main assumptions
 - sass for globals and inline styling where needed (positions, bg images etc)
 - for fun, learn and to help my bro again<br />
- 
+
 - this time without https://www.styled-components.com/
 - and still without https://tailwindcss.com/
 
@@ -33,6 +33,13 @@ Open [http://localhost:3001/?debugMode=true](http://localhost:3001/?debugMode=tr
 ### Test
 
 `yarn test`
+
+## Tools
+
+### css clip path generator
+
+https://www.cssportal.com/css-clip-path-generator/
+https://webdevpuneet.com/tools/css-clip-path-generator/
 
 TBC
 Launches the test runner in the interactive watch mode.<br />

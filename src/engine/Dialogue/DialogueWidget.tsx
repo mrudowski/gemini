@@ -47,13 +47,16 @@ const DialogueWidget: React.FC<IDialogue> = (props) => {
       variants={variants}
       transition={{ duration: 0.5 }}
     >
-      <Backdrop onClick={onClick} dimmed={true} />
+      <Backdrop
+        {...(!options && { onClick })}
+        dimmed={true}
+      />
       <div
         className={classes}
       >
         <h2>Myosotis</h2>
         {options ? (
-          <DialogueOptionsWidget options={options} />
+          <DialogueOptionsWidget options={options} onOptionSelect={onClick} />
         ) : (
           <div>
             {text}

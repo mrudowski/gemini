@@ -1,12 +1,15 @@
 # TODO
 
 - dialogue with talkOptions!
-- layout multiline
 - jump to path, return, etc
 - actor (portrait)
+- graphic
+- options - layout multiline
 
 - svg drawer
 - https://bennettfeely.com/clippy/
+
+- filter: blur(4px);
 
 - persist state
 - dialogue - disable click as next

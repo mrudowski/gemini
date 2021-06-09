@@ -9,6 +9,7 @@ import T from '../../../engine/translation';
 import sceneImage from './assets/images/teaShop.jpg';
 // import teaShopImage from './assets/images/dirtyTable.png';
 import tableDishesImage from './assets/images/tableDishes.png';
+import salammon from './assets/images/salammon.png';
 import {getCurrentSceneState} from '../../../engine/redux/worldSlice';
 import {ITeaShopSceneState} from './state';
 import ACTORS from '../../actors';
@@ -114,7 +115,7 @@ const TeaShopScene = () => {
                 stateValue: tableDishesExamineCounter + 1
               }),
               ACTIONS.wait({duration: 3}),
-              ACTIONS.talk({text: 'and here we open with again'}),
+              ACTIONS.talk({text: 'and here we open it again'}),
             ]
 
             // TODO add fine when: thingksomething,
@@ -127,41 +128,13 @@ const TeaShopScene = () => {
             ]
           },
           {
-            name: t.verbs.talk, // TODO? //CUSTOM_VERBS.EXAMINE,
+            name: t.verbs.talkAlt,
             script: [
               ACTIONS.talk({text: 'testing autoplay 1...', autoPlayAfter: 3}),
               ACTIONS.talk({text: '2...', autoPlayAfter: 1}),
               ACTIONS.talk({text: '3...', autoPlayAfter: 1}),
             ]
           },
-          {
-            name: t.verbs.talkAlt,
-            script: [
-              ACTIONS.talkOptions({id: 'talkOptions', actor: 'salammon', options: [
-                {id: TALK_OPTIONS.myo},
-                {id: TALK_OPTIONS.salammon, next: TALK_OPTIONS.salammon, when: examineExecutedEvenTimes},
-                {id: TALK_OPTIONS.end, text: 'Stop talking (custom option text)'},
-              ]}),
-              ACTIONS.talk({id: TALK_OPTIONS.myo, text: 'Your name is Myo', actor: ACTORS.salammon}),
-              ACTIONS.talk({text: 'Correct!', next: 'talkOptions'}),
-              ACTIONS.talk({id: TALK_OPTIONS.salammon, text: 'I\'m Salammon', actor: ACTORS.salammon, next: 'talkOptions'}),
-
-              // { stepId: "optionsStep", id: "talkOptions", actor: "salammon", options: [
-              //     { text: "talkOptions.myo", next: "myoStep" },
-              //     { text: "talkOptions.you", next: "youStep", when: "!afterDeath"},
-              //     { text: "talkOptions.teaShop", next: "teaShopStep", when: "!afterDeath"},
-              //     { text: "talkOptions.inspection", next: "inspectionStep", when: "@inspectionQuestion && !afterDeath"},
-              //     { text: "talkOptions.machine", next: "machineStep", when: "@machineFixing && !dayTwo"},
-              //     { text: "talkOptions.shadows", next: "shadowsStep", when: "dayThree"},
-              //     { text: "talkOptions.destilation", next: "destilationStep", when: "scenes.teaShop.machineOpen && !scenes.teaShop.machineFixedAgain"},
-              //     { text: "talkOptions.fire", next: "fireStep", when: "afterDeath"},
-              //     { text: "talkOptions.teaShopStory", next: "teaShopStoryStep", when: "lastDay"},
-              //     { text: "talkOptions.dreamSummary", next: "dreamSummaryStep", when: "dreamSummaryBurned && !inventory.dreamSummary"},
-              //     { text: "talkOptions.motherIsDew", next: "motherIsDewStep", when: "motherIsDew"},
-              //     { text: "talkOptions.end", next: "endHere"}
-              //   ]},
-            ]
-          }
         ]}
       />
 
@@ -174,6 +147,35 @@ const TeaShopScene = () => {
           height: 100
         }}
         when={tableDishesExamineCounter % 2 === 0}
+      />
+
+      <Poi
+        id={ACTORS.salammon}
+        style={{
+          left: 356,
+          top: 171,
+          width: 83,
+          height: 105
+        }}
+        image={salammon}
+        hotspot={{
+          clipPath: 'polygon(62% 4%, 86% 42%, 75% 95%, 16% 79%, 13% 58%, 39% 4%)'
+        }}
+        verbs={[
+          {
+            name: t.verbs.talk,
+            script: [
+              ACTIONS.talkOptions({id: 'talkOptions', actor: ACTORS.salammon, options: [
+                {id: TALK_OPTIONS.myo},
+                {id: TALK_OPTIONS.salammon, next: 'someCustomId', when: examineExecutedEvenTimes},
+                {id: TALK_OPTIONS.end, text: 'Stop talking (custom option text)'},
+              ]}),
+              ACTIONS.talk({id: TALK_OPTIONS.myo, text: 'Your name is Myo', actor: ACTORS.salammon}),
+              ACTIONS.talk({text: 'Correct!', next: 'talkOptions'}),
+              ACTIONS.talk({id: 'someCustomId', text: 'I\'m Salammon', actor: ACTORS.salammon, next: 'talkOptions'}),
+            ]
+          }
+        ]}
       />
     </Scene>
   );

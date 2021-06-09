@@ -4,15 +4,17 @@ import {ITalkOptionsActionPayload} from '../actions';
 import './styles/DialogueOptionsWidgetStyle.scss';
 import {useTypedSelector} from '../redux/store';
 import {getActors} from '../redux/worldSlice';
-import {getCurrentPoiId} from '../redux/tempSlice';
 
 interface IDialogueOptions {
-  options: ITalkOptionsActionPayload['options']
+  options: ITalkOptionsActionPayload['options'],
+  onOptionSelect: (e, next: string) => void
 }
 
 const DialogueOptionsWidget: React.FC<IDialogueOptions> = ({
-  options
+  options,
+  onOptionSelect
 }) => {
+
 
   // TODO get currentPOI/actor! ---> getCurrentActor
   // TODO talkOptions with actors[] --- would be better -- meybe not
@@ -39,9 +41,11 @@ const DialogueOptionsWidget: React.FC<IDialogueOptions> = ({
         );
         return (
           <div key={option.id}>
-            <div className={optionClasses}>
+            <div className={optionClasses} onClick={(e) => {
+              onOptionSelect(e, option.next || option.id);
+            }}>
               {/*<span className="check">[<i>x</i>]</span>*/}
-              <span className="text">{option.id} {option.text}</span>
+              <span className="text">{option.text || option.id}</span>
             </div>
           </div>
         );

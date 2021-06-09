@@ -4,13 +4,12 @@ import {useTypedDispatch, useTypedSelector} from '../redux/store';
 import {getTalkAction} from '../scriptPlayer/talkActionSlice';
 import {endAction, getNextActiveAction} from '../scriptPlayer/scriptPlayerSlice';
 import DialogueWidget from './DialogueWidget';
-import {ISpecifiedAction, ITalkActionPayload, ITalkOptionsActionPayload} from '../actions';
+import {ISpecifiedAction, ITalkActionPayload} from '../actions';
 
 interface IDialogueWindow {
 }
 
 let timeoutId;
-const emptyMethod = () => {};
 
 const Dialogue: React.FC<IDialogueWindow> = () => {
   // const {
@@ -69,7 +68,8 @@ const Dialogue: React.FC<IDialogueWindow> = () => {
       {isShow && action &&
         <DialogueWidget
           action={action}
-          onClick={(action.payload as ITalkOptionsActionPayload).options ? emptyMethod : playNext}
+          // onClick={(action.payload as ITalkOptionsActionPayload).options ? emptyMethod : playNext}
+          onClick={playNext}
         />
       }
     </AnimatePresence>
