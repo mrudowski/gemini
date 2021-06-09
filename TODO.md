@@ -1,5 +1,7 @@
 # TODO
 
+- change location
+) fix debug toolsBox
 - dialogue with talkOptions!
 - jump to path, return, etc
 - actor (portrait)

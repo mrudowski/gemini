@@ -9,6 +9,7 @@ import { useSelector, TypedUseSelectorHook } from 'react-redux';
 import gemSliceReducer from './gemSlice';
 import worldSliceReducer from './worldSlice';
 import tempSliceReducer from './tempSlice';
+import devToolsSliceReducer from '../DevTools/devToolsSlice';
 import verbMenuReducer from '../VerbMenu/verbMenuSlice';
 import scriptPlayerReducer from '../scriptPlayer/scriptPlayerSlice';
 import talkActionReducer from '../scriptPlayer/talkActionSlice';
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   // world === gem?
   world: worldSliceReducer, // TODO this should be injected in makeStore in the future
   temp: tempSliceReducer,
+  devTools: devToolsSliceReducer,
   verbMenu: verbMenuReducer, // TODO slice?
   scriptPlayer: scriptPlayerReducer,
   talkAction: talkActionReducer,

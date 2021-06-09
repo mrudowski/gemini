@@ -15,7 +15,6 @@ interface IPoi {
   id: IPoiId,
   style: CSSProperties,
   hotspot?: CSSProperties,
-  isDebug?: boolean,
   image?: TImagePath,
   when?: boolean,
   verbs?: IVerb[]
@@ -24,7 +23,6 @@ interface IPoi {
 
 const Poi: React.FC<IPoi> = ({
   id,
-  isDebug,
   image,
   style,
   hotspot,
@@ -67,8 +65,7 @@ const Poi: React.FC<IPoi> = ({
 
   const classes = classNames(
     'Poi',
-    `Poi-${id}`,
-    isDebug && 'Poi--debug'
+    `Poi-${id}`
   );
 
   const styles = {

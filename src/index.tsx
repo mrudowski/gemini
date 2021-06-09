@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import {store} from './engine/redux/store';
-import App from './engine/App/App';
+import Gem from './engine/Gem/Gem';
 
 // React.StrictMode is a wrapper to help prepare apps for async rendering
 // https://reactjs.org/docs/strict-mode.html
@@ -13,7 +13,7 @@ import App from './engine/App/App';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <Gem />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -3,17 +3,19 @@
 .Poi {
 	position: absolute;
 
+	.Gem--debug--showPoi & {
+		box-shadow: 0 0 0 1px $gem-color-debug;
+	}
+
 	&__hotspot {
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
-	}
 
-	.Scene--debug &,
-	&--debug {
-		box-shadow: 0 0 0 1px $gem-color-debug;
-		background-color: rgba($gem-color-debug, .25);
+		.Gem--debug--showHotspot & {
+			background-color: rgba($gem-color-debug, .5);
+		}
 	}
 }

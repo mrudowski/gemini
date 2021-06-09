@@ -8,14 +8,12 @@ type TImagePath = string;
 
 interface IScene {
   id: TSceneId,
-  isDebug?: boolean,
   imagePath: TImagePath //TODO change to image
 }
 
 const Scene: React.FC<IScene> = (props) => {
   const {
     id,
-    isDebug = true,
     imagePath,
     children
   } = props;
@@ -23,7 +21,6 @@ const Scene: React.FC<IScene> = (props) => {
   const classes = classNames(
     'Scene',
     `Scene-${id}`,
-    isDebug && 'Scene--debug'
   );
 
   // will throw promise - which works with suspens and suspend component till
