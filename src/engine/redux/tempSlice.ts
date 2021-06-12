@@ -4,7 +4,7 @@ import {IRootState, IThunk} from './store';
 import {IVerb, showVerbMenu} from '../VerbMenu/verbMenuSlice';
 
 interface ITempState {
-  currentPoiId: string | null
+  currentPoiId: string | null // TODO stronger type?
 }
 
 const initialState: ITempState = {

@@ -30,7 +30,11 @@ const Dialogue: React.FC<IDialogueWindow> = () => {
     dispatch(endAction(playNextOverCurrent));
   }, [dispatch]);
 
-  const playNext = useCallback(() => {
+  const playNext = useCallback((e?, next?) => {
+    if (next) {
+      console.log('%c [mr] TODO next', 'background-color:Gold; color: black', next);
+    }
+
     if (!nextAction) {
       setShow(false);
       return;

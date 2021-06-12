@@ -2,24 +2,27 @@ import React from 'react';
 import classNames from 'classnames';
 import {ITalkOptionsActionPayload} from '../actions';
 import './styles/DialogueOptionsWidgetStyle.scss';
-import {useTypedSelector} from '../redux/store';
-import {getActors} from '../redux/worldSlice';
+import {useTypedDispatch, useTypedSelector} from '../redux/store';
+import {getActor, markActorTalkOptionAsAsked} from '../redux/worldSlice';
+import {IActorId} from '../../sampleGame01/actors';
 
 interface IDialogueOptions {
   options: ITalkOptionsActionPayload['options'],
-  onOptionSelect: (e, next: string) => void
+  onOptionSelect: (e, next: string) => void,
+  actorId: IActorId
 }
 
 const DialogueOptionsWidget: React.FC<IDialogueOptions> = ({
   options,
-  onOptionSelect
+  onOptionSelect,
+  actorId
 }) => {
 
+  const dispatch = useTypedDispatch();
 
-  // TODO get currentPOI/actor! ---> getCurrentActor
-  // TODO talkOptions with actors[] --- would be better -- meybe not
-  //const poiId = getCurrentPoiId(state);
-  const actors = useTypedSelector(getActors);
+  const actorTalkOptions = useTypedSelector(getActor(actorId));
+  // alt alternative
+  // const talkOptionsState = useTypedSelector(getTalkOptions);
 
   const classes = classNames(
     'DialogueOptionsWidget',
@@ -28,12 +31,16 @@ const DialogueOptionsWidget: React.FC<IDialogueOptions> = ({
 
   // TODO multiline
 
+
   return (
     <div
       className={classes}
     >
       {options.filter(option => option.when !== false).map(option => {
-        const isAsked = option.id;
+        let isAsked = false;
+        if (option.id !== 'end') {
+          isAsked = actorTalkOptions[option.id];
+        }
         const optionClasses = classNames(
           'option gem-hotspot',
           isAsked && 'asked',
@@ -42,6 +49,9 @@ const DialogueOptionsWidget: React.FC<IDialogueOptions> = ({
         return (
           <div key={option.id}>
             <div className={optionClasses} onClick={(e) => {
+              if (option.id !== 'end') {
+                dispatch(markActorTalkOptionAsAsked({actorId, optionId: option.id}));
+              }
               onOptionSelect(e, option.next || option.id);
             }}>
               {/*<span className="check">[<i>x</i>]</span>*/}

@@ -1,5 +1,13 @@
 # TODO
 
+- DEFAULT_ACTOR -- journey - simple plain exported object like actors etc
+- next & end
+- styling
+
+
+
+- change sampleGame folder name - we imported from that
+- say
 - change location
 ) fix debug toolsBox
 - dialogue with talkOptions!

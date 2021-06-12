@@ -170,7 +170,7 @@ const TeaShopScene = () => {
                 {id: TALK_OPTIONS.salammon, next: 'someCustomId', when: examineExecutedEvenTimes},
                 {id: TALK_OPTIONS.end, text: 'Stop talking (custom option text)'},
               ]}),
-              ACTIONS.talk({id: TALK_OPTIONS.myo, text: 'Your name is Myo', actor: ACTORS.salammon}),
+              ACTIONS.talk({id: TALK_OPTIONS.myo, text: 'Your name is Myo', actor: ACTORS.salammon, actorName: t.actors.salammonAlt}),
               ACTIONS.talk({text: 'Correct!', next: 'talkOptions'}),
               ACTIONS.talk({id: 'someCustomId', text: 'I\'m Salammon', actor: ACTORS.salammon, next: 'talkOptions'}),
             ]

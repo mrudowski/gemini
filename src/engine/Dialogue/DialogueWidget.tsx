@@ -6,10 +6,14 @@ import {ISpecifiedAction, ITalkActionPayload, ITalkOptionsActionPayload} from '.
 import './styles/DialogueWidgetStyle.scss';
 import variants from '../commons/motion/variants';
 import DialogueOptionsWidget from './DialogueOptionsWidget';
+import T from '../translation';
+import {useTypedSelector} from '../redux/store';
+import {IActorId} from '../../sampleGame01/actors';
+import {getCurrentPoiId} from '../redux/tempSlice';
 
 interface IDialogue {
   action: ISpecifiedAction<ITalkActionPayload> | ISpecifiedAction<ITalkOptionsActionPayload>,
-  onClick
+  onClick: (e, next?: string, actorId?: IActorId) => void,
 }
 
 const DialogueWidget: React.FC<IDialogue> = (props) => {
@@ -17,6 +21,16 @@ const DialogueWidget: React.FC<IDialogue> = (props) => {
     action, // TODO push payload as props
     onClick
   } = props;
+
+  // TODO -- from journey
+  const DEFAULT_ACTOR = 'myo';
+
+  const poiActorId = useTypedSelector(getCurrentPoiId);
+
+  const {
+    actor = DEFAULT_ACTOR,
+    actorName,
+  } = action.payload;
 
   // const [isPresent, safeToRemove] = usePresence();
   //
@@ -39,6 +53,7 @@ const DialogueWidget: React.FC<IDialogue> = (props) => {
   // when added transition with static duration > 0.5
   // we omit flickering when hide/show during autoplay
 
+
   return (
     <motion.div
       initial="hidden"
@@ -54,9 +69,9 @@ const DialogueWidget: React.FC<IDialogue> = (props) => {
       <div
         className={classes}
       >
-        <h2>Myosotis</h2>
+        <h2>{actorName || T().actors[actor]}</h2>
         {options ? (
-          <DialogueOptionsWidget options={options} onOptionSelect={onClick} />
+          <DialogueOptionsWidget options={options} onOptionSelect={onClick} actorId={poiActorId as IActorId} />
         ) : (
           <div>
             {text}

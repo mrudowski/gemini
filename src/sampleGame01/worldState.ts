@@ -26,7 +26,27 @@ export interface IWorldState {
   actors: {
     [key in keyof typeof ACTORS]: IActorTalkOptions
   }
-  talkOptions: ITalkOptions
+  talkOptions: ITalkOptions,
+
+  //   scenes: {
+  //     previously: {
+  //       //leafsClosed: true
+  //     }
+  //   },
+  //   inventory: {
+  //     //key: true
+  //   },
+  //
+  //   notebook: {
+  //     disabled: true
+  //   },
+  //
+  //   scene: 'previously',
+  //
+  //   save: {
+  //     title: '',
+  //     date: ''
+  //   }
 }
 
 const getActorTalkOptions = () => Object.keys(TALK_OPTIONS).reduce((talkOptionsAsState, talkOptionId) => {

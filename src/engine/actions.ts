@@ -1,4 +1,4 @@
-import ACTORS from '../sampleGame01/actors';
+import {IActorId} from '../sampleGame01/actors';
 import TALK_OPTIONS from '../sampleGame01/talkOptions';
 
 export interface IActionPayload {
@@ -11,7 +11,6 @@ export interface IActionPayload {
  * duration in seconds
  */
 type IDuration = number;
-type IActorsIds = keyof typeof ACTORS;
 
 export interface ISetSceneStateActionPayload<T> extends IActionPayload {
   stateName: keyof T
@@ -21,7 +20,8 @@ export interface ISetSceneStateActionPayload<T> extends IActionPayload {
 export interface ITalkActionPayload extends IActionPayload {
   text: string,
   autoPlayAfter?: IDuration,
-  actor?: IActorsIds
+  actor?: IActorId
+  actorName?: string
 }
 
 interface ITalkOption {
@@ -32,7 +32,8 @@ interface ITalkOption {
 }
 
 export interface ITalkOptionsActionPayload extends IActionPayload {
-  actor?: IActorsIds
+  actor?: IActorId
+  actorName?: string
   options: ITalkOption[]
 }
 

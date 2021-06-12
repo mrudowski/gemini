@@ -16,6 +16,12 @@ const pl: typeof en = {
       tableDishesTake: "W rękach? Za dużo ich, lepiej wezmę tacę.",
     }
   },
+  actors: {
+    unknown: "???",
+    myo: "Mała Wierzba",
+    salammon: "Salammon",
+    salammonAlt: "Staruszek",
+  },
   talkOptions: {
     myo: "O mnie",
     salammon: "Salammon",

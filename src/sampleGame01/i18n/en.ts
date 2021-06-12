@@ -14,6 +14,12 @@ const en = {
       tableDishesTake: "Just like that? There's too many of these, I need a tray.",
     }
   },
+  actors: {
+    unknown: "???",
+    myo: "Little Willow",
+    salammon: "Salammon",
+    salammonAlt: "Old man",
+  },
   talkOptions: {
     myo: "About me",
     salammon: "Salammon",

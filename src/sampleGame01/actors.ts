@@ -1,5 +1,9 @@
 const ACTORS = {
+  myo: 'myo',
   salammon: 'salammon',
 };
 
-export default ACTORS as {[key in keyof typeof ACTORS]: key};
+export type IActorId = keyof typeof ACTORS;
+export type IActors = {[key in IActorId]: key};
+
+export default ACTORS as IActors;
