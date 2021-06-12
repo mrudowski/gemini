@@ -10,6 +10,7 @@ import T from '../translation';
 import {useTypedSelector} from '../redux/store';
 import {IActorId} from '../../sampleGame01/actors';
 import {getCurrentPoiId} from '../redux/tempSlice';
+import SETTINGS from '../../sampleGame01/settings';
 
 interface IDialogue {
   action: ISpecifiedAction<ITalkActionPayload> | ISpecifiedAction<ITalkOptionsActionPayload>,
@@ -22,13 +23,11 @@ const DialogueWidget: React.FC<IDialogue> = (props) => {
     onClick
   } = props;
 
-  // TODO -- from journey
-  const DEFAULT_ACTOR = 'myo';
 
   const poiActorId = useTypedSelector(getCurrentPoiId);
 
   const {
-    actor = DEFAULT_ACTOR,
+    actor = SETTINGS.DEFAULT_ACTOR,
     actorName,
   } = action.payload;
 

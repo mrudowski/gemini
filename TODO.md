@@ -1,6 +1,5 @@
 # TODO
 
-- DEFAULT_ACTOR -- journey - simple plain exported object like actors etc
 - next & end
 - styling
 
@@ -18,6 +17,15 @@
 
 - svg drawer
 - https://bennettfeely.com/clippy/
+
+webm audio converter
+https://www.videoconverter.com/convert-mp3-to-webm.html
+https://www.freeconvert.com/mp3-to-webm
+https://www.video2edit.com/result#j=cefb2a5d-be51-4bcc-aa7d-0776f2fc8030
+
+- put to readme
+https://freesound.org/search/?q=click
+https://creativecommons.org/publicdomain/zero/1.0/deed
 
 - filter: blur(4px);
 

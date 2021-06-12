@@ -8,10 +8,11 @@ import Dialogue from '../Dialogue/Dialogue';
 import DevTools from '../DevTools/DevTools';
 import Wait from '../GemLock/GemLock';
 import {getIsShowHotspotActive, getIsShowPoiActive} from '../DevTools/devToolsSlice';
+import SoundDJ from './SoundDJ';
 // TODO works?
 // TODO it should be dynamically!
 
-function Gem() {
+const Gem = () => {
   const currentSceneId = useTypedSelector(getCurrentSceneId);
   const isShowPoiActive = useTypedSelector(getIsShowPoiActive);
   const isShowHotspotActive = useTypedSelector(getIsShowHotspotActive);
@@ -35,6 +36,7 @@ function Gem() {
     <div className={classes}>
       <DevTools/>
       <div className="App__viewport">
+        <SoundDJ />
         <Suspense fallback={<div>loading...</div>}>
           <CurrentScene />
         </Suspense>
@@ -44,6 +46,6 @@ function Gem() {
       </div>
     </div>
   );
-}
+};
 
 export default Gem;
