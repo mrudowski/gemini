@@ -3,10 +3,6 @@
 - next & end
 - styling
 
-const AwesomeType = {
-   Foo: "foo",
-   Bar: "bar"
-} as const;
 
 - change sampleGame folder name - we imported from that
 - say
@@ -29,6 +25,20 @@ https://www.video2edit.com/result#j=cefb2a5d-be51-4bcc-aa7d-0776f2fc8030
 - put to readme
 https://freesound.org/search/?q=click
 https://creativecommons.org/publicdomain/zero/1.0/deed
+
+
+LEARN
+===============================
+
+const AwesomeType = {
+   Foo: "foo",
+   Bar: "bar"
+} as const;
+
+const originalState = original(state);
+
+===============================
+
 
 - filter: blur(4px);
 

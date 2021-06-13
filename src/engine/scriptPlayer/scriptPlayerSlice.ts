@@ -26,6 +26,7 @@ const initialState: IScriptPlayerState = {
 const getIncrementedActionIndex = (script: IAction[], actionIndex: number) => {
   console.log('%c [mr] getIncrementedActionIndex', 'background-color:Gold; color: black', script, actionIndex);
   const action = script[actionIndex];
+  console.log('%c [mr] action.when', 'background-color:Gold; color: black', action.when);
   if (action.when) {
     return actionIndex;
   } else {
@@ -73,19 +74,12 @@ const scriptPlayerSlice = createSlice({
       state.poiId = poiId;
       state.actionIndex = 0;
     },
-    setNextActionIndex: (state: IScriptPlayerState, action: PayloadAction<{next: string}>) => {
+    setNextActionIndex: (state: IScriptPlayerState, action: PayloadAction<{nextActionIndex: number}>) => {
       const {
-        next,
+        nextActionIndex,
       } = action.payload;
 
-
-      const originalState = original(state);
-      console.log('%c [mr] nextActionIndex ---> state', 'background-color:red; color: black', state);
-      console.log('%c [mr] nextActionIndex ---> original state', 'background-color:red; color: black', original(state));
-      console.log('%c [mr] nextActionIndex ---> original state script', 'background-color:red; color: black', original(state.script));
-      const nextActionIndex = getNextActionIndex(originalState?.script || null, state.actionIndex, next);
-
-      console.log('%c [mr] nextActionIndex --->', 'background-color:red; color: black', nextActionIndex);
+      console.log('%c [mr] nextActionIndex ---> state', 'background-color:red; color: black', nextActionIndex);
 
       if (nextActionIndex !== -1) {
         state.actionIndex = nextActionIndex;
@@ -116,6 +110,7 @@ const playNextAction = (): IThunk => (dispatch, getState) => {
   const action = getActionByIndex(actionIndex)(state);
   if (action) {
     if (action.when) {
+
       console.log('%c [playNextAction] when true', 'background-color:Gold; color: black', action.id);
       dispatch(getActionSetter(action.actionName).startAction({action}) as any);
     } else {
@@ -158,16 +153,20 @@ export const endAction = (endActionParamObject?: IEndActionParamObject): IThunk 
   } else {
     throw new Error('endAction cannot find `action`!');
   }
-  if (script && actionIndex < script.length - 1) {
-    batch(() => {
-      console.log('%c [mr] batch', 'background-color:deeppink; color: black', next, action.payload.next);
-      const trueNext = next || action.payload.next || '';
-      if (trueNext) {
-        console.log('%c [mr] -------- TODO validNext', 'background-color:red; color: black', trueNext);
-      }
-      dispatch(setNextActionIndex({next: trueNext}));
-      dispatch(playNextAction());
-    });
+  const trueNext = next || action.payload.next || '';
+  console.log('%c [mr] -------->', 'background-color:Gold; color: black', trueNext);
+  if (script && trueNext !== 'end') {
+    const nextActionIndex = getNextActionIndex(script, actionIndex, trueNext);
+    if (nextActionIndex !== -1) {
+      batch(() => {
+        console.log('%c [mr] batch', 'background-color:deeppink; color: black', next, action.payload.next);
+        if (trueNext) {
+          console.log('%c [mr] -------- TODO validNext', 'background-color:red; color: black', trueNext);
+        }
+        dispatch(setNextActionIndex({nextActionIndex}));
+        dispatch(playNextAction());
+      });
+    }
   } else {
     console.log('%c [endAction]', 'background-color:Gold; color: black');
     // end not ended actions

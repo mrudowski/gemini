@@ -1,10 +1,10 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {AnimatePresence} from 'framer-motion';
 import {useTypedDispatch, useTypedSelector} from '../redux/store';
 import {getTalkAction} from '../scriptPlayer/talkActionSlice';
 import {endAction, getNextActiveAction} from '../scriptPlayer/scriptPlayerSlice';
 import DialogueWidget from './DialogueWidget';
-import {ISpecifiedAction, ITalkActionPayload} from '../actions';
+import {ACTIONS_NAMES, ISpecifiedAction, ITalkActionPayload} from '../actions';
 
 interface IDialogueWindow {
 }
@@ -19,6 +19,7 @@ const Dialogue: React.FC<IDialogueWindow> = () => {
   const nextAction = useTypedSelector(getNextActiveAction);
   const dispatch = useTypedDispatch();
   const [isShow, setShow] = useState(false);
+  const nextRef = useRef('');
 
   useEffect(() => {
     console.log('%c [mr] useEffect', 'background-color:Gold; color: black', action);
@@ -26,18 +27,22 @@ const Dialogue: React.FC<IDialogueWindow> = () => {
   }, [action]);
 
   const onExitComplete = useCallback((next = '', playNextOverCurrent = false) => {
-    console.log('%c [mr] onExitComplete', 'background-color:Gold; color: black');
-    dispatch(endAction({next, playNextOverCurrent}));
+    const trueNext = next || nextRef.current;
+    console.log('%c [mr] onExitComplete ------>', 'background-color:Gold; color: black', trueNext);
+    dispatch(endAction({next: trueNext, playNextOverCurrent}));
+    nextRef.current = '';
   }, [dispatch]);
 
   const playNext = useCallback((e?, next = '') => {
     // gently animated closing
-
-    if (!nextAction) {
+    if (!nextAction || next === 'end') {
+      if (next === 'end') {
+        nextRef.current = 'end';
+      }
       setShow(false);
       return;
     }
-    if (nextAction.id === 'talk') {
+    if (nextAction.actionName === ACTIONS_NAMES.TALK || nextAction.actionName === ACTIONS_NAMES.TALK_OPTIONS) {
       // playing next talk action without closing and opening animation
       console.log('%c [mr] playNext talk', 'background-color:green; color: white', nextAction.id, next);
       onExitComplete(next, false);
