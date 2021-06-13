@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {IRootState} from './store';
+import SETTINGS from '../../sampleGame01/settings';
 
 interface IGemState {
   currentLang: string,
@@ -7,8 +8,8 @@ interface IGemState {
 }
 
 const initialState: IGemState = {
-  currentLang: 'en',
-  currentSceneId: 'teaShop', // TODO from journey ini!
+  currentLang: SETTINGS.PRIMARY_LANG,
+  currentSceneId: SETTINGS.FIRST_SCENE,
 };
 
 const gemSlice = createSlice({

@@ -3,7 +3,10 @@
 - next & end
 - styling
 
-
+const AwesomeType = {
+   Foo: "foo",
+   Bar: "bar"
+} as const;
 
 - change sampleGame folder name - we imported from that
 - say

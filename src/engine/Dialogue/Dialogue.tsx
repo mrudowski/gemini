@@ -25,27 +25,27 @@ const Dialogue: React.FC<IDialogueWindow> = () => {
     setShow(!!action);
   }, [action]);
 
-  const onExitComplete = useCallback((playNextOverCurrent = false) => {
+  const onExitComplete = useCallback((next = '', playNextOverCurrent = false) => {
     console.log('%c [mr] onExitComplete', 'background-color:Gold; color: black');
-    dispatch(endAction(playNextOverCurrent));
+    dispatch(endAction({next, playNextOverCurrent}));
   }, [dispatch]);
 
-  const playNext = useCallback((e?, next?) => {
-    if (next) {
-      console.log('%c [mr] TODO next', 'background-color:Gold; color: black', next);
-    }
+  const playNext = useCallback((e?, next = '') => {
+    // gently animated closing
 
     if (!nextAction) {
       setShow(false);
       return;
     }
     if (nextAction.id === 'talk') {
-      // without animation
-      onExitComplete();
+      // playing next talk action without closing and opening animation
+      console.log('%c [mr] playNext talk', 'background-color:green; color: white', nextAction.id, next);
+      onExitComplete(next, false);
     } else {
       // playing next action without close dialogue
       // good for setCurrentSceneState, wait, etc
-      onExitComplete(true);
+      console.log('%c [mr] playNext', 'background-color:green; color: white', nextAction.id, next);
+      onExitComplete(next, true);
     }
   }, [onExitComplete, nextAction]);
 
@@ -54,6 +54,7 @@ const Dialogue: React.FC<IDialogueWindow> = () => {
   } = action ? ((action as ISpecifiedAction<ITalkActionPayload>).payload) : {};
 
   useEffect(() => {
+    console.log('%c [mr] useEffect', 'background-color:red; color: black', playNext);
     if (autoPlayAfter) {
       timeoutId = setTimeout(() => {
         playNext();

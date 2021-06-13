@@ -42,7 +42,8 @@ export interface IWaitActionPayload extends IActionPayload {
 }
 
 export interface IAction {
-  id: string,
+  actionName: IActionName,
+  id?: string,
   when: boolean
   // TODO ? divide it on payload and options (id, when)
   payload: any // TODO for now only
@@ -52,32 +53,37 @@ export interface ISpecifiedAction<T> extends IAction {
   payload: Omit<T, 'when'>
 }
 
-const getSpecificAction = (id: string, payload: IActionPayload = {}): IAction => {
+const getSpecificAction = (actionName: IActionName, payload: IActionPayload = {}): IAction => {
   const {
     when = true,
+    id,
     ...actionSpecificPayload
   } = payload;
 
   return {
+    actionName,
     id,
     when,
     payload: actionSpecificPayload
   };
 };
 
-export const ACTIONS_IDS = {
-  SET_CURRENT_SCENE_STATE: 'setCurrentSceneState',
-  TALK: 'talk',
-  TALK_OPTIONS: 'talkOptions',
-  END_TALK: 'endTalk',
-  WAIT: 'wait'
-};
 
-const setCurrentSceneState = <T>(payload: ISetSceneStateActionPayload<T>): ISpecifiedAction<ISetSceneStateActionPayload<T>> => getSpecificAction(ACTIONS_IDS.SET_CURRENT_SCENE_STATE, payload);
-const talk = (payload: ITalkActionPayload): ISpecifiedAction<ITalkActionPayload> => getSpecificAction(ACTIONS_IDS.TALK, payload);
-const talkOptions = (payload: ITalkOptionsActionPayload): ISpecifiedAction<ITalkOptionsActionPayload> => getSpecificAction(ACTIONS_IDS.TALK_OPTIONS, payload);
-const endTalk = (): IAction => getSpecificAction(ACTIONS_IDS.END_TALK);
-const wait = (payload?: IWaitActionPayload): ISpecifiedAction<IWaitActionPayload> => getSpecificAction(ACTIONS_IDS.WAIT, payload);
+export const ACTIONS_NAMES = {
+  SET_CURRENT_SCENE_STATE: 'SET_CURRENT_SCENE_STATE',
+  TALK: 'TALK',
+  TALK_OPTIONS: 'TALK_OPTIONS',
+  END_TALK: 'END_TALK',
+  WAIT: 'WAIT'
+} as const; // wow
+
+type IActionName = keyof typeof ACTIONS_NAMES;
+
+const setCurrentSceneState = <T>(payload: ISetSceneStateActionPayload<T>): ISpecifiedAction<ISetSceneStateActionPayload<T>> => getSpecificAction(ACTIONS_NAMES.SET_CURRENT_SCENE_STATE, payload);
+const talk = (payload: ITalkActionPayload): ISpecifiedAction<ITalkActionPayload> => getSpecificAction(ACTIONS_NAMES.TALK, payload);
+const talkOptions = (payload: ITalkOptionsActionPayload): ISpecifiedAction<ITalkOptionsActionPayload> => getSpecificAction(ACTIONS_NAMES.TALK_OPTIONS, payload);
+const endTalk = (): IAction => getSpecificAction(ACTIONS_NAMES.END_TALK);
+const wait = (payload?: IWaitActionPayload): ISpecifiedAction<IWaitActionPayload> => getSpecificAction(ACTIONS_NAMES.WAIT, payload);
 
 const ACTIONS = {
   setCurrentSceneState,

@@ -5,6 +5,7 @@ const SETTINGS = {
   START_FROM_LAST_SCENE: false, // set to true when develop
   DEFAULT_ACTOR: 'myo',
   PRIMARY_LANG: 'en',
+  FIRST_SCENE: 'teaShop',
   // SOUND: true,
   SAVE_GAME_NAME: 'tos2Save',
   TRACKING_ID: 'UA-18932217-6',
