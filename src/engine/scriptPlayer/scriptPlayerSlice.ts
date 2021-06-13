@@ -143,6 +143,7 @@ export const endAction = (endActionParamObject?: IEndActionParamObject): IThunk 
     script,
     actionIndex
   } = state.scriptPlayer; // selector
+
   const action = script?.[actionIndex]; // selector
   if (action) {
     if (!playNextOverCurrent) {
@@ -153,21 +154,8 @@ export const endAction = (endActionParamObject?: IEndActionParamObject): IThunk 
   } else {
     throw new Error('endAction cannot find `action`!');
   }
-  const trueNext = next || action.payload.next || '';
-  console.log('%c [mr] -------->', 'background-color:Gold; color: black', trueNext);
-  if (script && trueNext !== 'end') {
-    const nextActionIndex = getNextActionIndex(script, actionIndex, trueNext);
-    if (nextActionIndex !== -1) {
-      batch(() => {
-        console.log('%c [mr] batch', 'background-color:deeppink; color: black', next, action.payload.next);
-        if (trueNext) {
-          console.log('%c [mr] -------- TODO validNext', 'background-color:red; color: black', trueNext);
-        }
-        dispatch(setNextActionIndex({nextActionIndex}));
-        dispatch(playNextAction());
-      });
-    }
-  } else {
+
+  const endMethod = () => {
     console.log('%c [endAction]', 'background-color:Gold; color: black');
     // end not ended actions
     if (notEndedActions.length > 0) {
@@ -176,7 +164,29 @@ export const endAction = (endActionParamObject?: IEndActionParamObject): IThunk 
       console.log('%c [notEndedAction]', 'background-color:Gold; color: black', notEndedAction);
       dispatch(notEndedAction.endAction());
     }
+  };
+
+  const trueNext = next || action.payload.next || '';
+  console.log('%c [mr] -------->', 'background-color:Gold; color: black', trueNext);
+  if (trueNext === 'end') {
+    endMethod();
+    return;
   }
+
+  const nextActionIndex = getNextActionIndex(script, actionIndex, trueNext);
+  if (nextActionIndex === -1) {
+    endMethod();
+    return;
+  }
+
+  batch(() => {
+    console.log('%c [mr] batch', 'background-color:deeppink; color: black', next, action.payload.next);
+    if (trueNext) {
+      console.log('%c [mr] -------- TODO validNext', 'background-color:red; color: black', trueNext);
+    }
+    dispatch(setNextActionIndex({nextActionIndex}));
+    dispatch(playNextAction());
+  });
 };
 
 
