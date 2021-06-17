@@ -38,7 +38,6 @@ export const markActorTalkOptionAsAsked = worldSlice.actions.markActorTalkOption
 export const getWorldState = (state: IRootState) => state.world;
 const getScenes = (state: IRootState) => state.world.scenes;
 export const getActorsState = (state: IRootState) => state.world.actors;
-export const getTalkOptions = (state: IRootState) => state.world.talkOptions;
 
 export const getCurrentSceneState = createSelector(
   [getScenes, getCurrentSceneId],

@@ -26,12 +26,11 @@ const TeaShopScene = () => {
   // local variable
   const examineExecutedEvenTimes = tableDishesExamineCounter % 2 === 0;
 
-  const getSalammonName = () => {
-    console.log('%c [mr] getSalammonName', 'background-color:Gold; color: black', salammonState.salammon);
+  const getGofungName = () => {
     if (salammonState.salammon) {
-      return t.actors.salammon;
+      return t.actors.gofungSad;
     }
-    return t.actors.salammonAlt;
+    return t.actors.gofungHappy;
   };
 
   return (
@@ -174,16 +173,16 @@ const TeaShopScene = () => {
           {
             name: t.verbs.talk,
             script: [
-              ACTIONS.talk({text: 'Hmm?', actor: ACTORS.salammon, actorName: getSalammonName()}),
-              ACTIONS.talk({text: 'Be careful with this old man :)', actor: ACTORS.gofung}),
-              ACTIONS.talkOptions({id: 'talkOptions', actor: ACTORS.salammon, actorName: getSalammonName(), options: [
+              ACTIONS.talk({text: 'Hmm?', actor: ACTORS.salammon}),
+              ACTIONS.talk({text: 'Be careful with this old man :)', actor: ACTORS.gofung, actorName: getGofungName()}),
+              ACTIONS.talkOptions({id: 'talkOptions', actor: ACTORS.salammon, options: [
                 {id: TALK_OPTIONS.myo},
-                {id: TALK_OPTIONS.salammon, text: getSalammonName(),  next: 'someCustomId', when: examineExecutedEvenTimes},
+                {id: TALK_OPTIONS.salammon, text: t.talkOptionsAlt.you,  next: 'someCustomId', when: examineExecutedEvenTimes},
                 {id: TALK_OPTIONS.end, text: 'Stop talking (custom option text)'},
               ]}),
-              ACTIONS.talk({id: TALK_OPTIONS.myo, text: 'Your name is Myo', actor: ACTORS.salammon, actorName: getSalammonName()}),
+              ACTIONS.talk({id: TALK_OPTIONS.myo, text: 'Your name is Myo', actor: ACTORS.salammon}),
               ACTIONS.talk({text: 'Correct!', next: 'talkOptions'}),
-              ACTIONS.talk({id: 'someCustomId', text: 'I\'m Salammon', actor: ACTORS.salammon, actorName: getSalammonName(), next: 'talkOptions'}),
+              ACTIONS.talk({id: 'someCustomId', text: 'I\'m Salammon', actor: ACTORS.salammon, next: 'talkOptions'}),
             ]
           }
         ]}

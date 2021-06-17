@@ -18,12 +18,18 @@ const en = {
     unknown: "???",
     myo: "Little Willow",
     salammon: "Salammon",
+    gofungSad: "Sad Gofung",
+    gofungHappy: "Happy Gofung",
+    salammonUnpleasant: "Unpleasant old man",
     salammonAlt: "Old man",
   },
   talkOptions: {
     myo: "About me",
     salammon: "Salammon",
     end: "FINISH"
+  },
+  talkOptionsAlt: {
+    you: "You",
   }
 };
 

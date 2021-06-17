@@ -8,11 +8,7 @@ import ACTORS from './actors';
 // keyof typeof TALK_OPTIONS
 
 type IActorTalkOptions = {
-  [key in keyof Omit<(typeof TALK_OPTIONS), 'end'>]: boolean
-}
-
-type ITalkOptions = {
-  [key in keyof Omit<(typeof TALK_OPTIONS), 'end'>]: string[]
+  [key in keyof typeof TALK_OPTIONS]: boolean
 }
 
 export interface IWorldState {
@@ -26,7 +22,6 @@ export interface IWorldState {
   actors: {
     [key in keyof typeof ACTORS]: IActorTalkOptions
   }
-  talkOptions: ITalkOptions,
 
   //   scenes: {
   //     previously: {
@@ -50,18 +45,10 @@ export interface IWorldState {
 }
 
 const getActorTalkOptions = () => Object.keys(TALK_OPTIONS).reduce((talkOptionsAsState, talkOptionId) => {
-  if (talkOptionId !== TALK_OPTIONS.end) {
-    talkOptionsAsState[talkOptionId] = false;
-  }
+  talkOptionsAsState[talkOptionId] = false;
   return talkOptionsAsState;
 }, {} as IActorTalkOptions);
 
-const getTalkOptions = () => Object.keys(TALK_OPTIONS).reduce((talkOptionsAsState, talkOptionId) => {
-  if (talkOptionId !== TALK_OPTIONS.end) {
-    talkOptionsAsState[talkOptionId] = [];
-  }
-  return talkOptionsAsState;
-}, {} as ITalkOptions);
 
 export const worldInitialState: IWorldState = {
   scenes: {
@@ -74,5 +61,4 @@ export const worldInitialState: IWorldState = {
     actorsAsState[actorId] = getActorTalkOptions();
     return actorsAsState;
   }, {} as IWorldState['actors']),
-  talkOptions: getTalkOptions()
 };

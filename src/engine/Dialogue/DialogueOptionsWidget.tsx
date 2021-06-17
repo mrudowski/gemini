@@ -49,9 +49,7 @@ const DialogueOptionsWidget: React.FC<IDialogueOptions> = ({
         return (
           <div key={option.id}>
             <div className={optionClasses} onClick={(e) => {
-              if (option.id !== 'end') {
-                dispatch(markActorTalkOptionAsAsked({actorId, optionId: option.id}));
-              }
+              dispatch(markActorTalkOptionAsAsked({actorId, optionId: option.id}));
               onOptionSelect(e, option.next || option.id);
             }}>
               {/*<span className="check">[<i>x</i>]</span>*/}

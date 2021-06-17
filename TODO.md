@@ -1,5 +1,10 @@
 # TODO
 
+- wizualizacja dialogów
+  - reagująca na stan (modifikująca swoje powiązania kolejność)
+  - pokazująca rozgałęzienia
+  - pokazującą bieżącą pozycję (ukryte opcje i ścieżki)
+
 - styling
 
 - add clicking id dialog without options - play next

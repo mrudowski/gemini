@@ -20,12 +20,18 @@ const pl: typeof en = {
     unknown: "???",
     myo: "Mała Wierzba",
     salammon: "Salammon",
+    gofungSad: "Smutny Gofung",
+    gofungHappy: "Wesoły Gofung",
+    salammonUnpleasant: "Niemiły starszy pan",
     salammonAlt: "Staruszek",
   },
   talkOptions: {
     myo: "O mnie",
     salammon: "Salammon",
     end: "ZAKOŃCZ"
+  },
+  talkOptionsAlt: {
+    you: "O Tobie",
   }
 };
 
