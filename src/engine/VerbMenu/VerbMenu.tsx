@@ -98,7 +98,10 @@ const VerbMenu: React.FC<IVerbMenu> = () => {
             variants={variants}
             whileTap={{ scale: 0.95 }}
           >
-            {getVerbs(verbMenuData.verbs)}
+            <div className="gem-ui-borders" />
+            <div>
+              {getVerbs(verbMenuData.verbs)}
+            </div>
           </motion.div>
         </>
       )}

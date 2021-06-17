@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {IRootState} from './store';
-import SETTINGS from '../../sampleGame01/settings';
+import SETTINGS from '../../game/settings';
 
 interface IGemState {
   currentLang: string,

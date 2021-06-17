@@ -1,13 +1,25 @@
 # TODO
 
-- next & end
 - styling
 
+- add clicking id dialog without options - play next
+- odtworzyć dialog z salomonem - with Goufund interruption
+- getSalammonName
 
 - change sampleGame folder name - we imported from that
+
+all as functions? -- like useState(() => {}); -- for performance?
+
+- inventory
+- useWith
+
+- showCloseUp and end action
+- showCloseUp and auto continue - display dialog on top on it - change state - close closeUp
+
 - say
+
 - change location
-) fix debug toolsBox
+
 - dialogue with talkOptions!
 - jump to path, return, etc
 - actor (portrait)
@@ -56,6 +68,10 @@ const originalState = original(state);
 - useWith z cloth
 
 
+- divide it into many files with imports and exports
+- maybe scene should be just object not component?
 
+
+- craco image optimised - css images?
 - onToucheEnd?
 - cookie info

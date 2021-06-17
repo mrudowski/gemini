@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import {ITalkOptionsActionPayload} from '../actions';
 import './styles/DialogueOptionsWidgetStyle.scss';
 import {useTypedDispatch, useTypedSelector} from '../redux/store';
-import {getActor, markActorTalkOptionAsAsked} from '../redux/worldSlice';
-import {IActorId} from '../../sampleGame01/actors';
+import {getActorState, markActorTalkOptionAsAsked} from '../redux/worldSlice';
+import {IActorId} from '../../game/actors';
 
 interface IDialogueOptions {
   options: ITalkOptionsActionPayload['options'],
@@ -20,7 +20,7 @@ const DialogueOptionsWidget: React.FC<IDialogueOptions> = ({
 
   const dispatch = useTypedDispatch();
 
-  const actorTalkOptions = useTypedSelector(getActor(actorId));
+  const actorTalkOptions = useTypedSelector(getActorState(actorId));
   // alt alternative
   // const talkOptionsState = useTypedSelector(getTalkOptions);
 

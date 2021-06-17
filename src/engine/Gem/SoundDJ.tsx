@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Howl} from 'howler';
-import stream from '../../sampleGame01/assets/sounds/stream.webm';
+import stream from '../../game/assets/sounds/stream.webm';
 
 const sound = new Howl({
   src: [stream],

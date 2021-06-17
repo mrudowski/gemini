@@ -1,5 +1,5 @@
-import {IActorId} from '../sampleGame01/actors';
-import TALK_OPTIONS from '../sampleGame01/talkOptions';
+import {IActorId} from '../game/actors';
+import TALK_OPTIONS from '../game/talkOptions';
 
 export interface IActionPayload {
   id?: string,

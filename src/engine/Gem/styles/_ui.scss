@@ -1,0 +1,13 @@
+@import "../../sass/variables";
+
+.gem-ui-borders {
+  $negativeMargin: -10px;
+  position: absolute;
+  top: $negativeMargin;
+  bottom: $negativeMargin;
+  left: $negativeMargin;
+  right: $negativeMargin;
+  border: 30px solid;
+  border-image: url(../../ui/assets/images/leafsBorder.png) 30 repeat;
+  pointer-events: none;
+}

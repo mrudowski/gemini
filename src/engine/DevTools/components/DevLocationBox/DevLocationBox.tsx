@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles/DevLocationBox.scss';
 // TODO as prop
-import {IWorldState, worldInitialState} from '../../../../sampleGame01/worldState';
+import {IWorldState, worldInitialState} from '../../../../game/worldState';
 
 interface IDevLocationBox {
 }

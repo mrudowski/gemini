@@ -8,9 +8,11 @@ import variants from '../commons/motion/variants';
 import DialogueOptionsWidget from './DialogueOptionsWidget';
 import T from '../translation';
 import {useTypedSelector} from '../redux/store';
-import {IActorId} from '../../sampleGame01/actors';
+import {IActorId} from '../../game/actors';
 import {getCurrentPoiId} from '../redux/tempSlice';
-import SETTINGS from '../../sampleGame01/settings';
+import SETTINGS from '../../game/settings';
+import ACTORS from '../../game/actors';
+import {getActorState} from '../redux/worldSlice';
 
 interface IDialogue {
   action: ISpecifiedAction<ITalkActionPayload> | ISpecifiedAction<ITalkOptionsActionPayload>,
@@ -23,13 +25,18 @@ const DialogueWidget: React.FC<IDialogue> = (props) => {
     onClick
   } = props;
 
-
-  const poiActorId = useTypedSelector(getCurrentPoiId);
+  console.log('%c [mr] DialogueWidget', 'background-color:Gold; color: black');
 
   const {
     actor = SETTINGS.DEFAULT_ACTOR,
     actorName,
   } = action.payload;
+
+  const poiActorId = useTypedSelector(getCurrentPoiId);
+  const actorState = useTypedSelector(getActorState(actor));
+
+  const actorName2 = actorState.salammon ? 'SAL' : '???';
+
 
   // const [isPresent, safeToRemove] = usePresence();
   //
@@ -68,7 +75,7 @@ const DialogueWidget: React.FC<IDialogue> = (props) => {
       <div
         className={classes}
       >
-        <h2>{actorName || T().actors[actor]}</h2>
+        <h2>{actorName || T().actors[actor] || `[${actor}]`} {actorName2}</h2>
         {options ? (
           <DialogueOptionsWidget options={options} onOptionSelect={onClick} actorId={poiActorId as IActorId} />
         ) : (

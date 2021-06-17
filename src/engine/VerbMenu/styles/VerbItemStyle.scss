@@ -1,6 +1,16 @@
+@import "../../sass/variables";
+
 .VerbItem {
-	padding: 10px 15px;
+	padding: 5px $gem-gap;
 	opacity: .65;
+
+	&:first-child {
+		padding-top: $gem-gap;
+	}
+
+	&:last-child {
+		padding-bottom: $gem-gap;
+	}
 
 	&:hover {
 		opacity: 1;

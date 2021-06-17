@@ -1,9 +1,10 @@
 // TODO add type for that
+import ACTORS from './actors';
 
 const SETTINGS = {
 
   START_FROM_LAST_SCENE: false, // set to true when develop
-  DEFAULT_ACTOR: 'myo',
+  DEFAULT_ACTOR: ACTORS.myo,
   PRIMARY_LANG: 'en',
   FIRST_SCENE: 'teaShop',
   // SOUND: true,

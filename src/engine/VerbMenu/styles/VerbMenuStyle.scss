@@ -1,9 +1,15 @@
+@import "../../sass/variables";
+
 .VerbMenu {
 	position: absolute;
+	// box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, .5);
+	filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .5));
+	background: transparent url(../../ui/assets/images/paperBg.jpg) 0 0 scroll no-repeat;
+	background-size: 100% 100%;
+	padding: 3px;
+
 	top: 0;
 	left: 0;
-	// padding: 10px;
-	background-color: antiquewhite;
 	opacity: 0;
 
 	&--show {

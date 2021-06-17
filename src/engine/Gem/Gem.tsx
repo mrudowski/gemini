@@ -29,7 +29,7 @@ const Gem = () => {
 
 
   const CurrentScene = useMemo(() => {
-    return React.lazy(() => import(`../../sampleGame01/scenes/${currentSceneId}/Scene`));
+    return React.lazy(() => import(`../../game/scenes/${currentSceneId}/Scene`));
   }, [currentSceneId]);
 
   return (

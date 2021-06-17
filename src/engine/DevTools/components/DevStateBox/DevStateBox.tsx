@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles/DevStateBox.scss';
 import {useSelector} from 'react-redux';
-import {IWorldState} from '../../../../sampleGame01/worldState';
+import {IWorldState} from '../../../../game/worldState';
 import {getWorldState, setWorldState} from '../../../redux/worldSlice';
 import {IDispatch, useTypedDispatch} from '../../../redux/store';
 

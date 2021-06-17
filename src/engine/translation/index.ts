@@ -1,4 +1,4 @@
-import en from '../../sampleGame01/i18n/en'; // TODO should not be part of engine
+import en from '../../game/i18n/en'; // TODO should not be part of engine
 
 type TLang = typeof en;
 let currentLang = en;
@@ -8,7 +8,7 @@ let currentLang = en;
 
 // in app
 const loadLang = async (lang: string):Promise<TLang> => {
-  const module = await import(`../../sampleGame01/i18n/${lang}`);
+  const module = await import(`../../game/i18n/${lang}`);
   const newLang = module.default;
   //t = newLang;
   console.log('%c [loadLang]', 'background-color:Gold; color: black', newLang);
