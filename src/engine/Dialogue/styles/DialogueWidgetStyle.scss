@@ -1,9 +1,53 @@
+@import "../../sass/variables";
+
 .DialogueWidget {
 	position: absolute;
+	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
-	height: 100px;
-	padding: 10px;
-	background-color: antiquewhite;
+	display: grid;
+	grid-template-rows: 1fr 125px;
+
+	&__portrait {
+		// align-self: end;
+		background: transparent none left 0 bottom 0 scroll no-repeat;
+		//position: absolute;
+		//top: 0;
+		//bottom: auto;
+		//left: 0;
+		//right: 0;
+		//height: 485px;
+		// pointer-events: none;
+	}
+
+	&__balloon {
+		position: relative;
+		background: transparent url(../../ui/assets/images/paperBg.jpg) 0 0 scroll no-repeat;
+		background-size: 100% 100%;
+		padding: 20px $gem-gap;
+	}
+
+	&__name {
+		position: absolute;
+		top: -38px;
+		left: 0;
+		right: 0;
+		font-size: 24px;
+		color: #fff;
+		text-shadow: 0 0 1px #000;
+		padding: 0 $gem-gap;
+	}
+
+
+	&__border {
+		$negativeMargin: -10px;
+		position: absolute;
+		top: $negativeMargin;
+		left: 0;
+		right: 0;
+		border-top: 30px solid transparent;
+		border-image: url(../../ui/assets/images/leafsBorder.png) 30 repeat;
+		pointer-events: none;
+	}
 }

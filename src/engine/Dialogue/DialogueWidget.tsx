@@ -6,13 +6,14 @@ import {ISpecifiedAction, ITalkActionPayload, ITalkOptionsActionPayload} from '.
 import './styles/DialogueWidgetStyle.scss';
 import variants from '../commons/motion/variants';
 import DialogueOptionsWidget from './DialogueOptionsWidget';
-import T from '../translation';
 import {useTypedSelector} from '../redux/store';
 import {IActorId} from '../../game/actors';
 import {getCurrentPoiId} from '../redux/tempSlice';
 import SETTINGS from '../../game/settings';
-import ACTORS from '../../game/actors';
-import {getActorState} from '../redux/worldSlice';
+import useActorNameCondition from '../../game/useActorNameCondition';
+import imageCache from '../imageCache';
+import portraits from '../../game/portraits';
+// import portrait from '../../game/assets/images/portraits/salammon.png';
 
 interface IDialogue {
   action: ISpecifiedAction<ITalkActionPayload> | ISpecifiedAction<ITalkOptionsActionPayload>,
@@ -27,22 +28,30 @@ const DialogueWidget: React.FC<IDialogue> = (props) => {
 
   console.log('%c [mr] DialogueWidget', 'background-color:Gold; color: black');
 
+  // TODO add alt portrait name
+
   const {
     actor = SETTINGS.DEFAULT_ACTOR,
     actorName,
   } = action.payload;
 
   const poiActorId = useTypedSelector(getCurrentPoiId);
-  const actorState = useTypedSelector(getActorState(actor));
+  const actorNameFromState = useActorNameCondition(actor);
 
-  const actorName2 = actorState.salammon ? 'SAL' : '???';
-
+  // TODO
+  //  try to publish
+  const portrait = portraits[actor];
+  if (!portrait) {
+    throw new Error('missing actor "' + actor + '" portrait file or import declaration');
+  }
+  imageCache.preload(portrait);
 
   // const [isPresent, safeToRemove] = usePresence();
   //
   // useEffect(() => {
   //   !isPresent && setTimeout(safeToRemove as any, 3000);
   // }, [isPresent, safeToRemove]);
+
 
   const {
     text,
@@ -59,6 +68,8 @@ const DialogueWidget: React.FC<IDialogue> = (props) => {
   // when added transition with static duration > 0.5
   // we omit flickering when hide/show during autoplay
 
+  const actorNameToDisplay = actorName || actorNameFromState || `[${actor}]`;
+
 
   return (
     <motion.div
@@ -69,20 +80,24 @@ const DialogueWidget: React.FC<IDialogue> = (props) => {
       transition={{ duration: 0.5 }}
     >
       <Backdrop
-        {...(!options && { onClick })}
         dimmed={true}
       />
       <div
         className={classes}
+        {...(!options && { onClick })}
       >
-        <h2>{actorName || T().actors[actor] || `[${actor}]`} {actorName2}</h2>
-        {options ? (
-          <DialogueOptionsWidget options={options} onOptionSelect={onClick} actorId={poiActorId as IActorId} />
-        ) : (
-          <div>
-            {text}
-          </div>
-        )}
+        <div className="DialogueWidget__portrait" style={{backgroundImage: `url(${portrait})`}} />
+        <div className="DialogueWidget__balloon">
+          <div className="DialogueWidget__name">{actorNameToDisplay}</div>
+          <div className="DialogueWidget__border" />
+          {options ? (
+            <DialogueOptionsWidget options={options} onOptionSelect={onClick} actorId={poiActorId as IActorId} />
+          ) : (
+            <div>
+              {text}
+            </div>
+          )}
+        </div>
       </div>
     </motion.div>
   );

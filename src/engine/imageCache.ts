@@ -14,9 +14,10 @@ interface IImageCache {
 
 const imageCache: IImageCache = {
   preload(src) {
-    // if (!src) {
-    //   return;
-    // }
+    if (!src) {
+      throw new Error('Cannot preload ' + src + ' image');
+      // return;
+    }
 
     if (!cache[src]) {
       cache[src] = new Promise((resolve) => {

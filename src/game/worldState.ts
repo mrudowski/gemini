@@ -1,6 +1,6 @@
 import {ITeaShopSceneState, teaShopSceneInitialState} from './scenes/teaShop/state';
 import TALK_OPTIONS from './talkOptions';
-import ACTORS from './actors';
+import ACTORS, { IActorId } from './actors';
 
 // TODO - move IWorldState inside engine
 
@@ -19,9 +19,7 @@ export interface IWorldState {
     }
   },
   // TODO we have to decide later which we choose
-  actors: {
-    [key in keyof typeof ACTORS]: IActorTalkOptions
-  }
+  actors: Record<IActorId, IActorTalkOptions>
 
   //   scenes: {
   //     previously: {
@@ -49,7 +47,7 @@ const getActorTalkOptions = () => Object.keys(TALK_OPTIONS).reduce((talkOptionsA
   return talkOptionsAsState;
 }, {} as IActorTalkOptions);
 
-
+console.log('%c [mr] ACTORS', 'background-color:Gold; color: black', ACTORS);
 export const worldInitialState: IWorldState = {
   scenes: {
     teaShop: teaShopSceneInitialState,

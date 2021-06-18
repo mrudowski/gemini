@@ -5,6 +5,8 @@
   - pokazująca rozgałęzienia
   - pokazującą bieżącą pozycję (ukryte opcje i ścieżki)
 
+- add interpreter ! > < && || etc... ?
+
 - styling
 
 - add clicking id dialog without options - play next

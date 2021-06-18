@@ -1,10 +1,11 @@
 @import "../../sass/variables";
 
 .DialogueOptionsWidget {
-	height: 40px;
-	border: 1px solid deeppink;
+	margin: -3px;
+	height: 100%;
 	display: grid;
-	gap: 3px 15px;
+	gap: 3px $gem-gap;
+	// align-items: start;
 
 	.option {
 		.text {
@@ -45,8 +46,8 @@
 	}
 
 	&--short {
-		grid-template-columns: repeat(4, 25%);
-		grid-template-rows: repeat(4, 25%);
+		grid-template-columns: repeat(4, 1fr);
+		grid-template-rows: repeat(4, 1fr);
 
 		.option {
 			float: left;

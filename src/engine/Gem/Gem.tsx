@@ -40,7 +40,9 @@ const Gem = () => {
         <Suspense fallback={<div>loading...</div>}>
           <CurrentScene />
         </Suspense>
-        <Dialogue />
+        <Suspense fallback={<div>loading...</div>}>
+          <Dialogue />
+        </Suspense>
         <VerbMenu />
         <Wait />
       </div>

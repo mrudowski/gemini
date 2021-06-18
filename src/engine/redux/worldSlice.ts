@@ -1,10 +1,12 @@
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import _set from 'lodash.set';
+import _get from 'lodash.get';
 import {IRootState} from './store';
 import {getCurrentSceneId} from './gemSlice';
 import {IWorldState, worldInitialState} from '../../game/worldState';
 import {IActorId} from '../../game/actors';
-import {ITalkOptionId} from '../../game/talkOptions'; // TODO... should be injected
+import {ITalkOptionId} from '../../game/talkOptions';
+import {ISceneId} from '../../game/scenes'; // TODO... should be injected
 
 
 const worldSlice = createSlice({
@@ -39,10 +41,26 @@ export const getWorldState = (state: IRootState) => state.world;
 const getScenes = (state: IRootState) => state.world.scenes;
 export const getActorsState = (state: IRootState) => state.world.actors;
 
+export const getStateByPathUtil = (worldState: IRootState['world'], path: string) => _get(worldState, path);
+
+export const getStateByPath = (path: string) => createSelector(
+  [getWorldState],
+  (worldState) => {
+    return getStateByPathUtil(worldState, path);
+  }
+);
+
 export const getCurrentSceneState = createSelector(
   [getScenes, getCurrentSceneId],
   (scenes, currentSceneId) => {
     return scenes[currentSceneId];
+  }
+);
+
+export const getSceneState = (sceneId: ISceneId) => createSelector(
+  [getScenes],
+  (scenes) => {
+    return scenes[sceneId];
   }
 );
 
