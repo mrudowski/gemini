@@ -5,17 +5,6 @@
   - pokazująca rozgałęzienia
   - pokazującą bieżącą pozycję (ukryte opcje i ścieżki)
 
-- add interpreter ! > < && || etc... ?
-
-- styling
-
-- add clicking id dialog without options - play next
-- odtworzyć dialog z salomonem - with Goufund interruption
-- getSalammonName
-
-- change sampleGame folder name - we imported from that
-
-all as functions? -- like useState(() => {}); -- for performance?
 
 - inventory
 - useWith
@@ -27,14 +16,15 @@ all as functions? -- like useState(() => {}); -- for performance?
 
 - change location
 
-- dialogue with talkOptions!
-- jump to path, return, etc
-- actor (portrait)
-- graphic
-- options - layout multiline
 
-- svg drawer
-- https://bennettfeely.com/clippy/
+// better not!
+- add interpreter ! > < && || etc... ?
+
+- dialogue options - layout multiline
+
+- precaching music/sounds
+
+all as functions? -- like useState(() => {}); -- for performance?
 
 webm audio converter
 https://www.videoconverter.com/convert-mp3-to-webm.html
@@ -54,6 +44,7 @@ const AwesomeType = {
    Bar: "bar"
 } as const;
 
+when using IMMER
 const originalState = original(state);
 
 ===============================
@@ -62,7 +53,6 @@ const originalState = original(state);
 - filter: blur(4px);
 
 - persist state
-- dialogue - disable click as next
 - waitAfter waitBefore as common action params?
 - autoPlayAfter for every action - nextAfter: 'click', nextAfter: 1 |
    - different default for every action

@@ -4,15 +4,14 @@ import {motion} from 'framer-motion';
 import Backdrop from '../helpers/Backdrop';
 import {ISpecifiedAction, ITalkActionPayload, ITalkOptionsActionPayload} from '../actions';
 import './styles/DialogueWidgetStyle.scss';
-import variants from '../commons/motion/variants';
 import DialogueOptionsWidget from './DialogueOptionsWidget';
 import {useTypedSelector} from '../redux/store';
 import {IActorId} from '../../game/actors';
 import {getCurrentPoiId} from '../redux/tempSlice';
 import SETTINGS from '../../game/settings';
-import useActorNameCondition from '../../game/useActorNameCondition';
-import imageCache from '../imageCache';
-import portraits from '../../game/portraits';
+import DialoguePortraitWidget from './DialoguePortraitWidget';
+import variants from '../commons/motion/variants';
+import DialogueActorNameWidget from './DialogueActorNameWidget';
 // import portrait from '../../game/assets/images/portraits/salammon.png';
 
 interface IDialogue {
@@ -36,15 +35,6 @@ const DialogueWidget: React.FC<IDialogue> = (props) => {
   } = action.payload;
 
   const poiActorId = useTypedSelector(getCurrentPoiId);
-  const actorNameFromState = useActorNameCondition(actor);
-
-  // TODO
-  //  try to publish
-  const portrait = portraits[actor];
-  if (!portrait) {
-    throw new Error('missing actor "' + actor + '" portrait file or import declaration');
-  }
-  imageCache.preload(portrait);
 
   // const [isPresent, safeToRemove] = usePresence();
   //
@@ -68,16 +58,12 @@ const DialogueWidget: React.FC<IDialogue> = (props) => {
   // when added transition with static duration > 0.5
   // we omit flickering when hide/show during autoplay
 
-  const actorNameToDisplay = actorName || actorNameFromState || `[${actor}]`;
-
-
   return (
     <motion.div
       initial="hidden"
       animate="visible"
       exit="hidden"
       variants={variants}
-      transition={{ duration: 0.5 }}
     >
       <Backdrop
         dimmed={true}
@@ -86,9 +72,9 @@ const DialogueWidget: React.FC<IDialogue> = (props) => {
         className={classes}
         {...(!options && { onClick })}
       >
-        <div className="DialogueWidget__portrait" style={{backgroundImage: `url(${portrait})`}} />
+        <DialoguePortraitWidget actor={actor} />
         <div className="DialogueWidget__balloon">
-          <div className="DialogueWidget__name">{actorNameToDisplay}</div>
+          <DialogueActorNameWidget actor={actor} actorName={actorName} />
           <div className="DialogueWidget__border" />
           {options ? (
             <DialogueOptionsWidget options={options} onOptionSelect={onClick} actorId={poiActorId as IActorId} />

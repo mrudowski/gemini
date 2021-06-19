@@ -40,6 +40,7 @@ Open [http://localhost:3001/?debugMode=true](http://localhost:3001/?debugMode=tr
 
 https://www.cssportal.com/css-clip-path-generator/
 https://webdevpuneet.com/tools/css-clip-path-generator/
+https://bennettfeely.com/clippy/
 
 - - -
 
