@@ -1,5 +1,6 @@
 {
   "extends": [
+    // https://github.com/facebook/create-react-app/blob/fddce8a9e21bf68f37054586deb0c8636a45f50b/packages/eslint-config-react-app/index.js
     "react-app",
     "eslint:recommended",
     "plugin:react/recommended",
@@ -26,7 +27,9 @@
     "@typescript-eslint/explicit-module-boundary-types": "off",
     // our own
     "no-mixed-spaces-and-tabs": "warn",
-    "no-shadow": "warn",
+    // https://github.com/typescript-eslint/typescript-eslint/issues/2483
+    // "no-shadow": "warn",
+    "@typescript-eslint/no-shadow": "warn",
     "import/no-useless-path-segments": "warn",
     "import/order": [
       "warn",

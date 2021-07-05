@@ -22,13 +22,13 @@ const Dialogue: React.FC<IDialogueWindow> = () => {
   const nextRef = useRef('');
 
   useEffect(() => {
-    console.log('%c [mr] useEffect', 'background-color:Gold; color: black', action);
+    // console.log('%c [mr] useEffect', 'background-color:Gold; color: black', action);
     setShow(!!action);
   }, [action]);
 
   const onExitComplete = useCallback((next = '', playNextOverCurrent = false) => {
     const trueNext = next || nextRef.current;
-    console.log('%c [mr] onExitComplete ------>', 'background-color:Gold; color: black', trueNext);
+    // console.log('%c [mr] onExitComplete ------>', 'background-color:Gold; color: black', trueNext);
     dispatch(endAction({next: trueNext, playNextOverCurrent}));
     nextRef.current = '';
   }, [dispatch]);
@@ -42,14 +42,20 @@ const Dialogue: React.FC<IDialogueWindow> = () => {
       setShow(false);
       return;
     }
+
+    if (nextAction.actionName === ACTIONS_NAMES.END_TALK) {
+      onExitComplete(next, false);
+      return;
+    }
+
     if (nextAction.actionName === ACTIONS_NAMES.TALK || nextAction.actionName === ACTIONS_NAMES.TALK_OPTIONS) {
       // playing next talk action without closing and opening animation
-      console.log('%c [mr] playNext talk', 'background-color:green; color: white', nextAction.id, next);
+      console.log('%c [mr] playNext talk', 'background-color:green; color: white', nextAction.actionName, nextAction.id, next);
       onExitComplete(next, false);
     } else {
       // playing next action without close dialogue
       // good for setCurrentSceneState, wait, etc
-      console.log('%c [mr] playNext', 'background-color:green; color: white', nextAction.id, next);
+      console.log('%c [mr] playNext', 'background-color:green; color: white', nextAction.actionName, nextAction.id, next);
       onExitComplete(next, true);
     }
   }, [onExitComplete, nextAction]);
@@ -59,7 +65,7 @@ const Dialogue: React.FC<IDialogueWindow> = () => {
   } = action ? ((action as ISpecifiedAction<ITalkActionPayload>).payload) : {};
 
   useEffect(() => {
-    console.log('%c [mr] useEffect', 'background-color:red; color: black', playNext);
+    // console.log('%c [mr] useEffect', 'background-color:red; color: black', playNext);
     if (autoPlayAfter) {
       timeoutId = setTimeout(() => {
         playNext();

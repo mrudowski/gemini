@@ -24,7 +24,7 @@ const talkActionSlice = createSlice({
       state.action = actionToSet;
     },
     endTalkAction: (state: ITalkActionState) => {
-      console.log('%c [mr] endTalkAction', 'background-color:Gold; color: black');
+      // console.log('%c [mr] endTalkAction', 'background-color:Gold; color: black');
       state.action = null;
     },
   }

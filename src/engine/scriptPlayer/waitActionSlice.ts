@@ -3,7 +3,7 @@ import {ISpecifiedAction, IWaitActionPayload} from '../actions';
 import {IRootState, IThunk} from '../redux/store';
 import {endAction} from './scriptPlayerSlice';
 
-type IWaitAction = ISpecifiedAction<IWaitActionPayload>;
+export type IWaitAction = ISpecifiedAction<IWaitActionPayload>;
 
 interface IWaitActionState {
   action: IWaitAction | null,
@@ -24,7 +24,7 @@ const waitActionSlice = createSlice({
       state.action = actionToSet;
     },
     endWaitAction: (state: IWaitActionState) => {
-      console.log('%c [mr] endWaitAction', 'background-color:Gold; color: black');
+      // console.log('%c [mr] endWaitAction', 'background-color:Gold; color: black');
       state.action = null;
     },
   }
@@ -40,7 +40,7 @@ export const endWaitAction = waitActionSlice.actions.endWaitAction;
 export const startWaitAction = ({action}: {action: IWaitAction}): IThunk => (dispatch) => {
   const {duration = 1} = action.payload;
 
-  console.log('%c [mr] duration', 'background-color:Gold; color: black', duration);
+  // console.log('%c [mr] duration', 'background-color:Gold; color: black', duration);
 
   dispatch(startWaitActionPrivate({action}));
   setTimeout(() => {

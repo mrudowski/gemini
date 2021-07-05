@@ -10,6 +10,7 @@ import {
   setDebugMode, toggleHotspot,
   togglePoi
 } from './devToolsSlice';
+import DevDialogueTree from './components/DevDialogueTree/DevDialogueTree';
 
 interface IDevTools {
 }
@@ -45,6 +46,7 @@ const DevTools: React.FC<IDevTools> = () => {
         {/*<a href="#" id="toolHiddenPoi">toggle hidden poi</a>*/}
         <a href="#" onClick={toggleHotspotCallback}>[{isShowHotspotActive ? '+' : '-'}] show hotspots</a>
       </div>
+      <DevDialogueTree />
       <DevStateBox />
       <DevLocationBox />
     </div>

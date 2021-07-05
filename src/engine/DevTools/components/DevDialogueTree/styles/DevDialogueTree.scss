@@ -1,0 +1,9 @@
+@import "../../../../sass/variables";
+
+.devDialogueTree {
+	position: fixed;
+	top: $gem-gap;
+	left: $gem-gap;
+	width: 200px;
+	border: 1px solid hotpink;
+}

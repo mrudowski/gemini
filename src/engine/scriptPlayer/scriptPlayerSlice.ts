@@ -24,9 +24,9 @@ const initialState: IScriptPlayerState = {
 };
 
 const getIncrementedActionIndex = (script: IAction[], actionIndex: number) => {
-  console.log('%c [mr] getIncrementedActionIndex', 'background-color:Gold; color: black', script, actionIndex);
+  // console.log('%c [mr] getIncrementedActionIndex', 'background-color:Gold; color: black', script, actionIndex);
   const action = script[actionIndex];
-  console.log('%c [mr] action.when', 'background-color:Gold; color: black', action.when);
+  // console.log('%c [mr] action.when', 'background-color:Gold; color: black', action.when);
   if (action.when) {
     return actionIndex;
   } else {
@@ -45,15 +45,15 @@ const getNextActionIndex = (script: IAction[] | null, actionIndex: number, next:
 
   if (next) {
     nextActionIndex = script.findIndex((scriptAction) => scriptAction.id === next);
-    console.log('%c [mr] if next state.script', 'background-color:green; color: white', script, next);
-    console.log('%c [mr] if next nextActionIndex', 'background-color:green; color: white', nextActionIndex);
+    // console.log('%c [mr] if next state.script', 'background-color:green; color: white', script, next);
+    // console.log('%c [mr] if next nextActionIndex', 'background-color:green; color: white', nextActionIndex);
   } else if (actionIndex + 1 < script.length) {
     nextActionIndex = actionIndex + 1;
   } else {
     return nextActionIndex;
   }
 
-  console.log('%c [mr] getNextActionIndex ===', 'background-color:green; color: white', nextActionIndex);
+  // console.log('%c [mr] getNextActionIndex ===', 'background-color:green; color: white', nextActionIndex);
 
   return getIncrementedActionIndex(script, nextActionIndex);
 };
@@ -74,12 +74,18 @@ const scriptPlayerSlice = createSlice({
       state.poiId = poiId;
       state.actionIndex = 0;
     },
+    setNoScript: () => {
+      console.log('%c [scriptPlayer] setNoScript', 'background-color:Gold; color: black');
+      return {
+        ...initialState
+      };
+    },
     setNextActionIndex: (state: IScriptPlayerState, action: PayloadAction<{nextActionIndex: number}>) => {
       const {
         nextActionIndex,
       } = action.payload;
 
-      console.log('%c [mr] nextActionIndex ---> state', 'background-color:red; color: black', nextActionIndex);
+      // console.log('%c [mr] nextActionIndex ---> state', 'background-color:red; color: black', nextActionIndex);
 
       if (nextActionIndex !== -1) {
         state.actionIndex = nextActionIndex;
@@ -93,6 +99,7 @@ const scriptPlayerSlice = createSlice({
 export default scriptPlayerSlice.reducer;
 
 const setScript = scriptPlayerSlice.actions.setScript;
+const setNoScript = scriptPlayerSlice.actions.setNoScript;
 const setNextActionIndex = scriptPlayerSlice.actions.setNextActionIndex;
 
 export const playScript = ({script, sceneId, poiId}: {script: IAction[], sceneId: string, poiId: string}): IThunk => (dispatch) => {
@@ -111,10 +118,10 @@ const playNextAction = (): IThunk => (dispatch, getState) => {
   if (action) {
     if (action.when) {
 
-      console.log('%c [playNextAction] when true', 'background-color:Gold; color: black', action.id);
+      // console.log('%c [playNextAction] when true', 'background-color:Gold; color: black', action.id);
       dispatch(getActionSetter(action.actionName).startAction({action}) as any);
     } else {
-      console.log('%c [playNextAction] when false', 'background-color:Gold; color: black', action.id);
+      // console.log('%c [playNextAction] when false', 'background-color:Gold; color: black', action.id);
       dispatch(endAction());
     }
     // dispatch(setTalkAction({action}));
@@ -138,6 +145,9 @@ export const endAction = (endActionParamObject?: IEndActionParamObject): IThunk 
     playNextOverCurrent = false
   } = endActionParamObject || {};
 
+  console.log('%c [endAction] playNextOverCurrent', 'background-color:Gold; color: black', playNextOverCurrent);
+  console.log('%c [endAction] endActionParamObject', 'background-color:Gold; color: black', endActionParamObject);
+
   const state = getState();
   const {
     script,
@@ -150,6 +160,7 @@ export const endAction = (endActionParamObject?: IEndActionParamObject): IThunk 
       dispatch(getActionSetter(action.actionName).endAction() as any);
     } else {
       notEndedActions.push(getActionSetter(action.actionName));
+      console.log('%c [notEndedActions]', 'background-color:RED; color: black', notEndedActions);
     }
   } else {
     throw new Error('endAction cannot find `action`!');
@@ -163,11 +174,13 @@ export const endAction = (endActionParamObject?: IEndActionParamObject): IThunk 
       const notEndedAction = notEndedActions.pop();
       console.log('%c [notEndedAction]', 'background-color:Gold; color: black', notEndedAction);
       dispatch(notEndedAction.endAction());
+    } else {
+      dispatch(setNoScript());
     }
   };
 
   const trueNext = next || action.payload.next || '';
-  console.log('%c [mr] -------->', 'background-color:Gold; color: black', trueNext);
+  // console.log('%c [mr] -------->', 'background-color:Gold; color: black', trueNext);
   if (trueNext === 'end') {
     endMethod();
     return;
@@ -180,9 +193,9 @@ export const endAction = (endActionParamObject?: IEndActionParamObject): IThunk 
   }
 
   batch(() => {
-    console.log('%c [mr] batch', 'background-color:deeppink; color: black', next, action.payload.next);
+    // console.log('%c [mr] batch', 'background-color:deeppink; color: black', next, action.payload.next);
     if (trueNext) {
-      console.log('%c [mr] -------- TODO validNext', 'background-color:red; color: black', trueNext);
+      // console.log('%c [mr] -------- TODO validNext', 'background-color:red; color: black', trueNext);
     }
     dispatch(setNextActionIndex({nextActionIndex}));
     dispatch(playNextAction());
@@ -242,8 +255,8 @@ const actionSettersMap = {
 const getActionSetter = (actionId: string) => actionSettersMap[actionId];
 // const getNextAction = () => {};
 
-const getCurrentScript = (state: IRootState) => state.scriptPlayer.script;
-const getCurrentActionIndex = (state: IRootState) => state.scriptPlayer.actionIndex;
+export const getCurrentScript = (state: IRootState) => state.scriptPlayer.script;
+export const getCurrentActionIndex = (state: IRootState) => state.scriptPlayer.actionIndex;
 
 const getCurrentAction = createSelector(
   [getCurrentScript, getCurrentActionIndex],

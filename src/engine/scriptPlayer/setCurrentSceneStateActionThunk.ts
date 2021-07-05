@@ -7,7 +7,7 @@ import {getCurrentSceneId} from '../redux/gemSlice';
 type ISetSceneStateAction<T> = ISpecifiedAction<ISetSceneStateActionPayload<T>>;
 
 export const startSetCurrentSceneStateAction = <T>({action}: {action: ISetSceneStateAction<T>}): IThunk => (dispatch, getState) => {
-  console.log('%c [mr] startSetCurrentSceneStateAction', 'background-color:Gold; color: black', action);
+  // console.log('%c [mr] startSetCurrentSceneStateAction', 'background-color:Gold; color: black', action);
 
   const {payload: {stateName, stateValue}} = action;
 
@@ -36,5 +36,5 @@ export const startSetCurrentSceneStateAction = <T>({action}: {action: ISetSceneS
 };
 
 export const endSetCurrentSceneStateAction = (): IThunk => () => {
-  console.log('%c [mr] endSetCurrentSceneStateAction', 'background-color:Gold; color: black');
+  // console.log('%c [mr] endSetCurrentSceneStateAction', 'background-color:Gold; color: black');
 };

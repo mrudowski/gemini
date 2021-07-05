@@ -25,7 +25,7 @@ const DialogueWidget: React.FC<IDialogue> = (props) => {
     onClick
   } = props;
 
-  console.log('%c [mr] DialogueWidget', 'background-color:Gold; color: black');
+  // console.log('%c [mr] DialogueWidget', 'background-color:Gold; color: black');
 
   // TODO add alt portrait name
 

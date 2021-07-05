@@ -47,7 +47,7 @@ const getActorTalkOptions = () => Object.keys(TALK_OPTIONS).reduce((talkOptionsA
   return talkOptionsAsState;
 }, {} as IActorTalkOptions);
 
-console.log('%c [mr] ACTORS', 'background-color:Gold; color: black', ACTORS);
+// console.log('%c [mr] ACTORS', 'background-color:Gold; color: black', ACTORS);
 export const worldInitialState: IWorldState = {
   scenes: {
     teaShop: teaShopSceneInitialState,

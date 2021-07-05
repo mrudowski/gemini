@@ -22,7 +22,7 @@ const VerbMenu: React.FC<IVerbMenu> = () => {
   const backdropRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  console.log('%c [VerbMenu] render', 'color: DARKKHAKI', verbMenuData, positionStyle);
+  // console.log('%c [VerbMenu] render', 'color: DARKKHAKI', verbMenuData, positionStyle);
 
   // make custom effect from it
   useEffect(() => {
