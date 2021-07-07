@@ -16,6 +16,7 @@ const DialogueActorNameWidget: React.FC<IDialogueActorNameWidget> = ({
 
   const controls = useAnimation();
 
+  // TODO make a new hook - use it in devDialogueTree
   const actorNameFromState = useActorNameCondition(actor);
   const actorNameToDisplay = actorName || actorNameFromState || `[${actor}]`;
 
@@ -25,7 +26,7 @@ const DialogueActorNameWidget: React.FC<IDialogueActorNameWidget> = ({
     });
     controls.start({
       opacity: 1,
-      transition: { duration: 1, ease: 'easeOut' },
+      transition: {duration: 1, ease: 'easeOut'},
     });
   }, [actorNameToDisplay, controls]);
 

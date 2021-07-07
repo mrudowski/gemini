@@ -70,7 +70,7 @@ const DialogueWidget: React.FC<IDialogue> = (props) => {
       />
       <div
         className={classes}
-        {...(!options && { onClick })}
+        {...(!options && {onClick})}
       >
         <DialoguePortraitWidget actor={actor} />
         <div className="DialogueWidget__balloon">

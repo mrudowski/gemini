@@ -1,10 +1,14 @@
 # TODO
 
 - wizualizacja dialogów
+  - poprawy actorName
   - reagująca na stan (modifikująca swoje powiązania kolejność)
   - pokazująca rozgałęzienia
   - pokazującą bieżącą pozycję (ukryte opcje i ścieżki)
 
+
+- aktor Goufung wgrywa się z opóznieniem - powinnien być preload wraz z sceną
+trza dodac komponent, hook lepiej preloading!
 
 - inventory
 - useWith

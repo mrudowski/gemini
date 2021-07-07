@@ -53,6 +53,7 @@
       "warn",
       "single"
     ],
+    "jsx-quotes": ["warn", "prefer-double"],
     "consistent-return": "warn",
     "func-names": "warn",
     "semi": "warn",
@@ -73,6 +74,9 @@
     "prefer-arrow-callback": ["warn", { "allowNamedFunctions": true } ],
     "no-confusing-arrow": "warn",
     "keyword-spacing": "warn",
+    "object-curly-spacing": ["warn", "never"],
+    "array-bracket-spacing": ["warn", "never"],
+    "computed-property-spacing": ["warn", "never"],
     "no-param-reassign": "warn",
     "indent": [
       "warn",

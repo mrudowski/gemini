@@ -5,7 +5,7 @@ import {
   Action,
   ThunkAction
 } from '@reduxjs/toolkit';
-import { useSelector, TypedUseSelectorHook } from 'react-redux';
+import {useSelector, TypedUseSelectorHook} from 'react-redux';
 import gemSliceReducer from './gemSlice';
 import worldSliceReducer from './worldSlice';
 import tempSliceReducer from './tempSlice';

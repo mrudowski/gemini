@@ -24,7 +24,7 @@ export interface ITalkActionPayload extends IActionPayload {
   actorName?: string
 }
 
-interface ITalkOption {
+export interface ITalkOption {
   id: keyof typeof TALK_OPTIONS,
   next?: string
   text?: string

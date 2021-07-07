@@ -28,7 +28,7 @@ const DialoguePortraitWidget: React.FC<IDialoguePortraitWidget> = ({
     });
     controls.start({
       x: 0,
-      transition: { duration: 1, ease: 'easeOut' },
+      transition: {duration: 1, ease: 'easeOut'},
     });
   }, [portrait, controls]);
 

@@ -70,7 +70,7 @@ const Poi: React.FC<IPoi> = ({
 
   const styles = {
     ...style,
-    ...(image && { backgroundImage: `url(${image})`}),
+    ...(image && {backgroundImage: `url(${image})`}),
   };
 
   return (

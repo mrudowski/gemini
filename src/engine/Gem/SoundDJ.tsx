@@ -7,7 +7,6 @@ const sound = new Howl({
   loop: true
 });
 
-
 const SoundDJ = () => {
 
   console.log('%c [mr] SoundDJ init', 'color: Gold');

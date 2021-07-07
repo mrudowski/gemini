@@ -96,7 +96,7 @@ const VerbMenu: React.FC<IVerbMenu> = () => {
             animate="visible"
             exit="hidden"
             variants={variants}
-            whileTap={{ scale: 0.95 }}
+            whileTap={{scale: 0.95}}
           >
             <div className="gem-ui-borders" />
             <div>

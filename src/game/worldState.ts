@@ -1,6 +1,6 @@
 import {ITeaShopSceneState, teaShopSceneInitialState} from './scenes/teaShop/state';
 import TALK_OPTIONS from './talkOptions';
-import ACTORS, { IActorId } from './actors';
+import ACTORS, {IActorId} from './actors';
 
 // TODO - move IWorldState inside engine
 
