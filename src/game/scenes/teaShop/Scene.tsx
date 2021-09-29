@@ -9,28 +9,19 @@ import T from '../../../engine/translation';
 import sceneImage from './assets/images/teaShop.jpg';
 // import teaShopImage from './assets/images/dirtyTable.png';
 import tableDishesImage from './assets/images/tableDishes.png';
-import {getActorState, getCurrentSceneState} from '../../../engine/redux/worldSlice';
+import {getCurrentSceneState} from '../../../engine/redux/worldSlice';
 import {ITeaShopSceneState} from './state';
-import ACTORS from '../../actors';
 import SalammonPoi from './pois/SalammonPoi';
 
 const t = T();
 
 const TeaShopScene = () => {
   const sceneState: ITeaShopSceneState = useSelector(getCurrentSceneState);
-  const salammonState = useSelector(getActorState(ACTORS.salammon));
   console.log('%c [TeaShopScene]', 'background-color:Orange; color: black', {sceneState});
   const {tableDishesExamineCounter} = sceneState;
 
   // local variable
   const examineExecutedEvenTimes = tableDishesExamineCounter % 2 === 0;
-
-  const getGofungName = () => {
-    if (salammonState.salammon) {
-      return t.actors.gofungSad;
-    }
-    return t.actors.gofungHappy;
-  };
 
   return (
     <Scene
