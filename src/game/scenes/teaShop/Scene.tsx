@@ -9,11 +9,10 @@ import T from '../../../engine/translation';
 import sceneImage from './assets/images/teaShop.jpg';
 // import teaShopImage from './assets/images/dirtyTable.png';
 import tableDishesImage from './assets/images/tableDishes.png';
-import salammon from './assets/images/salammon.png';
 import {getActorState, getCurrentSceneState} from '../../../engine/redux/worldSlice';
 import {ITeaShopSceneState} from './state';
 import ACTORS from '../../actors';
-import TALK_OPTIONS from '../../talkOptions';
+import SalammonPoi from './pois/SalammonPoi';
 
 const t = T();
 
@@ -157,36 +156,7 @@ const TeaShopScene = () => {
         when={tableDishesExamineCounter % 2 === 0}
       />
 
-      <Poi
-        id={ACTORS.salammon}
-        style={{
-          left: 356,
-          top: 171,
-          width: 83,
-          height: 105
-        }}
-        image={salammon}
-        hotspot={{
-          clipPath: 'polygon(62% 4%, 86% 42%, 75% 95%, 16% 79%, 13% 58%, 39% 4%)'
-        }}
-        verbs={[
-          {
-            name: t.verbs.talk,
-            script: [
-              ACTIONS.talk({text: 'Hmm?', actor: ACTORS.salammon}),
-              ACTIONS.talk({text: 'Be careful with this old man :)', actor: ACTORS.gofung, actorName: getGofungName()}),
-              ACTIONS.talkOptions({id: 'talkOptions', actor: ACTORS.salammon, options: [
-                {id: TALK_OPTIONS.myo},
-                {id: TALK_OPTIONS.salammon, text: t.talkOptionsAlt.you,  next: 'someCustomId', when: examineExecutedEvenTimes},
-                {id: TALK_OPTIONS.end, text: 'Stop talking (custom option text)'},
-              ]}),
-              ACTIONS.talk({id: TALK_OPTIONS.myo, text: 'Your name is Myo', actor: ACTORS.salammon}),
-              ACTIONS.talk({text: 'Correct!', next: 'talkOptions'}),
-              ACTIONS.talk({id: 'someCustomId', text: 'I\'m Salammon', actor: ACTORS.salammon, next: 'talkOptions'}),
-            ]
-          }
-        ]}
-      />
+      <SalammonPoi />
     </Scene>
   );
 
