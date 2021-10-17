@@ -2,19 +2,19 @@ import React from 'react';
 import classNames from 'classnames';
 import './styles/SceneStyle.scss';
 import imageCache from '../imageCache';
+import {ISceneId} from '../../game/scenes';
 
-type TSceneId = string; // TODO better?
-type TImagePath = string;
+type IImage = string;
 
 interface IScene {
-  id: TSceneId,
-  imagePath: TImagePath //TODO change to image
+  id: ISceneId,
+  image: IImage
 }
 
 const Scene: React.FC<IScene> = (props) => {
   const {
     id,
-    imagePath,
+    image,
     children
   } = props;
 
@@ -24,10 +24,10 @@ const Scene: React.FC<IScene> = (props) => {
   );
 
   // will throw promise - which works with suspens and suspend component till
-  imageCache.preload(imagePath);
+  imageCache.preload(image);
 
   const styles = {
-    backgroundImage: `url(${imagePath})`
+    backgroundImage: `url(${image})`
   };
 
   return (

@@ -1,13 +1,13 @@
 import {useTypedSelector} from '../engine/redux/store';
 import {getActorState, getSceneState} from '../engine/redux/worldSlice';
 import SCENES from './scenes';
-import T from '../engine/translation';
+import {useTranslation} from '../engine/translation';
 import ACTORS, {IActorId} from './actors';
-
-const t = T();
+import {ITeaShopSceneState} from './scenes/teaShop/state';
 
 const useActorNameCondition = (actor: IActorId) => {
-  const teaShopSceneState = useTypedSelector(getSceneState(SCENES.teaShop));
+  const t = useTranslation();
+  const teaShopSceneState = useTypedSelector(getSceneState(SCENES.teaShop)) as ITeaShopSceneState;
   const actorState = useTypedSelector(getActorState(actor));
 
   switch (actor) {

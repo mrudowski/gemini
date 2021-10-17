@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import {useSelector} from 'react-redux';
 import Scene from '../../../engine/Scene';
 import Poi from '../../../engine/Poi';
@@ -16,7 +16,7 @@ import SalammonPoi from './pois/SalammonPoi';
 const t = T();
 
 const TeaShopScene = () => {
-  const sceneState: ITeaShopSceneState = useSelector(getCurrentSceneState);
+  const sceneState = useSelector(getCurrentSceneState) as ITeaShopSceneState;
   console.log('%c [TeaShopScene]', 'background-color:Orange; color: black', {sceneState});
   const {tableDishesExamineCounter} = sceneState;
 
@@ -27,7 +27,7 @@ const TeaShopScene = () => {
     <Scene
       id={SCENES.teaShop}
       // TODO imagePath is wrong - should be image - or fix it
-      imagePath={sceneImage}
+      image={sceneImage}
       // image={''} optional thanks to great default but can be false/null
     >
       { /*

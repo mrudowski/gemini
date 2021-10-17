@@ -11,7 +11,7 @@
 
 	&__portrait {
 		// align-self: end;
-		background: transparent none left 0 bottom 0 scroll no-repeat;
+		background: transparent none left $gem-gap*2 bottom 0 scroll no-repeat;
 		height: 100%;
 		//position: absolute;
 		//top: 0;

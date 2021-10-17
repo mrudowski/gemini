@@ -1,14 +1,25 @@
 // TODO add type for that
-import ACTORS from './actors';
+import ACTORS, {IActorId} from './actors';
+import SCENES, {ISceneId} from './scenes';
 
-const SETTINGS = {
+interface ISettings {
+  START_FROM_LAST_SCENE: boolean
+  DEFAULT_ACTOR: IActorId,
+  PRIMARY_LANG: string, // TODO could be better like IActorid
+  FIRST_SCENE: ISceneId,
+  // SOUND: true,
+  SAVE_GAME_NAME: string,
+  TRACKING_ID: string,
+}
+
+const SETTINGS: ISettings = {
 
   START_FROM_LAST_SCENE: false, // set to true when develop
-  DEFAULT_ACTOR: ACTORS.myo,
+  DEFAULT_ACTOR: ACTORS.hazel,
   PRIMARY_LANG: 'en',
-  FIRST_SCENE: 'teaShop',
+  FIRST_SCENE: SCENES.elmWorkshopByHazel,
   // SOUND: true,
-  SAVE_GAME_NAME: 'tos2Save',
+  SAVE_GAME_NAME: 'tos3Save',
   TRACKING_ID: 'UA-18932217-6',
 
   // TODO why not part as game level design?

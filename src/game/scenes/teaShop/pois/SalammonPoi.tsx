@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import {useSelector} from 'react-redux';
 import Poi from '../../../../engine/Poi';
 import ACTIONS from '../../../../engine/actions';
@@ -12,7 +12,7 @@ import TALK_OPTIONS from '../../../talkOptions';
 const t = T();
 
 const SalammonPoi = () => {
-  const sceneState: ITeaShopSceneState = useSelector(getCurrentSceneState);
+  const sceneState = useSelector(getCurrentSceneState) as ITeaShopSceneState;
   const salammonState = useSelector(getActorState(ACTORS.salammon));
   const {tableDishesExamineCounter} = sceneState;
 

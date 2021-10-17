@@ -1,10 +1,11 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {IRootState} from './store';
 import SETTINGS from '../../game/settings';
+import {ISceneId} from '../../game/scenes';
 
 interface IGemState {
   currentLang: string,
-  currentSceneId: string,
+  currentSceneId: ISceneId,
 }
 
 const initialState: IGemState = {

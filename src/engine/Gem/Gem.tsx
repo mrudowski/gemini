@@ -12,6 +12,12 @@ import SoundDJ from './SoundDJ';
 // TODO works?
 // TODO it should be dynamically!
 
+const capitalizeFirstLetter = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+// const getScenePathToImport = (sceneId: ISceneId) => `../../game/scenes/${sceneId}/${capitalizeFirstLetter(sceneId)}Scene`;
+
 const Gem = () => {
   const currentSceneId = useTypedSelector(getCurrentSceneId);
   const isShowPoiActive = useTypedSelector(getIsShowPoiActive);
@@ -29,7 +35,8 @@ const Gem = () => {
 
 
   const CurrentScene = useMemo(() => {
-    return React.lazy(() => import(`../../game/scenes/${currentSceneId}/Scene`));
+    // why a cannot use getScenePathToImport here?
+    return React.lazy(() => import(`../../game/scenes/${currentSceneId}/${capitalizeFirstLetter(currentSceneId)}Scene`));
   }, [currentSceneId]);
 
   return (

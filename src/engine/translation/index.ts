@@ -30,8 +30,11 @@ window['switchLang'] = switchLang;
 
 loadLang('pl').then(newLang => {
   currentLang = newLang;
-  console.log('%c load --->', 'background-color:Gold; color: black', currentLang);
 });
+
+export const useTranslation = () => {
+  return currentLang;
+};
 
 //export const T = currentLang
 const T = () => currentLang;
@@ -40,7 +43,6 @@ const T = () => currentLang;
 //   console.log('%c [t]', 'background-color:Gold; color: black', currentLangObj);
 //   return window[''];
 // }
-
 
 // export const useTranslation = () => {
 //   return { t1: t };

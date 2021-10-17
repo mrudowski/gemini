@@ -1,6 +1,8 @@
 import {ITeaShopSceneState, teaShopSceneInitialState} from './scenes/teaShop/state';
 import TALK_OPTIONS from './talkOptions';
 import ACTORS, {IActorId} from './actors';
+import SCENES from './scenes';
+import {elmWorkshopByHazelSceneInitialState, IElmWorkshopByHazelSceneState} from './scenes/elmWorkshopByHazel/state';
 
 // TODO - move IWorldState inside engine
 
@@ -13,7 +15,8 @@ type IActorTalkOptions = {
 
 export interface IWorldState {
   scenes: {
-    teaShop: ITeaShopSceneState,
+    [SCENES.teaShop]: ITeaShopSceneState,
+    [SCENES.elmWorkshopByHazel]: IElmWorkshopByHazelSceneState,
     test: {
       test1: number
     }
@@ -50,7 +53,8 @@ const getActorTalkOptions = () => Object.keys(TALK_OPTIONS).reduce((talkOptionsA
 // console.log('%c [mr] ACTORS', 'background-color:Gold; color: black', ACTORS);
 export const worldInitialState: IWorldState = {
   scenes: {
-    teaShop: teaShopSceneInitialState,
+    [SCENES.teaShop]: teaShopSceneInitialState,
+    [SCENES.elmWorkshopByHazel]: elmWorkshopByHazelSceneInitialState,
     test: {
       test1: 1
     }

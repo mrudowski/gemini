@@ -19,6 +19,10 @@ const DialogueActorNameWidget: React.FC<IDialogueActorNameWidget> = ({
   // TODO make a new hook - use it in devDialogueTree
   const actorNameFromState = useActorNameCondition(actor);
   const actorNameToDisplay = actorName || actorNameFromState || `[${actor}]`;
+  console.log('%c [mr]', 'background-color:Gold; color: black', actorNameFromState);
+  console.log('%c [mr]', 'background-color:Gold; color: black', actorNameToDisplay);
+  console.log('%c [mr]', 'background-color:Gold; color: black', actorName);
+  console.log('%c [mr]', 'background-color:Gold; color: black', actor);
 
   useEffect(() => {
     controls.set({
