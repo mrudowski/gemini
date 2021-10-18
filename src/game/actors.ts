@@ -1,8 +1,9 @@
 const ACTORS = {
-  myo: 'myo',
-  salammon: 'salammon',
+  elm: 'elm',
   gofung: 'gofung',
   hazel: 'hazel',
+  myo: 'myo',
+  salammon: 'salammon',
 } as const;
 
 export type IActorId = keyof typeof ACTORS;

@@ -15,7 +15,10 @@ const en = {
     },
     elmWorkshopByHazel: {
       stairs: {
-        examine: "Przejście do mojej pracowni [en]"
+        examine: "Przejście do mojej pracowni. [en]"
+      },
+      elm: {
+        examine: "Odkąd Wiązowi udało się odnaleźć wnuki w ruinach ściółki nieustannie pracuje nad naprawą ściółki. Muszę brać z niego przykład. [en]"
       }
     }
   },

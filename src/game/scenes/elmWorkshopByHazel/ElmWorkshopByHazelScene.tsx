@@ -5,6 +5,9 @@ import SCENES from '../../scenes';
 import elmWorkshop1 from './assets/images/elmWorkshop1.jpg';
 import ElmDeskPoi from './pois/ElmDeskPoi';
 import StairsPoi from './pois/StairsPoi';
+import ElmPoi from './pois/ElmPoi';
+import HazelExitPoi from './pois/HazelExitPoi';
+import HazelSitPoi from './pois/HazelSitPoi';
 
 const ElmWorkshopByHazelScene = () => {
   // const t = useTranslation();
@@ -15,7 +18,10 @@ const ElmWorkshopByHazelScene = () => {
       image={elmWorkshop1}
     >
       <ElmDeskPoi />
+      <ElmPoi />
       <StairsPoi />
+      <HazelExitPoi />
+      <HazelSitPoi />
     </Scene>
   );
 

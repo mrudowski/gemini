@@ -18,8 +18,11 @@ const pl: typeof en = {
     elmWorkshopByHazel: {
       stairs: {
         examine: "Przejście do mojej pracowni"
+      },
+      elm: {
+        examine: "Odkąd Wiązowi udało się odnaleźć wnuki w ruinach ściółki nieustannie pracuje nad naprawą ściółki. Muszę brać z niego przykład."
       }
-    }
+    },
   },
   actors: {
     unknown: "???",

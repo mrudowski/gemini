@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import {Howl} from 'howler';
-import stream from '../../game/assets/sounds/stream.webm';
+// import {Howl} from 'howler';
+// import stream from '../../game/assets/sounds/stream.webm';
 
-const sound = new Howl({
-  src: [stream],
-  loop: true
-});
+// const sound = new Howl({
+//   src: [stream],
+//   loop: true
+// });
 
 const SoundDJ = () => {
 

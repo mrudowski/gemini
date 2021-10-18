@@ -60,7 +60,7 @@ export const getCurrentSceneState = createSelector(
 export const getSceneState = (sceneId: ISceneId) => createSelector(
   [getScenes],
   (scenes) => {
-    return scenes[sceneId];
+    return (scenes[sceneId] as IWorldState['scenes'][typeof sceneId]);
   }
 );
 
