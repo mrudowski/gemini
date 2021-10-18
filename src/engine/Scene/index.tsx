@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import classNames from 'classnames';
 import './styles/SceneStyle.scss';
-import imageCache from '../imageCache';
 import {ISceneId} from '../../game/scenes';
+import PreloadImage from '../Preload/PreloadImage';
 
 type IImage = string;
 
@@ -20,15 +20,13 @@ const Scene: React.FC<IScene> = props => {
     console.log('%c [mr] SCENE created', 'background-color:Gold; color: black', id);
   }, [id]);
 
-  // will throw promise - which works with suspens and suspend component till
-  imageCache.preload(image);
-
   const styles = {
     backgroundImage: `url(${image})`,
   };
 
   return (
     <div className={classes} style={styles}>
+      <PreloadImage image={image} />
       {children}
     </div>
   );

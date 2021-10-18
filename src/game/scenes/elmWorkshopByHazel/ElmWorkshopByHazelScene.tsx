@@ -10,9 +10,9 @@ import HazelExitPoi from './pois/HazelExitPoi';
 import HazelSitPoi from './pois/HazelSitPoi';
 import elmImage from '../../assets/images/portraits/elm.png';
 import hazelImage from '../../assets/images/portraits/hazel.png';
-import PreloadImage from '../../../engine/Preload/PreloadImage';
+import PreloadImages from '../../../engine/Preload/PreloadImages';
 
-//const imagesToPreload = [elmImage, hazelImage];
+const imagesToPreload = [elmImage, hazelImage];
 
 const ElmWorkshopByHazelScene = () => {
   // const t = useTranslation();
@@ -20,8 +20,7 @@ const ElmWorkshopByHazelScene = () => {
 
   return (
     <Scene id={SCENES.elmWorkshopByHazel} image={elmWorkshop}>
-      <PreloadImage image={elmImage} />
-      <PreloadImage image={hazelImage} />
+      <PreloadImages images={imagesToPreload} />
 
       <ElmDeskPoi />
       <ElmPoi />

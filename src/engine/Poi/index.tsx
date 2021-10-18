@@ -59,21 +59,23 @@ const Poi: React.FC<IPoi> = ({id, image, style, hotspot, when, verbs = []}) => {
   };
 
   return (
-    <AnimatePresence initial={false}>
+    <>
       {image && <PreloadImage image={image} />}
-      {isShow && (
-        <motion.div className={classes} style={styles} initial="hidden" animate="visible" exit="hidden" variants={variants}>
-          {isInteractive && (
-            <div
-              className="Poi__hotspot gem-hotspot"
-              onClick={onClick}
-              style={hotspot}
-              // add onToucheEnd?
-            />
-          )}
-        </motion.div>
-      )}
-    </AnimatePresence>
+      <AnimatePresence initial={false}>
+        {isShow && (
+          <motion.div className={classes} style={styles} initial="hidden" animate="visible" exit="hidden" variants={variants}>
+            {isInteractive && (
+              <div
+                className="Poi__hotspot gem-hotspot"
+                onClick={onClick}
+                style={hotspot}
+                // add onToucheEnd?
+              />
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
