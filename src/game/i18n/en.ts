@@ -18,19 +18,25 @@ const en = {
         examine: "Przejście do mojej pracowni. [en]"
       },
       elm: {
-        examine: "Odkąd Wiązowi udało się odnaleźć wnuki w ruinach ściółki nieustannie pracuje nad naprawą ściółki. Muszę brać z niego przykład. [en]"
+        examine: "Odkąd Wiązowi udało się odnaleźć wnuki w ruinach ściółki nieustannie pracuje nad naprawą ściółki. Muszę brać z niego przykład. [en]",
+        talk: {
+          takeAMoment: "Czy mogłabym zająć ci chwilę? [en]",
+          youAlreadyDid: "Już to zrobiłaś. [en]",
+          dontBeSoLiteral: "Och, nie bądź taki dosłowny. Jak idą postępy? Nad czym obecnie pracujesz? [en]",
+        }
       }
     }
   },
   actors: {
-    unknown: "???",
+    elm: "Elm",
+    gofungHappy: "Happy Gofung",
+    gofungSad: "Sad Gofung",
+    hazel: "Hazel",
     myo: "Little Willow",
     salammon: "Salammon",
-    gofungSad: "Sad Gofung",
-    gofungHappy: "Happy Gofung",
-    salammonUnpleasant: "Unpleasant old man",
     salammonAlt: "Old man",
-    hazel: "Hazel"
+    salammonUnpleasant: "Unpleasant old man",
+    unknown: "???",
   },
   talkOptions: {
     myo: "About me",

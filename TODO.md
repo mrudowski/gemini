@@ -1,5 +1,16 @@
 # TODO
 
+
+- trza dodac komponent, hook lepiej preloading!
+- dialog devtool zle wyswietla autora!
+- -dev tool do lokacji
+- change location - przejscia między scenami
+- dynamiczna zmiana języka! aby łatwo testować itd...
+- autosave / load / restart stanu
+
+-----
+
+
 - wizualizacja dialogów
   - poprawy actorName
   - reagująca na stan (modifikująca swoje powiązania kolejność)
@@ -7,8 +18,6 @@
   - pokazującą bieżącą pozycję (ukryte opcje i ścieżki)
 
 
-- aktor Goufung wgrywa się z opóznieniem - powinnien być preload wraz z sceną
-trza dodac komponent, hook lepiej preloading!
 
 - inventory
 - useWith
@@ -17,8 +26,6 @@ trza dodac komponent, hook lepiej preloading!
 - showCloseUp and auto continue - display dialog on top on it - change state - close closeUp
 
 - say
-
-- change location
 
 
 // better not!

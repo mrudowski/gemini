@@ -1,4 +1,4 @@
-import React, {Suspense, useMemo} from 'react';
+import React, {Suspense, useEffect, useMemo} from 'react';
 import classNames from 'classnames';
 import './styles/GemStyle.scss';
 import {useTypedSelector} from '../redux/store';
@@ -9,11 +9,23 @@ import DevTools from '../DevTools/DevTools';
 import Wait from '../GemLock/GemLock';
 import {getIsShowHotspotActive, getIsShowPoiActive} from '../DevTools/devToolsSlice';
 import SoundDJ from './SoundDJ';
+import PreloadUI from '../PreloadUI/PreloadUI';
+
 // TODO works?
 // TODO it should be dynamically!
 
 const capitalizeFirstLetter = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+const SuspenseTest = ({children}) => {
+  useEffect(() => {
+    console.log('%c [mr] SuspenseTest created', 'background-color:green; color: black');
+    return () => {
+      console.log('%c [mr] SuspenseTest destroyed', 'background-color:red; color: black');
+    };
+  }, []);
+  return <div style={{color: 'white'}}>{children}</div>;
 };
 
 // const getScenePathToImport = (sceneId: ISceneId) => `../../game/scenes/${sceneId}/${capitalizeFirstLetter(sceneId)}Scene`;
@@ -25,14 +37,9 @@ const Gem = () => {
 
   console.log('%c [Gem] render', 'color: CRIMSON');
 
-  const classes = classNames(
-    'Gem',
-    isShowPoiActive && 'Gem--debug--showPoi',
-    isShowHotspotActive && 'Gem--debug--showHotspot',
-  );
+  const classes = classNames('Gem', isShowPoiActive && 'Gem--debug--showPoi', isShowHotspotActive && 'Gem--debug--showHotspot');
 
   // TODO move it deeper
-
 
   const CurrentScene = useMemo(() => {
     // why a cannot use getScenePathToImport here?
@@ -41,10 +48,11 @@ const Gem = () => {
 
   return (
     <div className={classes}>
-      <DevTools/>
+      <DevTools />
       <div className="App__viewport">
         <SoundDJ />
-        <Suspense fallback={<div>loading...</div>}>
+        <Suspense fallback={<SuspenseTest>loading...</SuspenseTest>}>
+          <PreloadUI />
           <CurrentScene />
         </Suspense>
         <Suspense fallback={<div>loading...</div>}>

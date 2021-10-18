@@ -20,19 +20,25 @@ const pl: typeof en = {
         examine: "Przejście do mojej pracowni"
       },
       elm: {
-        examine: "Odkąd Wiązowi udało się odnaleźć wnuki w ruinach ściółki nieustannie pracuje nad naprawą ściółki. Muszę brać z niego przykład."
+        examine: "Odkąd Wiązowi udało się odnaleźć wnuki w ruinach ściółki nieustannie pracuje nad naprawą ściółki. Muszę brać z niego przykład.",
+        talk: {
+          takeAMoment: "Czy mogłabym zająć ci chwilę?",
+          youAlreadyDid: "Już to zrobiłaś.",
+          dontBeSoLiteral: "Och, nie bądź taki dosłowny. Jak idą postępy? Nad czym obecnie pracujesz?",
+        }
       }
     },
   },
   actors: {
-    unknown: "???",
+    elm: "Wiąz",
+    gofungHappy: "Wesoły Gofung",
+    gofungSad: "Smutny Gofung",
+    hazel: "Leszczyna",
     myo: "Mała Wierzba",
     salammon: "Salammon",
-    gofungSad: "Smutny Gofung",
-    gofungHappy: "Wesoły Gofung",
-    salammonUnpleasant: "Niemiły starszy pan",
     salammonAlt: "Staruszek",
-    hazel: "Leszczyna"
+    salammonUnpleasant: "Niemiły starszy pan",
+    unknown: "???",
   },
   talkOptions: {
     myo: "O mnie",

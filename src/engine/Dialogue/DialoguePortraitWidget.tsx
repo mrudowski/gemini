@@ -1,26 +1,21 @@
 import React, {useEffect} from 'react';
 import {motion, useAnimation} from 'framer-motion';
 import './styles/DialogueWidgetStyle.scss';
-import imageCache from '../imageCache';
 import {IActorId} from '../../game/actors';
 import portraits from '../../game/portraits';
+import PreloadImage from '../Preload/PreloadImage';
 
 interface IDialoguePortraitWidget {
-  actor: IActorId
+  actor: IActorId;
 }
 
-const DialoguePortraitWidget: React.FC<IDialoguePortraitWidget> = ({
-  actor
-}) => {
-
+const DialoguePortraitWidget: React.FC<IDialoguePortraitWidget> = ({actor}) => {
   const controls = useAnimation();
 
   const portrait = portraits[actor];
   if (!portrait) {
     throw new Error('missing actor "' + actor + '" portrait file or import declaration');
   }
-
-  imageCache.preload(portrait);
 
   useEffect(() => {
     controls.set({
@@ -33,9 +28,8 @@ const DialoguePortraitWidget: React.FC<IDialoguePortraitWidget> = ({
   }, [portrait, controls]);
 
   return (
-    <motion.div
-      animate={controls}
-    >
+    <motion.div animate={controls}>
+      <PreloadImage image={portrait} />
       <div className="DialogueWidget__portrait" style={{backgroundImage: `url(${portrait})`}} />
     </motion.div>
   );

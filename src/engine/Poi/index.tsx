@@ -1,36 +1,26 @@
-import React, {CSSProperties} from 'react';
+import React, {CSSProperties, useEffect} from 'react';
 import classNames from 'classnames';
 import './styles/PoiStyle.scss';
 import {AnimatePresence, motion} from 'framer-motion';
 import {useTypedDispatch} from '../redux/store';
 import {IVerb} from '../VerbMenu/verbMenuSlice';
 import {poiClicked} from '../redux/tempSlice';
-import imageCache from '../imageCache';
 import variants from '../commons/motion/variants';
+import PreloadImage from '../Preload/PreloadImage';
 
 type IPoiId = string; // TODO better?
 type TImagePath = string;
 
 interface IPoi {
-  id: IPoiId,
-  style: CSSProperties,
-  hotspot?: CSSProperties,
-  image?: TImagePath,
-  when?: boolean,
-  verbs?: IVerb[]
+  id: IPoiId;
+  style: CSSProperties;
+  hotspot?: CSSProperties;
+  image?: TImagePath;
+  when?: boolean;
+  verbs?: IVerb[];
 }
 
-
-const Poi: React.FC<IPoi> = ({
-  id,
-  image,
-  style,
-  hotspot,
-  when,
-  verbs = []
-}) => {
-
-
+const Poi: React.FC<IPoi> = ({id, image, style, hotspot, when, verbs = []}) => {
   //const isDebug = useSelector(getIsDebug);
   const dispatch = useTypedDispatch();
 
@@ -45,16 +35,14 @@ const Poi: React.FC<IPoi> = ({
 
   const isShow = when === undefined || when;
 
-  // will throw promise - which works with suspens and suspend component till
-  image && imageCache.preload(image);
+  useEffect(() => {
+    console.log('%c [mr] POI created', 'background-color:Gold; color: black', id);
+  }, [id]);
 
   const isInteractive = verbs.length > 0;
 
   const onClick = (e: React.MouseEvent) => {
-    const {
-      pageX: x,
-      pageY: y
-    } = e;
+    const {pageX: x, pageY: y} = e;
     console.log('%c [poi] onClick', 'color: LIGHTSEAGREEN', id, e.pageX);
     if (isInteractive) {
       dispatch(poiClicked({x, y, poiId: id, verbs}));
@@ -63,10 +51,7 @@ const Poi: React.FC<IPoi> = ({
     e.preventDefault();
   };
 
-  const classes = classNames(
-    'Poi',
-    `Poi-${id}`
-  );
+  const classes = classNames('Poi', `Poi-${id}`);
 
   const styles = {
     ...style,
@@ -75,15 +60,9 @@ const Poi: React.FC<IPoi> = ({
 
   return (
     <AnimatePresence initial={false}>
+      {image && <PreloadImage image={image} />}
       {isShow && (
-        <motion.div
-          className={classes}
-          style={styles}
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-          variants={variants}
-        >
+        <motion.div className={classes} style={styles} initial="hidden" animate="visible" exit="hidden" variants={variants}>
           {isInteractive && (
             <div
               className="Poi__hotspot gem-hotspot"
@@ -96,7 +75,6 @@ const Poi: React.FC<IPoi> = ({
       )}
     </AnimatePresence>
   );
-
 };
 
 export default Poi;

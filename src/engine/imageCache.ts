@@ -8,8 +8,8 @@
 const cache = {};
 
 interface IImageCache {
-  preload: (src: string) => Promise<boolean> | boolean
-  clearImg: (src: string) => void
+  preload: (src: string) => Promise<boolean> | boolean;
+  clearImg: (src: string) => void;
 }
 
 const imageCache: IImageCache = {
@@ -20,13 +20,17 @@ const imageCache: IImageCache = {
     }
 
     if (!cache[src]) {
-      cache[src] = new Promise((resolve) => {
+      cache[src] = new Promise(resolve => {
         const img = new Image();
         img.onload = () => {
+          console.log('%c [mr] imageCache onLoad', 'color: Gold', src);
           cache[src] = true;
           resolve(cache[src]);
         };
         img.src = src;
+        // It’s nice to have all our images preloaded nicely, but in real life
+        // we probably don’t want to hold up rendering indefinitely just because
+        // one or two straggling images are coming in slowly.
         // setTimeout(() => resolve({}), 7000);
       }).then(() => {
         cache[src] = true;
@@ -39,10 +43,10 @@ const imageCache: IImageCache = {
     }
     return cache[src];
   },
-  clearImg: (src) => {
+  clearImg: src => {
     // @ts-ignore
     delete cache[src];
-  }
+  },
 };
 
 export default imageCache;
