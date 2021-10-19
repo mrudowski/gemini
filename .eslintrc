@@ -78,13 +78,14 @@
     "array-bracket-spacing": ["warn", "never"],
     "computed-property-spacing": ["warn", "never"],
     "no-param-reassign": "warn",
-    "indent": [
-      "warn",
-      2,
-      {
-        "SwitchCase": 1
-      }
-    ], // decided in group
+// prettier will handle this
+//    "indent": [
+//      "warn",
+//      2,
+//      {
+//        "SwitchCase": 1
+//      }
+//    ], // decided in group
     "react-hooks/exhaustive-deps": ["warn", { "additionalHooks": "(useCurrentCallback|useCurrentEffect)" }],
     // "react/jsx-indent": ["warn", 4]
     // "react/jsx-indent-props": ["warn", "tab"]

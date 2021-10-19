@@ -1,7 +1,5 @@
 # TODO
 
-
-- trza dodac komponent, hook lepiej preloading!
 - dialog devtool zle wyswietla autora!
 - -dev tool do lokacji
 - change location - przejscia między scenami

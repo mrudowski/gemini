@@ -4,6 +4,7 @@ import SCENE_POIS from '../scenePois';
 import ACTIONS from '../../../../engine/actions';
 import {useTranslation} from '../../../../engine/translation';
 import ACTORS from '../../../actors';
+import SCENES from '../../../scenes';
 
 const ElmPoi = () => {
   const t = useTranslation();
@@ -25,6 +26,16 @@ const ElmPoi = () => {
         {
           name: t.verbs.talk,
           script: [
+            //ACTIONS.setCurrentSceneState<IElmWorkshopByHazelSceneState>({
+            //   stateName: 'tableDishesExamineCounter',
+            //   stateValue: tableDishesExamineCounter + 1,
+            // }),
+            ACTIONS.setSceneState({
+              sceneId: SCENES.elmWorkshopByHazel,
+              state: {
+                afterFirstTalk: true,
+              },
+            }),
             ACTIONS.talk({text: t.scenes.elmWorkshopByHazel.elm.talk.takeAMoment}),
             ACTIONS.talk({
               text: t.scenes.elmWorkshopByHazel.elm.talk.youAlreadyDid,

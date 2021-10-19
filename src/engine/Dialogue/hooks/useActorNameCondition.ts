@@ -1,9 +1,9 @@
-import {useTypedSelector} from '../engine/redux/store';
-import {getActorState, getSceneState} from '../engine/redux/worldSlice';
-import SCENES from './scenes';
-import {useTranslation} from '../engine/translation';
-import ACTORS, {IActorId} from './actors';
-import {ITeaShopSceneState} from './scenes/teaShop/state';
+import {useTypedSelector} from '../../redux/store';
+import {getActorState, getSceneState} from '../../redux/worldSlice';
+import SCENES from '../../../game/scenes';
+import {useTranslation} from '../../translation';
+import ACTORS, {IActorId} from '../../../game/actors';
+import {ITeaShopSceneState} from '../../../game/scenes/teaShop/state';
 
 const useActorNameCondition = (actor: IActorId) => {
   const t = useTranslation();
