@@ -1,48 +1,39 @@
-import {ISetCurrentSceneStateActionPayload, ISpecifiedAction} from '../actions';
+import {ISetSceneStateActionPayload, ISpecifiedAction} from '../actions';
 import {IThunk} from '../redux/store';
 import {endAction} from './scriptPlayerSlice';
-import {setSceneState} from '../redux/worldSlice';
-import {getCurrentSceneId} from '../redux/gemSlice';
+import {setSceneMultiState} from '../redux/worldSlice';
+import {ISceneId} from '../../game/scenes';
+import {IWorldState} from '../../game/worldState';
 
-type ISetSceneStateAction<T> = ISpecifiedAction<ISetCurrentSceneStateActionPayload<T>>;
+interface IStartSetSceneStateActionArgs<T extends ISceneId, U extends IWorldState['scenes'][T]> {
+  action: ISpecifiedAction<ISetSceneStateActionPayload<T, U>>;
+}
 
-// TODO HERE
+type IStartSetSceneStateAction = <T extends ISceneId, U extends IWorldState['scenes'][T]>(args: IStartSetSceneStateActionArgs<T, U>) => IThunk;
 
-export const startSetSceneStateAction =
-  <T>({action}: {action: ISetSceneStateAction<T>}): IThunk =>
-  (dispatch, getState) => {
-    // console.log('%c [mr] startSetCurrentSceneStateAction', 'background-color:Gold; color: black', action);
+export const startSetSceneStateAction: IStartSetSceneStateAction =
+  ({action}) =>
+  dispatch => {
+    // console.log('%c [mr] startSetSceneStateAction', 'background-color:Gold; color: black', action);
 
     const {
-      payload: {stateName, stateValue},
+      payload: {sceneId, state: stateToUpdate},
     } = action;
 
-    if (!stateName || stateValue === undefined) {
-      throw new Error('required "stateName" or "stateValue" not defined for the action');
+    if (!sceneId || !stateToUpdate) {
+      throw new Error('required "sceneId" or "state" not defined for the action');
     }
 
-    const state = getState();
-    const sceneId = getCurrentSceneId(state);
     dispatch(
-      setSceneState({
+      setSceneMultiState({
         sceneId,
-        stateName: stateName as string,
-        stateValue,
+        stateToUpdate,
       })
     );
 
     dispatch(endAction());
-
-    // not needed - will be add as separate and standalone action
-    // dispatch(startWaitAction({
-    //   durationInMs: 1000,
-    //   stateName: stateName as string,
-    //   stateValue
-    // }));
-    //       gem.action.next();
-    //     });
   };
 
 export const endSetSceneStateAction = (): IThunk => () => {
-  // console.log('%c [mr] endSetCurrentSceneStateAction', 'background-color:Gold; color: black');
+  // console.log('%c [mr] endSetSceneStateAction', 'background-color:Gold; color: black');
 };

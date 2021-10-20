@@ -26,16 +26,13 @@ const ElmPoi = () => {
         {
           name: t.verbs.talk,
           script: [
-            //ACTIONS.setCurrentSceneState<IElmWorkshopByHazelSceneState>({
-            //   stateName: 'tableDishesExamineCounter',
-            //   stateValue: tableDishesExamineCounter + 1,
-            // }),
             ACTIONS.setSceneState({
               sceneId: SCENES.elmWorkshopByHazel,
               state: {
                 afterFirstTalk: true,
               },
             }),
+            ACTIONS.wait({duration: 1.5}),
             ACTIONS.talk({text: t.scenes.elmWorkshopByHazel.elm.talk.takeAMoment}),
             ACTIONS.talk({
               text: t.scenes.elmWorkshopByHazel.elm.talk.youAlreadyDid,

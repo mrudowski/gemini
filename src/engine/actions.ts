@@ -14,7 +14,7 @@ export interface IActionPayload {
  */
 type IDuration = number;
 
-interface ISetSceneStateActionPayload<T extends ISceneId, U extends IWorldState['scenes'][T]> extends IActionPayload {
+export interface ISetSceneStateActionPayload<T extends ISceneId, U extends IWorldState['scenes'][T]> extends IActionPayload {
   sceneId: T;
   state: {
     [key in keyof U]?: U[keyof U];
@@ -63,7 +63,7 @@ export interface ISpecifiedAction<T> extends IAction {
 }
 
 export type ISetSceneStateAction = <T extends ISceneId, U extends IWorldState['scenes'][T]>(
-  args: ISetSceneStateActionPayload<T, U>
+  payload: ISetSceneStateActionPayload<T, U>
 ) => ISpecifiedAction<ISetSceneStateActionPayload<T, U>>;
 
 const getSpecificAction = (actionName: IActionName, payload: IActionPayload = {}): IAction => {

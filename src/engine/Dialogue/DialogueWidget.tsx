@@ -10,29 +10,27 @@ import {IActorId} from '../../game/actors';
 import {getCurrentPoiId} from '../redux/tempSlice';
 import SETTINGS from '../../game/settings';
 import DialoguePortraitWidget from './DialoguePortraitWidget';
-import variants from '../commons/motion/variants';
+import {variants} from '../commons/motion/variants';
 import DialogueActorNameWidget from './DialogueActorNameWidget';
+
 // import portrait from '../../game/assets/images/portraits/salammon.png';
 
 interface IDialogue {
-  action: ISpecifiedAction<ITalkActionPayload> | ISpecifiedAction<ITalkOptionsActionPayload>,
-  onClick: (e, next?: string, actorId?: IActorId) => void,
+  action: ISpecifiedAction<ITalkActionPayload> | ISpecifiedAction<ITalkOptionsActionPayload>;
+  onClick: (e, next?: string, actorId?: IActorId) => void;
 }
 
-const DialogueWidget: React.FC<IDialogue> = (props) => {
+const DialogueWidget: React.FC<IDialogue> = props => {
   const {
     action, // TODO push payload as props
-    onClick
+    onClick,
   } = props;
 
   // console.log('%c [mr] DialogueWidget', 'background-color:Gold; color: black');
 
   // TODO add alt portrait name
 
-  const {
-    actor = SETTINGS.DEFAULT_ACTOR,
-    actorName,
-  } = action.payload;
+  const {actor = SETTINGS.DEFAULT_ACTOR, actorName} = action.payload;
 
   const poiActorId = useTypedSelector(getCurrentPoiId);
 
@@ -42,47 +40,24 @@ const DialogueWidget: React.FC<IDialogue> = (props) => {
   //   !isPresent && setTimeout(safeToRemove as any, 3000);
   // }, [isPresent, safeToRemove]);
 
+  const {text} = action.payload as ITalkActionPayload;
 
-  const {
-    text,
-  } = action.payload as ITalkActionPayload;
+  const {options} = action.payload as ITalkOptionsActionPayload;
 
-  const {
-    options
-  } = action.payload as ITalkOptionsActionPayload;
-
-  const classes = classNames(
-    'DialogueWidget',
-  );
+  const classes = classNames('DialogueWidget');
 
   // when added transition with static duration > 0.5
   // we omit flickering when hide/show during autoplay
 
   return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      exit="hidden"
-      variants={variants}
-    >
-      <Backdrop
-        dimmed={true}
-      />
-      <div
-        className={classes}
-        {...(!options && {onClick})}
-      >
+    <motion.div initial="hidden" animate="visible" exit="hidden" variants={variants}>
+      <Backdrop dimmed={true} />
+      <div className={classes} {...(!options && {onClick})}>
         <DialoguePortraitWidget actor={actor} />
         <div className="DialogueWidget__balloon">
           <DialogueActorNameWidget actor={actor} actorName={actorName} />
           <div className="DialogueWidget__border" />
-          {options ? (
-            <DialogueOptionsWidget options={options} onOptionSelect={onClick} actorId={poiActorId as IActorId} />
-          ) : (
-            <div>
-              {text}
-            </div>
-          )}
+          {options ? <DialogueOptionsWidget options={options} onOptionSelect={onClick} actorId={poiActorId as IActorId} /> : <div>{text}</div>}
         </div>
       </div>
     </motion.div>

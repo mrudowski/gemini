@@ -1,8 +1,8 @@
 # TODO
 
-- dialog devtool zle wyswietla autora!
-- -dev tool do lokacji
+- visitied sie nie zmienia
 - change location - przejscia między scenami
+- -dev tool do zmiany lokacji
 - dynamiczna zmiana języka! aby łatwo testować itd...
 - autosave / load / restart stanu
 

@@ -5,8 +5,8 @@ import {AnimatePresence, motion} from 'framer-motion';
 import {useTypedDispatch} from '../redux/store';
 import {IVerb} from '../VerbMenu/verbMenuSlice';
 import {poiClicked} from '../redux/tempSlice';
-import variants from '../commons/motion/variants';
 import PreloadImage from '../Preload/PreloadImage';
+import {poiVariants} from '../commons/motion/variants';
 
 type IPoiId = string; // TODO better?
 type TImagePath = string;
@@ -24,7 +24,7 @@ const Poi: React.FC<IPoi> = ({id, image, style, hotspot, when, verbs = []}) => {
   //const isDebug = useSelector(getIsDebug);
   const dispatch = useTypedDispatch();
 
-  // not needed becauuse of initial
+  // not needed because of initial
   // const [isRendered, setIsRendered] = useState(false);
   // useEffect(() => {
   //   setIsRendered(true);
@@ -63,7 +63,7 @@ const Poi: React.FC<IPoi> = ({id, image, style, hotspot, when, verbs = []}) => {
       {image && <PreloadImage image={image} />}
       <AnimatePresence initial={false}>
         {isShow && (
-          <motion.div className={classes} style={styles} initial="hidden" animate="visible" exit="hidden" variants={variants}>
+          <motion.div className={classes} style={styles} initial="hidden" animate="visible" exit="hidden" variants={poiVariants}>
             {isInteractive && (
               <div
                 className="Poi__hotspot gem-hotspot"

@@ -7,10 +7,9 @@ import Backdrop from '../helpers/Backdrop';
 import {closeVerbMenu, getVerbMenuData, interpretVerb, IVerb} from './verbMenuSlice';
 import getTopLeftPosition from './utils/getTopLeftPosition';
 import VerbItem from './VerbItem';
-import variants from '../commons/motion/variants';
+import {variants} from '../commons/motion/variants';
 
-interface IVerbMenu {
-}
+interface IVerbMenu {}
 
 const VerbMenu: React.FC<IVerbMenu> = () => {
   // const {
@@ -18,7 +17,7 @@ const VerbMenu: React.FC<IVerbMenu> = () => {
 
   const verbMenuData = useTypedSelector(getVerbMenuData);
   const dispatch = useTypedDispatch();
-  const [positionStyle, setPositionStyle] = useState<{top: number, left: number} | null>(null);
+  const [positionStyle, setPositionStyle] = useState<{top: number; left: number} | null>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -30,13 +29,12 @@ const VerbMenu: React.FC<IVerbMenu> = () => {
       const viewportRect = backdropRef.current.getBoundingClientRect();
       const menuRect = menuRef.current.getBoundingClientRect();
       const topLeftPosition = {
-        ...getTopLeftPosition(verbMenuData.x, verbMenuData.y, menuRect, viewportRect)
+        ...getTopLeftPosition(verbMenuData.x, verbMenuData.y, menuRect, viewportRect),
       };
       setPositionStyle(topLeftPosition);
     } else {
       setPositionStyle(null);
     }
-
   }, [verbMenuData]);
 
   // we can't if we want to AnimatePresence to work
@@ -59,13 +57,10 @@ const VerbMenu: React.FC<IVerbMenu> = () => {
     closeMenu();
   };
 
-  const classes = classNames(
-    'VerbMenu',
-    {'VerbMenu--show': positionStyle}
-  );
+  const classes = classNames('VerbMenu', {'VerbMenu--show': positionStyle});
 
   const styles = {
-    ...(positionStyle && positionStyle)
+    ...(positionStyle && positionStyle),
   };
 
   // using flatMap
@@ -99,9 +94,7 @@ const VerbMenu: React.FC<IVerbMenu> = () => {
             whileTap={{scale: 0.95}}
           >
             <div className="gem-ui-borders" />
-            <div>
-              {getVerbs(verbMenuData.verbs)}
-            </div>
+            <div>{getVerbs(verbMenuData.verbs)}</div>
           </motion.div>
         </>
       )}
