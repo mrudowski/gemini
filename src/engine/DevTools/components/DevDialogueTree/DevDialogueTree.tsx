@@ -37,10 +37,11 @@ const DevDialogueTree: React.FC<IDevDialogueTree> = () => {
             indent = 1;
           }
           return (
-            <div key={index} className={`indent-${indent}`}>
+            <div key={index} className={`devDialogueTree__item indent-${indent}`}>
               {currentActionIndex === index && '> '}
               {action.actionName !== ACTIONS_NAMES.TALK_OPTIONS && action.id && ` ${action.id}: `}
               {action.actionName} {action.actionName === ACTIONS_NAMES.TALK && <ActorName action={action} />}
+              {action.actionName === ACTIONS_NAMES.SET_SCENE_STATE && ` ${JSON.stringify(action.payload)}`}
               {action.actionName === ACTIONS_NAMES.WAIT && ` ${(action as IWaitAction).payload.duration || '1'} sec`}
               {action.when === false && ' (disabled)'}
             </div>

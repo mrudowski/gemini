@@ -1,20 +1,17 @@
 # TODO
 
-- visitied sie nie zmienia
 - change location - przejscia między scenami
 - -dev tool do zmiany lokacji
-- dynamiczna zmiana języka! aby łatwo testować itd...
+- dynamiczna zmiana języka! aby łatwo testować itd... wyświetlenie wielu na raz?
 - autosave / load / restart stanu
 
 -----
 
 
 - wizualizacja dialogów
-  - poprawy actorName
   - reagująca na stan (modifikująca swoje powiązania kolejność)
   - pokazująca rozgałęzienia
   - pokazującą bieżącą pozycję (ukryte opcje i ścieżki)
-
 
 
 - inventory

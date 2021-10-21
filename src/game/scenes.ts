@@ -1,6 +1,7 @@
 const SCENES = {
   teaShop: 'teaShop',
-  elmWorkshopByHazel: 'elmWorkshopByHazel'
+  elmWorkshopByHazel: 'elmWorkshopByHazel',
+  hazelWorkshopByHazel: 'hazelWorkshopByHazel',
 } as const;
 
 export type ISceneId = keyof typeof SCENES;

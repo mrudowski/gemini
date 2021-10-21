@@ -6,4 +6,11 @@
 	left: $gem-gap;
 	width: 200px;
 	border: 1px solid hotpink;
+	overflow-wrap: break-word;
+	z-index: 1;
+
+	&__item {
+		margin-bottom: 5px;
+	}
 }
+
