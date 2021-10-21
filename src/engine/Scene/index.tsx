@@ -22,7 +22,7 @@ const Scene: React.FC<IScene> = props => {
   useEffect(() => {
     console.log('%c [mr] SCENE created', 'background-color:Gold; color: black', id);
     dispatch(setSceneMultiState({sceneId: id, stateToUpdate: {visited: true}}));
-  }, [id]);
+  }, [id, dispatch]);
 
   const styles = {
     backgroundImage: `url(${image})`,
