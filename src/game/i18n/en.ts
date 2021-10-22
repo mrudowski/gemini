@@ -3,6 +3,7 @@
 const en = {
   verbs: {
     examine: "Examine",
+    go: "Go",
     take: "Take",
     talk: "Talk",
     talkAlt: "Small talk",

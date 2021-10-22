@@ -17,7 +17,7 @@ export const startSetSceneStateAction: IStartSetSceneStateAction =
     // console.log('%c [mr] startSetSceneStateAction', 'background-color:Gold; color: black', action);
 
     const {
-      payload: {sceneId, state: stateToUpdate},
+      payload: {scene: sceneId, state: stateToUpdate},
     } = action;
 
     if (!sceneId || !stateToUpdate) {

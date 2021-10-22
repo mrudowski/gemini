@@ -27,7 +27,7 @@ const ElmPoi = () => {
           name: t.verbs.talk,
           script: [
             ACTIONS.setSceneState({
-              sceneId: SCENES.elmWorkshopByHazel,
+              scene: SCENES.elmWorkshopByHazel,
               state: {
                 afterFirstTalk: true,
               },

@@ -7,6 +7,7 @@ import {endTalkAction, startTalkAction} from './talkActionSlice';
 import {endSetCurrentSceneStateAction, startSetCurrentSceneStateAction} from './setCurrentSceneStateActionThunk';
 import {endWaitAction, startWaitAction} from './waitActionSlice';
 import {endSetSceneStateAction, startSetSceneStateAction} from './setSceneStateActionThunk';
+import {endGotoSceneAction, startGotoSceneAction} from './setGotoSceneActionThunk';
 
 interface IScriptPlayerState {
   script: IAction[] | null;
@@ -217,6 +218,10 @@ export const endAction =
 // };
 
 const actionSettersMap = {
+  [ACTIONS_NAMES.GOTO_SCENE]: {
+    startAction: startGotoSceneAction,
+    endAction: endGotoSceneAction,
+  },
   [ACTIONS_NAMES.SET_SCENE_STATE]: {
     startAction: startSetSceneStateAction,
     endAction: endSetSceneStateAction, // TODO could be without it

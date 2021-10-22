@@ -5,6 +5,7 @@ import en from "./en";
 const pl: typeof en = {
   verbs: {
     examine: "Zbadaj",
+    go: "Idź",
     take: "Weź",
     talk: "Porozmawiaj",
     talkAlt: "Pogawędka",

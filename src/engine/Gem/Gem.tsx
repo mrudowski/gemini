@@ -1,4 +1,4 @@
-import React, {Suspense, useEffect, useMemo} from 'react';
+import React, {Suspense, useEffect, useMemo, useRef, useState} from 'react';
 import classNames from 'classnames';
 import './styles/GemStyle.scss';
 import {useTypedSelector} from '../redux/store';
@@ -10,6 +10,8 @@ import Wait from '../GemLock/GemLock';
 import {getIsShowHotspotActive, getIsShowPoiActive} from '../DevTools/devToolsSlice';
 import SoundDJ from './SoundDJ';
 import PreloadUI from '../PreloadUI/PreloadUI';
+import {getNextSceneId} from '../redux/tempSlice';
+import {ISceneId} from '../../game/scenes';
 
 // TODO works?
 // TODO it should be dynamically!
@@ -32,34 +34,72 @@ const SuspenseTest = ({children}) => {
 
 const Gem = () => {
   const currentSceneId = useTypedSelector(getCurrentSceneId);
+  const nextSceneId = useTypedSelector(getNextSceneId);
   const isShowPoiActive = useTypedSelector(getIsShowPoiActive);
   const isShowHotspotActive = useTypedSelector(getIsShowHotspotActive);
+  const [sceneSlots, setSceneSlots] = useState<{sceneSlot1: ISceneId | null; sceneSlot2: ISceneId | null}>(() => ({
+    sceneSlot1: null,
+    sceneSlot2: null,
+  }));
+  //const [sceneSlotWithNextSceneId, setSceneSlotWithNextSceneId] = useState<'sceneSlot1' | 'sceneSlot2'>('sceneSlot1');
+  const sceneSlotWithCurrentSceneId = useRef<'sceneSlot1' | 'sceneSlot2'>('sceneSlot1');
+  const sceneSlotWithNextSceneId = useRef<'sceneSlot1' | 'sceneSlot2'>('sceneSlot2');
 
-  console.log('%c [Gem] render', 'color: CRIMSON');
+  const {sceneSlot1, sceneSlot2} = sceneSlots;
 
-  const classes = classNames('Gem', isShowPoiActive && 'Gem--debug--showPoi', isShowHotspotActive && 'Gem--debug--showHotspot');
+  useEffect(() => {
+    // first time
+    const slot1 = sceneSlotWithCurrentSceneId.current;
+    const slot2 = sceneSlotWithNextSceneId.current;
+    setSceneSlots(prevState => ({
+      ...prevState, // for typescript
+      [slot1]: currentSceneId,
+      [slot2]: nextSceneId,
+    }));
+    if (nextSceneId) {
+      sceneSlotWithCurrentSceneId.current = slot2;
+      sceneSlotWithNextSceneId.current = slot1;
+    }
+  }, [currentSceneId, nextSceneId]);
 
-  // TODO move it deeper
+  console.log('%c [Gem] render', 'color: CRIMSON', currentSceneId, nextSceneId);
 
-  const CurrentScene = useMemo(() => {
+  const classes = classNames(
+    'Gem',
+    isShowPoiActive && 'Gem--debug--showPoi',
+    isShowHotspotActive && 'Gem--debug--showHotspot'
+  );
+
+  // TODO move it deeper / create new component Scene for Suspense, PreloadUI, CurrentScene
+  const SceneSlot1Component = useMemo(() => {
     // why a cannot use getScenePathToImport here?
-    return React.lazy(() => import(`../../game/scenes/${currentSceneId}/${capitalizeFirstLetter(currentSceneId)}Scene`));
-  }, [currentSceneId]);
+    return React.lazy(() => import(`../../game/scenes/${sceneSlot1}/${capitalizeFirstLetter(sceneSlot1 || '')}Scene`));
+  }, [sceneSlot1]);
+
+  const SceneSlot2Component = useMemo(() => {
+    // why a cannot use getScenePathToImport here?
+    return React.lazy(() => import(`../../game/scenes/${sceneSlot2}/${capitalizeFirstLetter(sceneSlot2 || '')}Scene`));
+  }, [sceneSlot2]);
 
   return (
     <div className={classes}>
       <DevTools />
       <div className="App__viewport">
         <SoundDJ />
-        <Suspense fallback={<SuspenseTest>loading...</SuspenseTest>}>
+        <Suspense fallback={<SuspenseTest>loading all...</SuspenseTest>}>
           <PreloadUI />
-          <CurrentScene />
+          <Suspense fallback={<SuspenseTest>loading currentScene...</SuspenseTest>}>
+            {sceneSlot1 && <SceneSlot1Component />}
+          </Suspense>
+          <Suspense fallback={<SuspenseTest>loading nextScene...</SuspenseTest>}>
+            {sceneSlot2 && <SceneSlot2Component />}
+          </Suspense>
+          <Suspense fallback={<div>loading dialogue...</div>}>
+            <Dialogue />
+          </Suspense>
+          <VerbMenu />
+          <Wait />
         </Suspense>
-        <Suspense fallback={<div>loading...</div>}>
-          <Dialogue />
-        </Suspense>
-        <VerbMenu />
-        <Wait />
       </div>
     </div>
   );

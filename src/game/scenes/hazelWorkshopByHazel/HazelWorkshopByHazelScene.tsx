@@ -13,7 +13,7 @@ const HazelWorkshopByHazelScene = () => {
   // const t = useTranslation();
 
   return (
-    <Scene id={SCENES.elmWorkshopByHazel} image={hazelWorkshop}>
+    <Scene id={SCENES.hazelWorkshopByHazel} image={hazelWorkshop}>
       <PreloadImages images={imagesToPreload} />
     </Scene>
   );

@@ -1,11 +1,18 @@
 # TODO
 
 - change location - przejscia między scenami
+- ladny preloaded pomiedzy scenami
+- ladny spinner
 - -dev tool do zmiany lokacji
 - dynamiczna zmiana języka! aby łatwo testować itd... wyświetlenie wielu na raz?
 - autosave / load / restart stanu
 
+
+
 -----
+
+- dreams
+  - podglą∂ wielu scene naraz
 
 
 - wizualizacja dialogów

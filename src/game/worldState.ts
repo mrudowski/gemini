@@ -3,10 +3,10 @@ import TALK_OPTIONS from './talkOptions';
 import ACTORS, {IActorId} from './actors';
 import SCENES from './scenes';
 import {elmWorkshopByHazelSceneInitialState, IElmWorkshopByHazelSceneState} from './scenes/elmWorkshopByHazel/state';
-import {hazelWorkshopByHazelSceneInitialState, IHazelWorkshopByHazelSceneState} from './scenes/HazelWorkshopByHazel/state';
+import {hazelWorkshopByHazelSceneInitialState, IHazelWorkshopByHazelSceneState} from './scenes/hazelWorkshopByHazel/state';
 
-// TODO - move IWorldState inside engine
-
+// TODO - move all helpers inside engine
+//  worldState file have to be easy to manage!
 type IActorTalkOptions = {
   [key in keyof typeof TALK_OPTIONS]: boolean;
 };
@@ -60,6 +60,7 @@ export const worldInitialState: IWorldState = {
       test1: 1,
     },
   },
+  // TODO ok but move it outside this file - worldState have to be easy to manage!
   actors: Object.keys(ACTORS).reduce((actorsAsState, actorId) => {
     actorsAsState[actorId] = getActorTalkOptions();
     return actorsAsState;

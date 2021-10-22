@@ -1,10 +1,15 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import classNames from 'classnames';
+import {motion} from 'framer-motion';
 import './styles/SceneStyle.scss';
+import {batch} from 'react-redux';
 import {ISceneId} from '../../game/scenes';
 import PreloadImage from '../Preload/PreloadImage';
 import {useTypedDispatch} from '../redux/store';
+import {sceneVariants} from '../commons/motion/variants';
 import {setSceneMultiState} from '../redux/worldSlice';
+import {setNextSceneId} from '../redux/tempSlice';
+import {setCurrentScene} from '../redux/gemSlice';
 
 type IImage = string;
 
@@ -21,18 +26,35 @@ const Scene: React.FC<IScene> = props => {
 
   useEffect(() => {
     console.log('%c [mr] SCENE created', 'background-color:Gold; color: black', id);
-    dispatch(setSceneMultiState({sceneId: id, stateToUpdate: {visited: true}}));
+  }, [id]);
+
+  const onAnimationComplete = useCallback(() => {
+    // TODO put into thunk!
+    batch(() => {
+      dispatch(setSceneMultiState({sceneId: id, stateToUpdate: {visited: true}}));
+      dispatch(setNextSceneId(null));
+      dispatch(setCurrentScene(id));
+    });
   }, [id, dispatch]);
 
   const styles = {
     backgroundImage: `url(${image})`,
   };
 
+  // TODO? do we need exit animation here?
+
   return (
-    <div className={classes} style={styles}>
+    <motion.div
+      className={classes}
+      style={styles}
+      initial="hidden"
+      animate="visible"
+      variants={sceneVariants}
+      onAnimationComplete={onAnimationComplete}
+    >
       <PreloadImage image={image} />
       {children}
-    </div>
+    </motion.div>
   );
 };
 

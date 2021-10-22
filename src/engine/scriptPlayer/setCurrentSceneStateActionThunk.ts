@@ -21,6 +21,7 @@ export const startSetCurrentSceneStateAction =
 
     const state = getState();
     const sceneId = getCurrentSceneId(state);
+
     dispatch(
       setSceneState({
         sceneId,

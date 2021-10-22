@@ -9,47 +9,6 @@ export interface IActionPayload {
   next?: string;
 }
 
-/**
- * duration in seconds
- */
-type IDuration = number;
-
-export interface ISetSceneStateActionPayload<T extends ISceneId, U extends IWorldState['scenes'][T]> extends IActionPayload {
-  sceneId: T;
-  state: {
-    [key in keyof U]?: U[keyof U];
-  };
-}
-
-export interface ISetCurrentSceneStateActionPayload<T> extends IActionPayload {
-  stateName: keyof T;
-  stateValue: T[keyof T];
-}
-
-export interface ITalkActionPayload extends IActionPayload {
-  text: string;
-  autoPlayAfter?: IDuration;
-  actor?: IActorId;
-  actorName?: string;
-}
-
-export interface ITalkOption {
-  id: keyof typeof TALK_OPTIONS;
-  next?: string;
-  text?: string;
-  when?: boolean;
-}
-
-export interface ITalkOptionsActionPayload extends IActionPayload {
-  actor?: IActorId;
-  actorName?: string;
-  options: ITalkOption[];
-}
-
-export interface IWaitActionPayload extends IActionPayload {
-  duration?: IDuration;
-}
-
 export interface IAction {
   actionName: IActionName;
   id?: string;
@@ -62,9 +21,74 @@ export interface ISpecifiedAction<T> extends IAction {
   payload: Omit<T, 'when'>;
 }
 
+// ========================================
+
+/**
+ * duration in seconds
+ */
+type IDuration = number;
+
+// -------------
+
+export interface ISetCurrentSceneStateActionPayload<T> extends IActionPayload {
+  stateName: keyof T;
+  stateValue: T[keyof T];
+}
+
+// -------------
+
+export interface ITalkActionPayload extends IActionPayload {
+  text: string;
+  autoPlayAfter?: IDuration;
+  actor?: IActorId;
+  actorName?: string;
+}
+
+// -------------
+
+export interface ITalkOption {
+  id: keyof typeof TALK_OPTIONS;
+  next?: string;
+  text?: string;
+  when?: boolean;
+}
+
+// -------------
+
+export interface ITalkOptionsActionPayload extends IActionPayload {
+  actor?: IActorId;
+  actorName?: string;
+  options: ITalkOption[];
+}
+
+// -------------
+
+export interface IWaitActionPayload extends IActionPayload {
+  duration?: IDuration;
+}
+
+// -------------
+
+export interface IGotoSceneActionPayload extends IActionPayload {
+  scene: ISceneId;
+}
+
+export type IGotoSceneAction = (payload: IGotoSceneActionPayload) => ISpecifiedAction<IGotoSceneActionPayload>;
+
+// -------------
+
+export interface ISetSceneStateActionPayload<T extends ISceneId, U extends IWorldState['scenes'][T]> extends IActionPayload {
+  scene: T;
+  state: {
+    [key in keyof U]?: U[keyof U];
+  };
+}
+
 export type ISetSceneStateAction = <T extends ISceneId, U extends IWorldState['scenes'][T]>(
   payload: ISetSceneStateActionPayload<T, U>
 ) => ISpecifiedAction<ISetSceneStateActionPayload<T, U>>;
+
+// =============================================
 
 const getSpecificAction = (actionName: IActionName, payload: IActionPayload = {}): IAction => {
   const {when = true, id, ...actionSpecificPayload} = payload;
@@ -77,7 +101,10 @@ const getSpecificAction = (actionName: IActionName, payload: IActionPayload = {}
   };
 };
 
+// =============================================
+
 export const ACTIONS_NAMES = {
+  GOTO_SCENE: 'GOTO_SCENE',
   SET_SCENE_STATE: 'SET_SCENE_STATE',
   SET_CURRENT_SCENE_STATE: 'SET_CURRENT_SCENE_STATE',
   TALK: 'TALK',
@@ -88,6 +115,7 @@ export const ACTIONS_NAMES = {
 
 type IActionName = keyof typeof ACTIONS_NAMES;
 
+const gotoScene: IGotoSceneAction = payload => getSpecificAction(ACTIONS_NAMES.GOTO_SCENE, payload);
 const setSceneState: ISetSceneStateAction = payload => getSpecificAction(ACTIONS_NAMES.SET_SCENE_STATE, payload);
 const setCurrentSceneState = <T>(payload: ISetCurrentSceneStateActionPayload<T>): ISpecifiedAction<ISetCurrentSceneStateActionPayload<T>> =>
   getSpecificAction(ACTIONS_NAMES.SET_CURRENT_SCENE_STATE, payload);
@@ -97,6 +125,7 @@ const endTalk = (): IAction => getSpecificAction(ACTIONS_NAMES.END_TALK);
 const wait = (payload?: IWaitActionPayload): ISpecifiedAction<IWaitActionPayload> => getSpecificAction(ACTIONS_NAMES.WAIT, payload);
 
 const ACTIONS = {
+  gotoScene,
   setSceneState,
   setCurrentSceneState,
   talk,
