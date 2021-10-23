@@ -20,10 +20,16 @@ const capitalizeFirstLetter = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-const SuspenseTest = ({children}) => {
+const SuspenseTest1 = ({children}) => {
+  return <div style={{color: 'white'}}>{children}</div>;
+};
+
+const SuspenseTest = ({children, onReady}) => {
   useEffect(() => {
+    onReady(false);
     console.log('%c [mr] SuspenseTest created', 'background-color:green; color: black');
     return () => {
+      onReady(true);
       console.log('%c [mr] SuspenseTest destroyed', 'background-color:red; color: black');
     };
   }, []);
@@ -46,6 +52,9 @@ const Gem = () => {
   const sceneSlotWithNextSceneId = useRef<'sceneSlot1' | 'sceneSlot2'>('sceneSlot2');
 
   const {sceneSlot1, sceneSlot2} = sceneSlots;
+
+  const [sceneSlot1Ready, setSceneSlot1Ready] = useState(false);
+  const [sceneSlot2Ready, setSceneSlot2Ready] = useState(false);
 
   useEffect(() => {
     // first time
@@ -84,16 +93,18 @@ const Gem = () => {
   return (
     <div className={classes}>
       <DevTools />
-      <div className="App__viewport">
+      <div className="Gem__viewport">
         <SoundDJ />
-        <Suspense fallback={<SuspenseTest>loading all...</SuspenseTest>}>
+        <Suspense fallback={<SuspenseTest1>loading all...</SuspenseTest1>}>
           <PreloadUI />
-          <Suspense fallback={<SuspenseTest>loading currentScene...</SuspenseTest>}>
-            {sceneSlot1 && <SceneSlot1Component />}
-          </Suspense>
-          <Suspense fallback={<SuspenseTest>loading nextScene...</SuspenseTest>}>
-            {sceneSlot2 && <SceneSlot2Component />}
-          </Suspense>
+          <div className="Gem__scenes">
+            <Suspense fallback={<SuspenseTest onReady={setSceneSlot1Ready}>loading currentScene...</SuspenseTest>}>
+              {sceneSlot1 && <SceneSlot1Component loaded={sceneSlot1Ready} key="sceneSlot1" />}
+            </Suspense>
+            <Suspense fallback={<SuspenseTest onReady={setSceneSlot2Ready}>loading nextScene...</SuspenseTest>}>
+              {sceneSlot2 && <SceneSlot2Component loaded={sceneSlot2Ready} key="sceneSlot2" />}
+            </Suspense>
+          </div>
           <Suspense fallback={<div>loading dialogue...</div>}>
             <Dialogue />
           </Suspense>

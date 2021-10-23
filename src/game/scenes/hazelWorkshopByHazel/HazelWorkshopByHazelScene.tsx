@@ -9,11 +9,11 @@ import PreloadImages from '../../../engine/Preload/PreloadImages';
 
 const imagesToPreload = [elmImage, hazelImage];
 
-const HazelWorkshopByHazelScene = () => {
+const HazelWorkshopByHazelScene = props => {
   // const t = useTranslation();
 
   return (
-    <Scene id={SCENES.hazelWorkshopByHazel} image={hazelWorkshop}>
+    <Scene id={SCENES.hazelWorkshopByHazel} image={hazelWorkshop} {...props}>
       <PreloadImages images={imagesToPreload} />
     </Scene>
   );

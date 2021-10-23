@@ -14,11 +14,11 @@ import PreloadImages from '../../../engine/Preload/PreloadImages';
 
 const imagesToPreload = [elmImage, hazelImage];
 
-const ElmWorkshopByHazelScene = () => {
+const ElmWorkshopByHazelScene = props => {
   // const t = useTranslation();
 
   return (
-    <Scene id={SCENES.elmWorkshopByHazel} image={elmWorkshop}>
+    <Scene id={SCENES.elmWorkshopByHazel} image={elmWorkshop} {...props}>
       <PreloadImages images={imagesToPreload} />
 
       <ElmDeskPoi />
