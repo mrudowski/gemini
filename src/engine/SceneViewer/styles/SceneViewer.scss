@@ -1,0 +1,11 @@
+@import "../../sass/variables";
+
+.SceneViewer {
+	position: relative;
+	width: $gem-viewport-width;
+	height: $gem-viewport-height;
+	overflow: hidden;
+	z-index: 0;
+}
+
+

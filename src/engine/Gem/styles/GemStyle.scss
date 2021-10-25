@@ -16,14 +16,6 @@
 		height: $gem-viewport-height;
 		overflow: hidden;
 	}
-
-	&__scenes {
-		position: relative;
-		width: $gem-viewport-width;
-		height: $gem-viewport-height;
-		overflow: hidden;
-		z-index: 0;
-	}
 }
 
 
