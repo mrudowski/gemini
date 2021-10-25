@@ -4,6 +4,7 @@ import {useTypedSelector} from '../redux/store';
 import {getCurrentSceneId} from '../redux/gemSlice';
 import {getNextSceneId} from '../redux/tempSlice';
 import './styles/SceneViewer.scss';
+import SceneAnimation from '../SceneAnimation/SceneAnimation';
 
 const capitalizeFirstLetter = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -17,7 +18,7 @@ const SuspenseTest = ({children, onReady}) => {
       onReady(true);
       console.log('%c [mr] SuspenseTest destroyed', 'background-color:red; color: black');
     };
-  }, []);
+  }, [onReady]);
   return <div style={{color: 'white'}}>{children}</div>;
 };
 
@@ -40,6 +41,20 @@ const SceneViewer = () => {
   const [sceneSlot1Ready, setSceneSlot1Ready] = useState(false);
   const [sceneSlot2Ready, setSceneSlot2Ready] = useState(false);
 
+  console.log('%c [mr] sceneSlot1Ready TEST', 'background-color:Gold; color: black', sceneSlot1Ready);
+
+  useEffect(() => {
+    if (!sceneSlot1) {
+      setSceneSlot1Ready(false);
+    }
+  }, [sceneSlot1]);
+
+  useEffect(() => {
+    if (!sceneSlot2) {
+      setSceneSlot2Ready(false);
+    }
+  }, [sceneSlot2]);
+
   useEffect(() => {
     // first time
     const slot1 = sceneSlotWithCurrentSceneId.current;
@@ -55,7 +70,6 @@ const SceneViewer = () => {
     }
   }, [currentSceneId, nextSceneId]);
 
-  // TODO move it deeper / create new component Scene for Suspense, PreloadUI, CurrentScene
   const SceneSlot1Component = useMemo(() => {
     // why a cannot use getScenePathToImport here?
     return React.lazy(() => import(`../../game/scenes/${sceneSlot1}/${capitalizeFirstLetter(sceneSlot1 || '')}Scene`));
@@ -68,12 +82,21 @@ const SceneViewer = () => {
 
   return (
     <div className="SceneViewer">
-      <Suspense fallback={<SuspenseTest onReady={setSceneSlot1Ready}>loading currentScene...</SuspenseTest>}>
-        {sceneSlot1 && <SceneSlot1Component loaded={sceneSlot1Ready} key="sceneSlot1" />}
-      </Suspense>
-      <Suspense fallback={<SuspenseTest onReady={setSceneSlot2Ready}>loading nextScene...</SuspenseTest>}>
-        {sceneSlot2 && <SceneSlot2Component loaded={sceneSlot2Ready} key="sceneSlot2" />}
-      </Suspense>
+      {sceneSlot1 && (
+        <Suspense fallback={<SuspenseTest onReady={setSceneSlot1Ready}>loading currentScene...</SuspenseTest>}>
+          <SceneAnimation loaded={sceneSlot1Ready} nextSceneId={sceneSlot1} id="1" key="sceneSlot1">
+            <SceneSlot1Component key="sceneSlot11" loaded={sceneSlot1Ready} />
+          </SceneAnimation>
+        </Suspense>
+      )}
+
+      {sceneSlot2 && (
+        <Suspense fallback={<SuspenseTest onReady={setSceneSlot2Ready}>loading nextScene...</SuspenseTest>}>
+          <SceneAnimation loaded={sceneSlot2Ready} nextSceneId={sceneSlot2} id="2" key="sceneSlot2">
+            <SceneSlot2Component key="sceneSlot22" loaded={sceneSlot2Ready} />
+          </SceneAnimation>
+        </Suspense>
+      )}
     </div>
   );
 };

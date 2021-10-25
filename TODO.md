@@ -1,9 +1,7 @@
 # TODO
 
-- change location - przejscia między scenami
 - ladny preloaded pomiedzy scenami
 - ladny spinner
-- -dev tool do zmiany lokacji
 - dynamiczna zmiana języka! aby łatwo testować itd... wyświetlenie wielu na raz?
 - autosave / load / restart stanu
 
@@ -12,15 +10,13 @@
 -----
 
 - dreams
-  - podglą∂ wielu scene naraz
-
+  - podgląd wielu scene naraz
 
 - wizualizacja dialogów
   - reagująca na stan (modifikująca swoje powiązania kolejność)
   - pokazująca rozgałęzienia
   - pokazującą bieżącą pozycję (ukryte opcje i ścieżki)
-
-
+  
 - inventory
 - useWith
 
@@ -28,10 +24,6 @@
 - showCloseUp and auto continue - display dialog on top on it - change state - close closeUp
 
 - say
-
-
-// better not!
-- add interpreter ! > < && || etc... ?
 
 - dialogue options - layout multiline
 
@@ -85,3 +77,27 @@ const originalState = original(state);
 - craco image optimised - css images?
 - onToucheEnd?
 - cookie info
+
+
+// ---------------- check
+
+need ReactDOM.createRoot() and react 18 alpha
+https://pl.reactjs.org/docs/concurrent-mode-patterns.html#transitions
+
+Gatsby 4
+NODE 17
+
+https://github.com/alexreardon/memoize-one
+https://github.com/elbywan/hyperactiv
+https://github.com/grischaerbe/cacheables
+
+console.assert()
+console.table()
+
+2d:
+https://github.com/KilledByAPixel/LittleJS
+
+wow music
+https://killedbyapixel.github.io/ZzFX/
+https://keithclark.github.io/ZzFXM/
+
