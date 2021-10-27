@@ -32,8 +32,8 @@ const SceneAnimation: FC<ISceneAnimation> = ({children, loaded, nextSceneId, id}
     <motion.div
       id={id}
       className="SceneAnimation"
-      initial={false} //"hidden1" // TODO here
-      animate={!loaded ? 'notLoaded' : currentSceneId === nextSceneId ? 'fullyLoaded' : 'visible'}
+      initial={false}
+      animate={!loaded ? 'hidden' : currentSceneId === nextSceneId ? 'stable' : 'fadingIn'}
       variants={sceneVariants}
       //exit={{opacity: 0.5}}
       onAnimationComplete={onAnimationComplete}

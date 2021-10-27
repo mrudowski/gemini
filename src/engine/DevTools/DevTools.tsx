@@ -7,23 +7,23 @@ import {
   getIsDebugMode,
   getIsShowHotspotActive,
   getIsShowPoiActive,
-  setDebugMode, toggleHotspot,
-  togglePoi
+  setDebugMode,
+  toggleHotspot,
+  togglePoi,
 } from './devToolsSlice';
 import DevDialogueTree from './components/DevDialogueTree/DevDialogueTree';
+import DevLangBox from './components/DevLangBox/DevLangBox';
 
-interface IDevTools {
-}
+interface IDevTools {}
 
 const DevTools: React.FC<IDevTools> = () => {
-
   const isDebugMode = useTypedSelector(getIsDebugMode);
   const isShowPoiActive = useTypedSelector(getIsShowPoiActive);
   const isShowHotspotActive = useTypedSelector(getIsShowHotspotActive);
   const dispatch = useTypedDispatch();
 
   useEffect(() => {
-    const isDebugModeEnabled = (window.location.href).search(/\?debugMode=true/) > -1;
+    const isDebugModeEnabled = window.location.href.search(/\?debugMode=true/) > -1;
     dispatch(setDebugMode(isDebugModeEnabled));
   }, [dispatch]);
 
@@ -42,13 +42,18 @@ const DevTools: React.FC<IDevTools> = () => {
   return (
     <div className="DevTools">
       <div className="devPanel devToolBox">
-        <a href="#" onClick={togglePoiCallback}>[{isShowPoiActive ? '+' : '-'}] show pois</a>
+        <a href="#" onClick={togglePoiCallback}>
+          [{isShowPoiActive ? '+' : '-'}] show pois
+        </a>
         {/*<a href="#" id="toolHiddenPoi">toggle hidden poi</a>*/}
-        <a href="#" onClick={toggleHotspotCallback}>[{isShowHotspotActive ? '+' : '-'}] show hotspots</a>
+        <a href="#" onClick={toggleHotspotCallback}>
+          [{isShowHotspotActive ? '+' : '-'}] show hotspots
+        </a>
       </div>
       <DevDialogueTree />
       <DevStateBox />
       <DevLocationBox />
+      <DevLangBox />
     </div>
   );
 };

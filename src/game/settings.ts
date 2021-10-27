@@ -1,22 +1,22 @@
 // TODO add type for that
 import ACTORS, {IActorId} from './actors';
 import SCENES, {ISceneId} from './scenes';
+import LANGS, {ILangId} from './languages';
 
 interface ISettings {
-  START_FROM_LAST_SCENE: boolean
-  DEFAULT_ACTOR: IActorId,
-  PRIMARY_LANG: string, // TODO could be better like IActorid
-  FIRST_SCENE: ISceneId,
+  START_FROM_LAST_SCENE: boolean;
+  DEFAULT_ACTOR: IActorId;
+  PRIMARY_LANG: ILangId;
+  FIRST_SCENE: ISceneId;
   // SOUND: true,
-  SAVE_GAME_NAME: string,
-  TRACKING_ID: string,
+  SAVE_GAME_NAME: string;
+  TRACKING_ID: string;
 }
 
 const SETTINGS: ISettings = {
-
   START_FROM_LAST_SCENE: false, // set to true when develop
   DEFAULT_ACTOR: ACTORS.hazel,
-  PRIMARY_LANG: 'en',
+  PRIMARY_LANG: LANGS.pl,
   FIRST_SCENE: SCENES.elmWorkshopByHazel,
   // SOUND: true,
   SAVE_GAME_NAME: 'tos3Save',
@@ -147,7 +147,6 @@ const SETTINGS: ISettings = {
   //   'inventory/wheelbarrow.png',
   //   'inventory/wheelbarrowWithMixture.png',
   // ],
-
 };
 
 export default SETTINGS;

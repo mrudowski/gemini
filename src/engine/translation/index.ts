@@ -1,51 +1,47 @@
-import en from '../../game/i18n/en'; // TODO should not be part of engine
+import {useEffect} from 'react'; // TODO should not be part of engine
+import en from '../../game/i18n/en';
+import {useTypedDispatch, useTypedSelector} from '../redux/store';
+import {getLangToLoad, setCurrentLang} from '../redux/gemSlice';
+import SETTINGS from '../../game/settings';
+import {ILangId} from '../../game/languages';
 
-type TLang = typeof en;
-let currentLang = en;
+type TLangObj = typeof en;
+let currentLangObj = en;
 
-//const langRef: { current: TLang } = { current: currentLangObj.current };
-// langRef.current = currentLangObj;
-
-// in app
-const loadLang = async (lang: string):Promise<TLang> => {
+const loadLangObj = async (lang: ILangId): Promise<TLangObj> => {
   const module = await import(`../../game/i18n/${lang}`);
-  const newLang = module.default;
-  //t = newLang;
-  console.log('%c [loadLang]', 'background-color:Gold; color: black', newLang);
-  return newLang;
+  const newLangObj = module.default;
+  console.log('%c [loadLang]', 'background-color:Gold; color: black', newLangObj);
+  return newLangObj;
 };
 
-const switchLang = (lang: string) => {
-  loadLang(lang).then(newLang => {
-    currentLang = newLang;
-    console.log('%c switchLang --->', 'background-color:Gold; color: black', currentLang);
-  });
-  // wont work without reloading app
-  // should only change state - and then reload app - loadLang will be trigger before app
-  // window.location.reload();
-};
-
-// TODO for test only
-window['switchLang'] = switchLang;
-
-loadLang('pl').then(newLang => {
-  currentLang = newLang;
+// init
+loadLangObj(SETTINGS.PRIMARY_LANG).then(newLangObj => {
+  currentLangObj = newLangObj;
 });
 
+// TODO to remove - it's an old way - used only in test scene!
+const T = () => currentLangObj;
+export default T;
+
+// ----------------- hooks
+
 export const useTranslation = () => {
-  return currentLang;
+  // to force the state update - not needed?
+  // useTypedSelector(getCurrentLang);
+  return currentLangObj;
 };
 
-//export const T = currentLang
-const T = () => currentLang;
+export const useTranslationLoader = () => {
+  const langToLoad = useTypedSelector(getLangToLoad);
+  const dispatch = useTypedDispatch();
 
-// export const t2 = (temp) => {
-//   console.log('%c [t]', 'background-color:Gold; color: black', currentLangObj);
-//   return window[''];
-// }
-
-// export const useTranslation = () => {
-//   return { t1: t };
-// };
-
-export default T;
+  useEffect(() => {
+    loadLangObj(langToLoad).then(newLangObj => {
+      currentLangObj = newLangObj;
+      dispatch(setCurrentLang(langToLoad));
+      // no needed without
+      // window.location.reload();
+    });
+  }, [langToLoad, dispatch]);
+};

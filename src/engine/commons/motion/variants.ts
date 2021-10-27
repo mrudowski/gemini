@@ -9,9 +9,8 @@ export const poiVariants = {
 };
 
 export const sceneVariants = {
-  //hidden1: {opacity: 0.1, zIndex: 2},
-  notLoaded: {opacity: 0},
-  visible: {
+  hidden: {opacity: 0},
+  fadingIn: {
     opacity: 1,
     zIndex: 2,
     transition: {
@@ -22,7 +21,7 @@ export const sceneVariants = {
     //   zIndex: 1,
     // },
   },
-  fullyLoaded: {
+  stable: {
     opacity: 1,
     zIndex: 1,
   },

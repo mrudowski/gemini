@@ -1,0 +1,13 @@
+@import "../../../sass/variables";
+
+@keyframes gemSpinnerAnimation {
+	from {transform: rotate(0deg)}
+	to {transform: rotate(360deg)}
+}
+
+.gemSpinner {
+	transition-property: transform;
+	animation-name: gemSpinnerAnimation;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}

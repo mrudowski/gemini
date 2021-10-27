@@ -10,12 +10,14 @@ import {getIsShowHotspotActive, getIsShowPoiActive} from '../DevTools/devToolsSl
 import SoundDJ from './SoundDJ';
 import PreloadUI from '../PreloadUI/PreloadUI';
 import SceneViewer from '../SceneViewer/SceneViewer';
+import {useTranslationLoader} from '../translation';
 
 const SuspenseTest1 = ({children}) => {
   return <div style={{color: 'white'}}>{children}</div>;
 };
 
 const Gem = () => {
+  useTranslationLoader();
   const isShowPoiActive = useTypedSelector(getIsShowPoiActive);
   const isShowHotspotActive = useTypedSelector(getIsShowHotspotActive);
 

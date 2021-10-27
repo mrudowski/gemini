@@ -2,11 +2,11 @@ import React from 'react';
 import Poi from '../../../../engine/Poi';
 import hazelSitImage from '../assets/images/hazelSit.png';
 import SCENE_POIS from '../scenePois';
-import {useGetSceneState} from '../../../../engine/stateHooks/stateHooks';
+import {useSceneState} from '../../../../engine/stateHooks/stateHooks';
 import SCENES from '../../../scenes';
 
 const HazelExitPoi = () => {
-  const sceneState = useGetSceneState(SCENES.elmWorkshopByHazel);
+  const sceneState = useSceneState(SCENES.elmWorkshopByHazel);
 
   return (
     <Poi
@@ -15,13 +15,12 @@ const HazelExitPoi = () => {
         left: 363,
         top: 180,
         width: 338,
-        height: 369
+        height: 369,
       }}
       image={hazelSitImage}
       when={sceneState.afterFirstTalk}
     />
   );
-
 };
 
 export default HazelExitPoi;

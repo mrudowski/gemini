@@ -5,21 +5,24 @@ import {getCurrentSceneId} from '../redux/gemSlice';
 import {getNextSceneId} from '../redux/tempSlice';
 import './styles/SceneViewer.scss';
 import SceneAnimation from '../SceneAnimation/SceneAnimation';
+import Spinner from '../components/Spinner/Spinner';
 
 const capitalizeFirstLetter = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-const SuspenseTest = ({children, onReady}) => {
+const SceneLoading = ({onReady}) => {
   useEffect(() => {
     onReady(false);
-    console.log('%c [mr] SuspenseTest created', 'background-color:green; color: black');
     return () => {
       onReady(true);
-      console.log('%c [mr] SuspenseTest destroyed', 'background-color:red; color: black');
     };
   }, [onReady]);
-  return <div style={{color: 'white'}}>{children}</div>;
+  return (
+    <div className="SceneViewerLoader">
+      <Spinner />
+    </div>
+  );
 };
 
 // const getScenePathToImport = (sceneId: ISceneId) => `../../game/scenes/${sceneId}/${capitalizeFirstLetter(sceneId)}Scene`;
@@ -83,7 +86,7 @@ const SceneViewer = () => {
   return (
     <div className="SceneViewer">
       {sceneSlot1 && (
-        <Suspense fallback={<SuspenseTest onReady={setSceneSlot1Ready}>loading currentScene...</SuspenseTest>}>
+        <Suspense fallback={<SceneLoading onReady={setSceneSlot1Ready} />}>
           <SceneAnimation loaded={sceneSlot1Ready} nextSceneId={sceneSlot1} id="1" key="sceneSlot1">
             <SceneSlot1Component key="sceneSlot11" loaded={sceneSlot1Ready} />
           </SceneAnimation>
@@ -91,7 +94,7 @@ const SceneViewer = () => {
       )}
 
       {sceneSlot2 && (
-        <Suspense fallback={<SuspenseTest onReady={setSceneSlot2Ready}>loading nextScene...</SuspenseTest>}>
+        <Suspense fallback={<SceneLoading onReady={setSceneSlot2Ready} />}>
           <SceneAnimation loaded={sceneSlot2Ready} nextSceneId={sceneSlot2} id="2" key="sceneSlot2">
             <SceneSlot2Component key="sceneSlot22" loaded={sceneSlot2Ready} />
           </SceneAnimation>

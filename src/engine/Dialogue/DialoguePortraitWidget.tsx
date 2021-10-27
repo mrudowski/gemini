@@ -18,11 +18,14 @@ const DialoguePortraitWidget: React.FC<IDialoguePortraitWidget> = ({actor}) => {
   }
 
   useEffect(() => {
+    //controls.stop();
     controls.set({
-      x: -15,
+      x: -30,
+      opacity: 0,
     });
     controls.start({
       x: 0,
+      opacity: 1,
       transition: {duration: 1, ease: 'easeOut'},
     });
   }, [portrait, controls]);

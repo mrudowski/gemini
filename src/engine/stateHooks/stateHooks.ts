@@ -8,9 +8,9 @@ import {ISceneId} from '../../game/scenes';
 //   return currentSceneState;
 // };
 
-type IUseGetSceneState = <T extends ISceneId>(sceneId: T) => IWorldState['scenes'][T]
+type IUseSceneState = <T extends ISceneId>(sceneId: T) => IWorldState['scenes'][T];
 
-export const useGetSceneState: IUseGetSceneState = (sceneId: ISceneId) => {
+export const useSceneState: IUseSceneState = (sceneId: ISceneId) => {
   const sceneState = useTypedSelector(getSceneState(sceneId));
   return sceneState as any;
 };

@@ -8,4 +8,9 @@
 	z-index: 0;
 }
 
+.SceneViewerLoader {
+	position: absolute;
+	bottom: $gem-gap * 3 - 10;
+	left: $gem-gap * 3;
+}
 
