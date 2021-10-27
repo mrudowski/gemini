@@ -5,9 +5,12 @@ import ACTIONS from '../../../../engine/actions';
 import {useTranslation} from '../../../../engine/translation';
 import ACTORS from '../../../actors';
 import SCENES from '../../../scenes';
+import {useSceneState} from '../../../../engine/stateHooks/stateHooks';
+import TALK_OPTIONS from '../../../talkOptions';
 
 const ElmPoi = () => {
   const t = useTranslation();
+  const sceneState = useSceneState(SCENES.elmWorkshopByHazel);
 
   return (
     <Poi
@@ -25,6 +28,7 @@ const ElmPoi = () => {
         },
         {
           name: t.verbs.talk,
+          when: !sceneState.afterFirstTalk,
           script: [
             ACTIONS.setSceneState({
               scene: SCENES.elmWorkshopByHazel,
@@ -49,6 +53,19 @@ const ElmPoi = () => {
               state: {
                 afterFirstTalk: true,
               },
+            }),
+            ACTIONS.talk({text: t.scenes.elmWorkshopByHazel.elm.talk.notTooEasy}),
+          ],
+        },
+        {
+          name: t.verbs.talk,
+          when: sceneState.afterFirstTalk,
+          script: [
+            ACTIONS.talk({text: t.scenes.elmWorkshopByHazel.elm.talk.canWeTalk}),
+            ACTIONS.talkOptions({
+              id: 'talkOptions',
+              actor: ACTORS.elm,
+              options: [{id: TALK_OPTIONS.myo}, {id: TALK_OPTIONS.discoveryOfTheGrandchildren}, {id: TALK_OPTIONS.end}],
             }),
           ],
         },

@@ -45,6 +45,7 @@ const pl: typeof en = {
     unknown: "???",
   },
   talkOptions: {
+    discoveryOfTheGrandchildren: "Odkrycie Wnuków",
     myo: "O mnie",
     salammon: "Salammon",
     end: "ZAKOŃCZ"

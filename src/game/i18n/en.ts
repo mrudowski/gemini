@@ -43,9 +43,10 @@ const en = {
     unknown: "???",
   },
   talkOptions: {
+    discoveryOfTheGrandchildren: "Odkrycie Wnuków [en]",
     myo: "About me",
     salammon: "Salammon",
-    end: "FINISH"
+    end: "FINISH",
   },
   talkOptionsAlt: {
     you: "You",

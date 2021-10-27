@@ -5,6 +5,8 @@
 - poi hints on space 
 - and ui buttons
 - 
+- zmiana postaci
+- 
 - load slot / sava to slot
 
 

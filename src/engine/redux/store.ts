@@ -2,6 +2,7 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {Action, combineReducers, configureStore, ThunkAction} from '@reduxjs/toolkit';
 import {FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE} from 'redux-persist';
 import storage from 'redux-persist/es/storage';
+import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 import gemSliceReducer from './gemSlice';
 import worldSliceReducer from './worldSlice';
 import tempSliceReducer from './tempSlice';
@@ -27,12 +28,13 @@ const persistedStoreVersion = 1;
 const persistConfig = {
   key: 'gemTOS3',
   storage,
+  stateReconciler: autoMergeLevel2,
   whitelist: ['gem', 'world'],
   version: persistedStoreVersion,
 };
 
 const getReducer = (): any => {
-  return persistReducer(persistConfig, rootReducer);
+  return persistReducer(persistConfig, rootReducer as any);
   // return rootReducer;
 };
 
