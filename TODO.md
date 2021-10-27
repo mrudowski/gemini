@@ -1,9 +1,11 @@
 # TODO
 
-- ladny preloaded pomiedzy scenami
-- ladny spinner
-- dynamiczna zmiana języka! aby łatwo testować itd... wyświetlenie wielu na raz?
-- autosave / load / restart stanu
+- 
+- lecimy dalej z fabułą
+- poi hints on space 
+- and ui buttons
+- 
+- load slot / sava to slot
 
 
 
@@ -11,6 +13,7 @@
 
 - dreams
   - podgląd wielu scene naraz
+  - zmiana języka w każdym momencie i na naszych oczach... wyświetlenie wielu na raz?
 
 - wizualizacja dialogów
   - reagująca na stan (modifikująca swoje powiązania kolejność)

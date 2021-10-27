@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
 import * as serviceWorker from './serviceWorker';
-import {store} from './engine/redux/store';
+import {persistor, store} from './engine/redux/store';
 import Gem from './engine/Gem/Gem';
 
 // React.StrictMode is a wrapper to help prepare apps for async rendering
@@ -13,7 +14,9 @@ import Gem from './engine/Gem/Gem';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Gem />
+      <PersistGate loading={<div>loading</div>} persistor={persistor}>
+        <Gem />
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

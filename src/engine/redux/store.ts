@@ -1,11 +1,7 @@
-import {useDispatch} from 'react-redux';
-import {
-  combineReducers,
-  configureStore,
-  Action,
-  ThunkAction
-} from '@reduxjs/toolkit';
-import {useSelector, TypedUseSelectorHook} from 'react-redux';
+import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
+import {Action, combineReducers, configureStore, ThunkAction} from '@reduxjs/toolkit';
+import {FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE} from 'redux-persist';
+import storage from 'redux-persist/es/storage';
 import gemSliceReducer from './gemSlice';
 import worldSliceReducer from './worldSlice';
 import tempSliceReducer from './tempSlice';
@@ -27,19 +23,34 @@ const rootReducer = combineReducers({
   waitAction: waitActionReducer,
 });
 
+const persistedStoreVersion = 1;
+const persistConfig = {
+  key: 'gemTOS3',
+  storage,
+  whitelist: ['gem', 'world'],
+  version: persistedStoreVersion,
+};
+
 const getReducer = (): any => {
-  // return persistReducer(getPersistConfig(), rootReducer);
-  return rootReducer;
+  return persistReducer(persistConfig, rootReducer);
+  // return rootReducer;
 };
 
 const makeStore = (preloadedState?) => {
   return configureStore({
     reducer: getReducer(),
-    preloadedState
+    preloadedState,
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware({
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+      }),
   });
 };
 
 export const store = makeStore();
+export const persistor = persistStore(store);
 
 export type IRootState = ReturnType<typeof rootReducer>;
 // TODO check it

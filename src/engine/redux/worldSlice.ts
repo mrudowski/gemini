@@ -17,20 +17,32 @@ const worldSlice = createSlice({
       const {statePath, stateValue} = action.payload;
       _set(state, statePath, stateValue);
     },
-    setSceneState: (state: IWorldState, action: PayloadAction<{sceneId: string; stateName: string; stateValue: unknown}>) => {
+    setSceneState: (
+      state: IWorldState,
+      action: PayloadAction<{sceneId: string; stateName: string; stateValue: unknown}>
+    ) => {
       const {sceneId, stateName, stateValue} = action.payload;
       state.scenes[sceneId][stateName] = stateValue;
     },
-    setSceneMultiState: (state: IWorldState, action: PayloadAction<{sceneId: string; stateToUpdate: {[key: string]: unknown}}>) => {
+    setSceneMultiState: (
+      state: IWorldState,
+      action: PayloadAction<{sceneId: string; stateToUpdate: {[key: string]: unknown}}>
+    ) => {
       const {sceneId, stateToUpdate} = action.payload;
       state.scenes[sceneId] = {
         ...state.scenes[sceneId],
         ...stateToUpdate,
       };
     },
-    markActorTalkOptionAsAsked: (state: IWorldState, action: PayloadAction<{actorId: IActorId; optionId: ITalkOptionId}>) => {
+    markActorTalkOptionAsAsked: (
+      state: IWorldState,
+      action: PayloadAction<{actorId: IActorId; optionId: ITalkOptionId}>
+    ) => {
       const {actorId, optionId} = action.payload;
       state.actors[actorId][optionId] = true;
+    },
+    resetWorldState: () => {
+      return worldInitialState;
     },
   },
 });
@@ -41,6 +53,7 @@ export const setWorldState = worldSlice.actions.setWorldState;
 export const setSceneState = worldSlice.actions.setSceneState;
 export const setSceneMultiState = worldSlice.actions.setSceneMultiState;
 export const markActorTalkOptionAsAsked = worldSlice.actions.markActorTalkOptionAsAsked;
+export const resetWorldState = worldSlice.actions.resetWorldState;
 
 // selectors
 

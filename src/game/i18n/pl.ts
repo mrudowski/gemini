@@ -26,6 +26,9 @@ const pl: typeof en = {
           takeAMoment: "Czy mogłabym zająć ci chwilę?",
           youAlreadyDid: "Już to zrobiłaś.",
           dontBeSoLiteral: "Och, nie bądź taki dosłowny. Jak idą postępy? Nad czym obecnie pracujesz?",
+          howIsYourWork: "Jeśli harmonia ma na powrót zagościć do świata, muszą nakreślone zostać reguły, czyniące go przewidywalnym. To trudne zadanie. Wiele się zmieniło odkąd go stworzyliśmy. A jak twoja praca?",
+          notTooEasy: "Również nie łatwa. Mam wrażenie, że rozwiązanie jest tuż tuż, ale wciąż mi umyka. Możemy porozmawiać? Mam wrażenie że obojgu nam się to przyda.",
+          canWeTalk: "Możemy porozmawiać?",
         }
       }
     },

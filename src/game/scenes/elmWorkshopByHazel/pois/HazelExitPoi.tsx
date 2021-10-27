@@ -18,7 +18,7 @@ const HazelExitPoi = () => {
         height: 72,
       }}
       image={hazelExitImage}
-      when={!sceneState.afterFirstTalk}
+      when={!sceneState.hazelOnDesk}
     />
   );
 };

@@ -29,7 +29,7 @@ const ElmPoi = () => {
             ACTIONS.setSceneState({
               scene: SCENES.elmWorkshopByHazel,
               state: {
-                afterFirstTalk: true,
+                hazelOnDesk: true,
               },
             }),
             ACTIONS.wait({duration: 1.5}),
@@ -39,6 +39,17 @@ const ElmPoi = () => {
               actor: ACTORS.elm,
             }),
             ACTIONS.talk({text: t.scenes.elmWorkshopByHazel.elm.talk.dontBeSoLiteral}),
+            ACTIONS.talk({
+              text: t.scenes.elmWorkshopByHazel.elm.talk.howIsYourWork,
+              actor: ACTORS.elm,
+            }),
+            ACTIONS.talk({text: t.scenes.elmWorkshopByHazel.elm.talk.notTooEasy}),
+            ACTIONS.setSceneState({
+              scene: SCENES.elmWorkshopByHazel,
+              state: {
+                afterFirstTalk: true,
+              },
+            }),
           ],
         },
       ]}
