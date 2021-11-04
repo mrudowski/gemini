@@ -28,6 +28,12 @@ const DialoguePortraitWidget: React.FC<IDialoguePortraitWidget> = ({actor}) => {
       opacity: 1,
       transition: {duration: 1, ease: 'easeOut'},
     });
+    // return () => {
+    //   console.log('%c [mr] on exit', 'background-color:Gold; color: black');
+    //   controls.set({
+    //     opacity: 0,
+    //   });
+    // };
   }, [portrait, controls]);
 
   return (

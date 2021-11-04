@@ -113,7 +113,7 @@ const DevStateBox: React.FC<IDevStateBox> = () => {
     <div className="devPanel devStateBox">
       <div className="devStateList">{buildStateList(worldState, dispatch)}</div>
       <a href="#" onDoubleClick={resetState} onClick={e => e.preventDefault()}>
-        reset
+        reset (double click)
       </a>
     </div>
   );

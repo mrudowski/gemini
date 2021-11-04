@@ -12,6 +12,14 @@ const ElmPoi = () => {
   const t = useTranslation();
   const sceneState = useSceneState(SCENES.elmWorkshopByHazel);
 
+  const talkOptionsScript = [
+    ACTIONS.talkOptions({
+      id: 'talkOptions',
+      actor: ACTORS.elm,
+      options: [{id: TALK_OPTIONS.myo}, {id: TALK_OPTIONS.discoveryOfTheGrandchildren}, {id: TALK_OPTIONS.end}],
+    }),
+  ];
+
   return (
     <Poi
       id={SCENE_POIS.elm}
@@ -54,20 +62,13 @@ const ElmPoi = () => {
                 afterFirstTalk: true,
               },
             }),
-            ACTIONS.talk({text: t.scenes.elmWorkshopByHazel.elm.talk.notTooEasy}),
+            ...talkOptionsScript,
           ],
         },
         {
           name: t.verbs.talk,
           when: sceneState.afterFirstTalk,
-          script: [
-            ACTIONS.talk({text: t.scenes.elmWorkshopByHazel.elm.talk.canWeTalk}),
-            ACTIONS.talkOptions({
-              id: 'talkOptions',
-              actor: ACTORS.elm,
-              options: [{id: TALK_OPTIONS.myo}, {id: TALK_OPTIONS.discoveryOfTheGrandchildren}, {id: TALK_OPTIONS.end}],
-            }),
-          ],
+          script: [ACTIONS.talk({text: t.scenes.elmWorkshopByHazel.elm.talk.canWeTalk}), ...talkOptionsScript],
         },
       ]}
     />

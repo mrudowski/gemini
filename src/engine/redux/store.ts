@@ -1,8 +1,18 @@
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {Action, combineReducers, configureStore, ThunkAction} from '@reduxjs/toolkit';
-import {FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE} from 'redux-persist';
+import {
+  createMigrate,
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  persistReducer,
+  persistStore,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+} from 'redux-persist';
 import storage from 'redux-persist/es/storage';
-import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
+import {PersistedState} from 'redux-persist/es/types';
 import gemSliceReducer from './gemSlice';
 import worldSliceReducer from './worldSlice';
 import tempSliceReducer from './tempSlice';
@@ -24,13 +34,24 @@ const rootReducer = combineReducers({
   waitAction: waitActionReducer,
 });
 
-const persistedStoreVersion = 1;
+const getMigrations = (ver: number, migrations = {}) => {
+  return {
+    [ver]: () => {
+      // if we return empty object during migration, all state will be overwritten by new one (init)
+      return {} as PersistedState;
+    },
+    ...migrations,
+  };
+};
+
+const persistedStoreVersion = 3;
 const persistConfig = {
   key: 'gemTOS3',
   storage,
-  stateReconciler: autoMergeLevel2,
+  // stateReconciler: autoMergeLevel2,
   whitelist: ['gem', 'world'],
   version: persistedStoreVersion,
+  migrate: createMigrate(getMigrations(persistedStoreVersion), {debug: false}),
 };
 
 const getReducer = (): any => {
