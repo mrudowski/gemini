@@ -1,18 +1,21 @@
 import React from 'react';
 import classNames from 'classnames';
+import {motion} from 'framer-motion';
 import './styles/HudStyle.scss';
+import {variants} from '../../../commons/motion/variants';
 
-interface IHudButton {
+export interface IHudButton {
   className: string;
+  onClick: () => void;
 }
 
-const HudButton: React.FC<IHudButton> = ({className}) => {
+const HudButton: React.FC<IHudButton> = ({className, onClick}) => {
   const classes = classNames('hudButton gem-hotspot', className);
 
   return (
-    <>
-      <div className={classes} />
-    </>
+    <motion.div initial="hidden" animate="visible" exit="hidden" variants={variants}>
+      <div className={classes} onClick={onClick} />
+    </motion.div>
   );
 };
 

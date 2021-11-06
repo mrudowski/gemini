@@ -67,6 +67,8 @@ export const resetWorldState = worldSlice.actions.resetWorldState;
 // selectors
 
 export const getWorldState = (state: IRootState) => state.world;
+// very very specific
+export const getShowElmHazelSwitch = (state: IRootState) => state.world.showElmHazelSwitch;
 const getScenes = (state: IRootState) => state.world.scenes;
 export const getActorsState = (state: IRootState) => state.world.actors;
 
