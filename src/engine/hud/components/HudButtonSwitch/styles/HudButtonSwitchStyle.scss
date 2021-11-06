@@ -1,5 +1,7 @@
 @import "../../../../sass/variables";
 
 .hudButton--switch {
-	background-position: -75px 0;
+	.hudButton__icon {
+		background-position: -75px 0;
+	}
 }

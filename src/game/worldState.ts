@@ -7,6 +7,7 @@ import {
   hazelWorkshopByHazelSceneInitialState,
   IHazelWorkshopByHazelSceneState,
 } from './scenes/hazelWorkshopByHazel/state';
+import SETTINGS from './settings';
 
 // TODO - move all helpers inside engine
 //  worldState file have to be easy to manage!
@@ -18,11 +19,14 @@ export interface IWorldState {
   scenes: {
     [SCENES.teaShop]: ITeaShopSceneState;
     [SCENES.elmWorkshopByHazel]: IElmWorkshopByHazelSceneState;
+    [SCENES.elmWorkshopByElm];
     [SCENES.hazelWorkshopByHazel]: IHazelWorkshopByHazelSceneState;
+    [SCENES.hazelWorkshopByElm];
     test: {
       test1: number;
     };
   };
+  currentActorId: IActorId;
   // TODO we have to decide later which we choose
   actors: Record<IActorId, IActorTalkOptions>;
   showElmHazelSwitch: boolean;
@@ -59,11 +63,14 @@ export const worldInitialState: IWorldState = {
   scenes: {
     [SCENES.teaShop]: teaShopSceneInitialState,
     [SCENES.elmWorkshopByHazel]: elmWorkshopByHazelSceneInitialState,
+    [SCENES.elmWorkshopByElm]: null,
     [SCENES.hazelWorkshopByHazel]: hazelWorkshopByHazelSceneInitialState,
+    [SCENES.hazelWorkshopByElm]: null,
     test: {
       test1: 1,
     },
   },
+  currentActorId: SETTINGS.DEFAULT_ACTOR,
   // TODO ok but move it outside this file - worldState have to be easy to manage!
   actors: Object.keys(ACTORS).reduce((actorsAsState, actorId) => {
     actorsAsState[actorId] = getActorTalkOptions();

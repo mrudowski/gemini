@@ -8,10 +8,10 @@ import DialogueOptionsWidget from './DialogueOptionsWidget';
 import {useTypedSelector} from '../redux/store';
 import {IActorId} from '../../game/actors';
 import {getCurrentPoiId} from '../redux/tempSlice';
-import SETTINGS from '../../game/settings';
 import DialoguePortraitWidget from './DialoguePortraitWidget';
 import {variants} from '../commons/motion/variants';
 import DialogueActorNameWidget from './DialogueActorNameWidget';
+import {getCurrentActorId} from '../redux/worldSlice';
 
 // import portrait from '../../game/assets/images/portraits/salammon.png';
 
@@ -26,11 +26,12 @@ const DialogueWidget: React.FC<IDialogue> = props => {
     onClick,
   } = props;
 
+  const currentActorId = useTypedSelector(getCurrentActorId);
   // console.log('%c [mr] DialogueWidget', 'background-color:Gold; color: black');
 
   // TODO add alt portrait name
 
-  const {actor = SETTINGS.DEFAULT_ACTOR, actorName} = action.payload;
+  const {actor = currentActorId, actorName} = action.payload;
 
   const poiActorId = useTypedSelector(getCurrentPoiId);
 
@@ -57,7 +58,11 @@ const DialogueWidget: React.FC<IDialogue> = props => {
         <div className="DialogueWidget__balloon">
           <DialogueActorNameWidget actor={actor} actorName={actorName} />
           <div className="DialogueWidget__border" />
-          {options ? <DialogueOptionsWidget options={options} onOptionSelect={onClick} actorId={poiActorId as IActorId} /> : <div>{text}</div>}
+          {options ? (
+            <DialogueOptionsWidget options={options} onOptionSelect={onClick} actorId={poiActorId as IActorId} />
+          ) : (
+            <div>{text}</div>
+          )}
         </div>
       </div>
     </motion.div>

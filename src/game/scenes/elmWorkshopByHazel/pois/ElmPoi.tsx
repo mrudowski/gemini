@@ -5,12 +5,13 @@ import ACTIONS from '../../../../engine/actions';
 import {useTranslation} from '../../../../engine/translation';
 import ACTORS from '../../../actors';
 import SCENES from '../../../scenes';
-import {useSceneState} from '../../../../engine/stateHooks/stateHooks';
+import {useActorState, useSceneState} from '../../../../engine/stateHooks/stateHooks';
 import TALK_OPTIONS, {OPTIONS} from '../../../talkOptions';
 
 const ElmPoi = () => {
   const t = useTranslation();
   const sceneState = useSceneState(SCENES.elmWorkshopByHazel);
+  const elmState = useActorState(ACTORS.elm);
 
   const talkOptionsScript = [
     ACTIONS.talkOptions({
@@ -19,8 +20,8 @@ const ElmPoi = () => {
       options: [
         {id: TALK_OPTIONS.discoveryOfTheGrandchildren},
         {id: TALK_OPTIONS.elmWork},
-        {id: TALK_OPTIONS.endFirstTalk},
-        {id: TALK_OPTIONS.end},
+        {id: TALK_OPTIONS.endFirstTalk, when: !elmState.endFirstTalk},
+        {id: TALK_OPTIONS.end, when: elmState.endFirstTalk},
       ],
     }),
     ACTIONS.talk({

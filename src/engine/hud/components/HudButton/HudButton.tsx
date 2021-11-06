@@ -9,12 +9,24 @@ export interface IHudButton {
   onClick: () => void;
 }
 
+const demonstration = {opacity: 1, scale: [0, 1], rotate: [0, 720]};
+
 const HudButton: React.FC<IHudButton> = ({className, onClick}) => {
   const classes = classNames('hudButton gem-hotspot', className);
 
+  // for now
+  const test = true;
+
   return (
-    <motion.div initial="hidden" animate="visible" exit="hidden" variants={variants}>
-      <div className={classes} onClick={onClick} />
+    <motion.div
+      initial="hidden"
+      animate={test ? demonstration : 'visible'}
+      exit="hidden"
+      variants={variants}
+      className={classes}
+      onClick={onClick}
+    >
+      <div className="hudButton__icon" />
     </motion.div>
   );
 };

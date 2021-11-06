@@ -49,8 +49,12 @@ const worldSlice = createSlice({
       const {actorId, optionId} = action.payload;
       state.actors[actorId][optionId] = true;
     },
+    setCurrentActorId: (state: IWorldState, action: PayloadAction<IActorId>) => {
+      const actorId = action.payload;
+      state.currentActorId = actorId;
+    },
     resetWorldState: () => {
-      return worldInitialState;
+      return worldInitialState; // IT WILL NOT RESET  CURRENT location
     },
   },
 });
@@ -62,6 +66,7 @@ export const setWorldMultiState = worldSlice.actions.setWorldMultiState;
 export const setSceneState = worldSlice.actions.setSceneState;
 export const setSceneMultiState = worldSlice.actions.setSceneMultiState;
 export const markActorTalkOptionAsAsked = worldSlice.actions.markActorTalkOptionAsAsked;
+export const setCurrentActorId = worldSlice.actions.setCurrentActorId;
 export const resetWorldState = worldSlice.actions.resetWorldState;
 
 // selectors
@@ -70,6 +75,7 @@ export const getWorldState = (state: IRootState) => state.world;
 // very very specific
 export const getShowElmHazelSwitch = (state: IRootState) => state.world.showElmHazelSwitch;
 const getScenes = (state: IRootState) => state.world.scenes;
+export const getCurrentActorId = (state: IRootState) => state.world.currentActorId;
 export const getActorsState = (state: IRootState) => state.world.actors;
 
 export const getStateByPathUtil = (worldState: IRootState['world'], path: string) => _get(worldState, path);

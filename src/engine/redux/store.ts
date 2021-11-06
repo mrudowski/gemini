@@ -44,7 +44,7 @@ const getMigrations = (ver: number, migrations = {}) => {
   };
 };
 
-const persistedStoreVersion = 3;
+const persistedStoreVersion = 4;
 const persistConfig = {
   key: 'gemTOS3',
   storage,
