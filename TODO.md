@@ -1,6 +1,6 @@
 # TODO
 
-- 
+- SLABO SIE ANIMUJA PORTERT _ MIGA NOWA POSTAC NA STAREJ?
 - lecimy dalej z fabułą
 - poi hints on space 
 - and ui buttons

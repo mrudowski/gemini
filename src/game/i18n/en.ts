@@ -1,6 +1,8 @@
 /* eslint quotes: ["error", "double", { "allowTemplateLiterals": true }] */
 
-const en = {
+import pl from "./pl";
+
+const en: typeof pl = {
   verbs: {
     examine: "Examine",
     go: "Go",
@@ -27,6 +29,10 @@ const en = {
           howIsYourWork: "Jeśli harmonia ma na powrót zagościć do świata, muszą nakreślone zostać reguły, czyniące go przewidywalnym. To trudne zadanie. Wiele się zmieniło odkąd go stworzyliśmy. A jak twoja praca? [en]",
           notTooEasy: "Również nie łatwa. Mam wrażenie, że rozwiązanie jest tuż tuż, ale wciąż mi umyka. Możemy porozmawiać? Mam wrażenie że obojgu nam się to przyda. [en]",
           canWeTalk: "Możemy porozmawiać? [en]",
+          discoveryOfTheGrandchildren: "[en]",
+          discoveryOfTheGrandchildrenAnswer: "[en]",
+          elmWork: "Jak idzie twoja praca? Może mogłabym ci pomóc?",
+          elmWorkAnswer: "Sam muszę zrozumieć, co właściwie próbuję osiągnąć. Ale dziękuję za propozycję. Będę pamiętał.",
         }
       }
     }
@@ -44,9 +50,11 @@ const en = {
   },
   talkOptions: {
     discoveryOfTheGrandchildren: "Odkrycie Wnuków [en]",
+    elmWork: "Praca Wiąza [en]",
     myo: "About me",
     salammon: "Salammon",
     end: "FINISH",
+    endFirstTalk: "FINISH"
   },
   talkOptionsAlt: {
     you: "You",

@@ -1,4 +1,5 @@
 import T from '../engine/translation';
+
 const t = T();
 
 // TODO move methods to utils (away from user game definition)
@@ -9,8 +10,12 @@ export type ITalkOptions = {[key in ITalkOptionId]: key};
 
 const TALK_OPTIONS = Object.keys(t.talkOptions).reduce((talkOptionsAsState, talkOptionId) => {
   talkOptionsAsState[talkOptionId] = talkOptionId;
-  return talkOptionsAsState;
+  return {
+    ...talkOptionsAsState,
+    talkOptions: 'talkOptions',
+  };
 }, {} as ITalkOptions);
 
-
 export default TALK_OPTIONS;
+
+export const OPTIONS = 'talkOptions';

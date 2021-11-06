@@ -11,6 +11,7 @@ import SoundDJ from './SoundDJ';
 import PreloadUI from '../PreloadUI/PreloadUI';
 import SceneViewer from '../SceneViewer/SceneViewer';
 import {useTranslationLoader} from '../translation';
+import Hud from '../hud/Hud';
 
 const SuspenseTest1 = ({children}) => {
   return <div style={{color: 'white'}}>{children}</div>;
@@ -37,6 +38,7 @@ const Gem = () => {
         <Suspense fallback={<SuspenseTest1>loading all...</SuspenseTest1>}>
           <PreloadUI />
           <SceneViewer />
+          <Hud />
           <Suspense fallback={<div>loading dialogue...</div>}>
             <Dialogue />
           </Suspense>

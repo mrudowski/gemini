@@ -8,6 +8,7 @@ import {endSetCurrentSceneStateAction, startSetCurrentSceneStateAction} from './
 import {endWaitAction, startWaitAction} from './waitActionSlice';
 import {endSetSceneStateAction, startSetSceneStateAction} from './setSceneStateActionThunk';
 import {endGotoSceneAction, startGotoSceneAction} from './setGotoSceneActionThunk';
+import {endSetWorldStateAction, startSetWorldStateAction} from './setWorldStateActionThunk';
 
 interface IScriptPlayerState {
   script: IAction[] | null;
@@ -64,7 +65,10 @@ const scriptPlayerSlice = createSlice({
   name: 'scriptPlayer',
   initialState,
   reducers: {
-    setScript: (state: IScriptPlayerState, action: PayloadAction<{script: IAction[]; sceneId: string; poiId: string}>) => {
+    setScript: (
+      state: IScriptPlayerState,
+      action: PayloadAction<{script: IAction[]; sceneId: string; poiId: string}>
+    ) => {
       const {script, sceneId, poiId} = action.payload;
       console.log('%c [scriptPlayer] setScript', 'background-color:Gold; color: black', script);
       state.script = script;
@@ -222,6 +226,10 @@ const actionSettersMap = {
     startAction: startGotoSceneAction,
     endAction: endGotoSceneAction,
   },
+  [ACTIONS_NAMES.SET_WORLD_STATE]: {
+    startAction: startSetWorldStateAction,
+    endAction: endSetWorldStateAction, // TODO could be without it
+  },
   [ACTIONS_NAMES.SET_SCENE_STATE]: {
     startAction: startSetSceneStateAction,
     endAction: endSetSceneStateAction, // TODO could be without it
@@ -256,9 +264,12 @@ const getActionSetter = (actionId: string) => actionSettersMap[actionId];
 export const getCurrentScript = (state: IRootState) => state.scriptPlayer.script;
 export const getCurrentActionIndex = (state: IRootState) => state.scriptPlayer.actionIndex;
 
-const getCurrentAction = createSelector([getCurrentScript, getCurrentActionIndex], (currentScript, currentActionIndex) => {
-  return currentScript?.[currentActionIndex] || null;
-});
+const getCurrentAction = createSelector(
+  [getCurrentScript, getCurrentActionIndex],
+  (currentScript, currentActionIndex) => {
+    return currentScript?.[currentActionIndex] || null;
+  }
+);
 
 const getActionByIndex = (index: number) =>
   createSelector([getCurrentScript], currentScript => {

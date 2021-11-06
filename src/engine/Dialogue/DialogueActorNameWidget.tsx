@@ -27,6 +27,8 @@ const DialogueActorNameWidget: React.FC<IDialogueActorNameWidget> = ({actor, act
     });
   }, [actorNameToDisplay, controls]);
 
+  //initial={{opacity: 0}} style={{opacity: 0}}
+
   return (
     <motion.div animate={controls}>
       <div className="DialogueWidget__name">{actorNameToDisplay}</div>

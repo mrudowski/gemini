@@ -6,7 +6,7 @@ import {useTranslation} from '../../../../engine/translation';
 import ACTORS from '../../../actors';
 import SCENES from '../../../scenes';
 import {useSceneState} from '../../../../engine/stateHooks/stateHooks';
-import TALK_OPTIONS from '../../../talkOptions';
+import TALK_OPTIONS, {OPTIONS} from '../../../talkOptions';
 
 const ElmPoi = () => {
   const t = useTranslation();
@@ -14,9 +14,43 @@ const ElmPoi = () => {
 
   const talkOptionsScript = [
     ACTIONS.talkOptions({
-      id: 'talkOptions',
+      id: OPTIONS,
       actor: ACTORS.elm,
-      options: [{id: TALK_OPTIONS.myo}, {id: TALK_OPTIONS.discoveryOfTheGrandchildren}, {id: TALK_OPTIONS.end}],
+      options: [
+        {id: TALK_OPTIONS.discoveryOfTheGrandchildren},
+        {id: TALK_OPTIONS.elmWork},
+        {id: TALK_OPTIONS.endFirstTalk},
+        {id: TALK_OPTIONS.end},
+      ],
+    }),
+    ACTIONS.talk({
+      id: TALK_OPTIONS.discoveryOfTheGrandchildren,
+      text: t.scenes.elmWorkshopByHazel.elm.talk.discoveryOfTheGrandchildren,
+    }),
+    ACTIONS.talk({
+      actor: ACTORS.elm,
+      text: t.scenes.elmWorkshopByHazel.elm.talk.discoveryOfTheGrandchildrenAnswer,
+      next: OPTIONS,
+    }),
+    ACTIONS.talk({
+      id: TALK_OPTIONS.elmWork,
+      text: t.scenes.elmWorkshopByHazel.elm.talk.elmWork,
+    }),
+    ACTIONS.talk({
+      actor: ACTORS.elm,
+      text: t.scenes.elmWorkshopByHazel.elm.talk.elmWorkAnswer,
+      next: OPTIONS,
+    }),
+    ACTIONS.setWorldState({
+      id: TALK_OPTIONS.endFirstTalk,
+      state: {
+        showElmHazelSwitch: true,
+      },
+    }),
+    // TODO
+    ACTIONS.talk({
+      actor: ACTORS.elm,
+      text: 'ERROR we cannot finish on setWorldState!',
     }),
   ];
 

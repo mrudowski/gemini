@@ -12,10 +12,18 @@ const worldSlice = createSlice({
   name: 'world',
   initialState: worldInitialState,
   reducers: {
+    // used by devtools
     setWorldState: (state: IWorldState, action: PayloadAction<{statePath: string | string[]; stateValue: unknown}>) => {
       // get global with help of trunk... but here we still don't need
       const {statePath, stateValue} = action.payload;
       _set(state, statePath, stateValue);
+    },
+    setWorldMultiState: (state: IWorldState, action: PayloadAction<{stateToUpdate: {[key: string]: unknown}}>) => {
+      const {stateToUpdate} = action.payload;
+      return {
+        ...state,
+        ...stateToUpdate,
+      };
     },
     setSceneState: (
       state: IWorldState,
@@ -50,6 +58,7 @@ const worldSlice = createSlice({
 export default worldSlice.reducer;
 
 export const setWorldState = worldSlice.actions.setWorldState;
+export const setWorldMultiState = worldSlice.actions.setWorldMultiState;
 export const setSceneState = worldSlice.actions.setSceneState;
 export const setSceneMultiState = worldSlice.actions.setSceneMultiState;
 export const markActorTalkOptionAsAsked = worldSlice.actions.markActorTalkOptionAsAsked;

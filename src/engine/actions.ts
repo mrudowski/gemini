@@ -77,13 +77,25 @@ export type IGotoSceneAction = (payload: IGotoSceneActionPayload) => ISpecifiedA
 
 // -------------
 
-export interface ISetSceneStateActionPayload<T extends ISceneId, U extends IWorldState['scenes'][T]> extends IActionPayload {
+export interface ISetWorldStateActionPayload extends IActionPayload {
+  state: Partial<IWorldState>;
+}
+
+export type ISetWorldStateAction = (
+  payload: ISetWorldStateActionPayload
+) => ISpecifiedAction<ISetWorldStateActionPayload>;
+
+// -------------
+
+export interface ISetSceneStateActionPayload<T extends ISceneId, U extends IWorldState['scenes'][T]>
+  extends IActionPayload {
   scene: T;
   state: {
     [key in keyof U]?: U[keyof U];
   };
 }
 
+// Partial<IWorldState['scenes']> ?
 export type ISetSceneStateAction = <T extends ISceneId, U extends IWorldState['scenes'][T]>(
   payload: ISetSceneStateActionPayload<T, U>
 ) => ISpecifiedAction<ISetSceneStateActionPayload<T, U>>;
@@ -105,6 +117,7 @@ const getSpecificAction = (actionName: IActionName, payload: IActionPayload = {}
 
 export const ACTIONS_NAMES = {
   GOTO_SCENE: 'GOTO_SCENE',
+  SET_WORLD_STATE: 'SET_WORLD_STATE',
   SET_SCENE_STATE: 'SET_SCENE_STATE',
   SET_CURRENT_SCENE_STATE: 'SET_CURRENT_SCENE_STATE',
   TALK: 'TALK',
@@ -116,16 +129,23 @@ export const ACTIONS_NAMES = {
 type IActionName = keyof typeof ACTIONS_NAMES;
 
 const gotoScene: IGotoSceneAction = payload => getSpecificAction(ACTIONS_NAMES.GOTO_SCENE, payload);
+const setWorldState: ISetWorldStateAction = payload => getSpecificAction(ACTIONS_NAMES.SET_WORLD_STATE, payload);
 const setSceneState: ISetSceneStateAction = payload => getSpecificAction(ACTIONS_NAMES.SET_SCENE_STATE, payload);
-const setCurrentSceneState = <T>(payload: ISetCurrentSceneStateActionPayload<T>): ISpecifiedAction<ISetCurrentSceneStateActionPayload<T>> =>
+const setCurrentSceneState = <T>(
+  payload: ISetCurrentSceneStateActionPayload<T>
+): ISpecifiedAction<ISetCurrentSceneStateActionPayload<T>> =>
   getSpecificAction(ACTIONS_NAMES.SET_CURRENT_SCENE_STATE, payload);
-const talk = (payload: ITalkActionPayload): ISpecifiedAction<ITalkActionPayload> => getSpecificAction(ACTIONS_NAMES.TALK, payload);
-const talkOptions = (payload: ITalkOptionsActionPayload): ISpecifiedAction<ITalkOptionsActionPayload> => getSpecificAction(ACTIONS_NAMES.TALK_OPTIONS, payload);
+const talk = (payload: ITalkActionPayload): ISpecifiedAction<ITalkActionPayload> =>
+  getSpecificAction(ACTIONS_NAMES.TALK, payload);
+const talkOptions = (payload: ITalkOptionsActionPayload): ISpecifiedAction<ITalkOptionsActionPayload> =>
+  getSpecificAction(ACTIONS_NAMES.TALK_OPTIONS, payload);
 const endTalk = (): IAction => getSpecificAction(ACTIONS_NAMES.END_TALK);
-const wait = (payload?: IWaitActionPayload): ISpecifiedAction<IWaitActionPayload> => getSpecificAction(ACTIONS_NAMES.WAIT, payload);
+const wait = (payload?: IWaitActionPayload): ISpecifiedAction<IWaitActionPayload> =>
+  getSpecificAction(ACTIONS_NAMES.WAIT, payload);
 
 const ACTIONS = {
   gotoScene,
+  setWorldState,
   setSceneState,
   setCurrentSceneState,
   talk,

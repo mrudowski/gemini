@@ -3,7 +3,10 @@ import TALK_OPTIONS from './talkOptions';
 import ACTORS, {IActorId} from './actors';
 import SCENES from './scenes';
 import {elmWorkshopByHazelSceneInitialState, IElmWorkshopByHazelSceneState} from './scenes/elmWorkshopByHazel/state';
-import {hazelWorkshopByHazelSceneInitialState, IHazelWorkshopByHazelSceneState} from './scenes/hazelWorkshopByHazel/state';
+import {
+  hazelWorkshopByHazelSceneInitialState,
+  IHazelWorkshopByHazelSceneState,
+} from './scenes/hazelWorkshopByHazel/state';
 
 // TODO - move all helpers inside engine
 //  worldState file have to be easy to manage!
@@ -22,6 +25,7 @@ export interface IWorldState {
   };
   // TODO we have to decide later which we choose
   actors: Record<IActorId, IActorTalkOptions>;
+  showElmHazelSwitch: boolean;
 
   //   scenes: {
   //     previously: {
@@ -65,4 +69,5 @@ export const worldInitialState: IWorldState = {
     actorsAsState[actorId] = getActorTalkOptions();
     return actorsAsState;
   }, {} as IWorldState['actors']),
+  showElmHazelSwitch: false,
 };

@@ -1,12 +1,12 @@
 import {useEffect} from 'react'; // TODO should not be part of engine
-import en from '../../game/i18n/en';
 import {useTypedDispatch, useTypedSelector} from '../redux/store';
 import {getLangToLoad, setCurrentLang} from '../redux/gemSlice';
 import SETTINGS from '../../game/settings';
 import {ILangId} from '../../game/languages';
+import pl from '../../game/i18n/pl';
 
-type TLangObj = typeof en;
-let currentLangObj = en;
+type TLangObj = typeof pl;
+let currentLangObj = pl;
 
 const loadLangObj = async (lang: ILangId): Promise<TLangObj> => {
   const module = await import(`../../game/i18n/${lang}`);
