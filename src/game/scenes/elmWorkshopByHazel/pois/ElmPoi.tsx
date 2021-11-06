@@ -47,11 +47,6 @@ const ElmPoi = () => {
         showElmHazelSwitch: true,
       },
     }),
-    // TODO
-    ACTIONS.talk({
-      actor: ACTORS.elm,
-      text: 'ERROR we cannot finish on setWorldState!',
-    }),
   ];
 
   return (

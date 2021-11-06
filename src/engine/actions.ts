@@ -139,7 +139,8 @@ const talk = (payload: ITalkActionPayload): ISpecifiedAction<ITalkActionPayload>
   getSpecificAction(ACTIONS_NAMES.TALK, payload);
 const talkOptions = (payload: ITalkOptionsActionPayload): ISpecifiedAction<ITalkOptionsActionPayload> =>
   getSpecificAction(ACTIONS_NAMES.TALK_OPTIONS, payload);
-const endTalk = (): IAction => getSpecificAction(ACTIONS_NAMES.END_TALK);
+// to pass `id`, `when` and `next` props
+const endTalk = (payload?: IActionPayload): IAction => getSpecificAction(ACTIONS_NAMES.END_TALK, payload);
 const wait = (payload?: IWaitActionPayload): ISpecifiedAction<IWaitActionPayload> =>
   getSpecificAction(ACTIONS_NAMES.WAIT, payload);
 

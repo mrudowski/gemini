@@ -149,8 +149,17 @@ export const endAction =
     const state = getState();
     const {script, actionIndex} = state.scriptPlayer; // selector
 
+    if (!script) {
+      // it's happened when we jump from talk options to action Set(World/Scene)State (without explicit call endTalk)
+      // double dialogue onExitComplete
+      console.log('%c [endAction] no script (and further actions) found', 'background-color:RED; color: black');
+      return;
+    }
+
     const action = script?.[actionIndex]; // selector
     if (action) {
+      console.log('%c [endAction] action', 'background-color:Gold; color: black', action);
+
       if (!playNextOverCurrent) {
         dispatch(getActionSetter(action.actionName).endAction() as any);
       } else {
@@ -162,7 +171,7 @@ export const endAction =
     }
 
     const endMethod = () => {
-      console.log('%c [endAction]', 'background-color:Gold; color: black');
+      console.log('%c [endAction] endMethod', 'background-color:Gold; color: black');
       // end not ended actions
       if (notEndedActions.length > 0) {
         // TODO good enough?
