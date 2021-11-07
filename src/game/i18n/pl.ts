@@ -4,6 +4,7 @@ const pl = {
   verbs: {
     examine: "Zbadaj",
     go: "Idź",
+    lookCloser: "Przyjrzyj się bliżej",
     take: "Weź",
     talk: "Porozmawiaj",
     talkAlt: "Pogawędka",
@@ -34,6 +35,11 @@ const pl = {
         }
       }
     },
+    hazelWorkshopByHazel: {
+      table: {
+        examine: "Wszystkie stworzone przeze mnie rośliny obumarły. Muszę zaprojektować je na nowo. Myślę, że znalazłam metodę która mi na to pozwoli."
+      }
+    }
   },
   actors: {
     elm: "Wiąz",

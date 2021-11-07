@@ -1,7 +1,7 @@
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {batch} from 'react-redux';
 // import {original} from 'immer';
-import {ACTIONS_NAMES, IAction} from '../actions';
+import {ACTIONS_NAMES, IAction, IActionName} from '../actions';
 import {IRootState, IThunk} from '../redux/store';
 import {endTalkAction, startTalkAction} from './talkActionSlice';
 import {endSetCurrentSceneStateAction, startSetCurrentSceneStateAction} from './setCurrentSceneStateActionThunk';
@@ -9,6 +9,7 @@ import {endWaitAction, startWaitAction} from './waitActionSlice';
 import {endSetSceneStateAction, startSetSceneStateAction} from './setSceneStateActionThunk';
 import {endGotoSceneAction, startGotoSceneAction} from './setGotoSceneActionThunk';
 import {endSetWorldStateAction, startSetWorldStateAction} from './setWorldStateActionThunk';
+import {endLookCloserAction, startLookCloserAction} from '../Closeup/lookCloserActionSlice';
 
 interface IScriptPlayerState {
   script: IAction[] | null;
@@ -230,10 +231,14 @@ export const endAction =
 //   console.log('%c [talkActionInterpreter]', 'background-color:Gold; color: black', text);
 // };
 
-const actionSettersMap = {
+const actionSettersMap: Record<IActionName, {startAction; endAction}> = {
   [ACTIONS_NAMES.GOTO_SCENE]: {
     startAction: startGotoSceneAction,
     endAction: endGotoSceneAction,
+  },
+  [ACTIONS_NAMES.LOOK_CLOSER]: {
+    startAction: startLookCloserAction,
+    endAction: endLookCloserAction,
   },
   [ACTIONS_NAMES.SET_WORLD_STATE]: {
     startAction: startSetWorldStateAction,

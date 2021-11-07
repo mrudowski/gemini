@@ -6,6 +6,7 @@ const en: typeof pl = {
   verbs: {
     examine: "Examine",
     go: "Go",
+    lookCloser: "Look closer",
     take: "Take",
     talk: "Talk",
     talkAlt: "Small talk",
@@ -34,6 +35,11 @@ const en: typeof pl = {
           elmWork: "Jak idzie twoja praca? Może mogłabym ci pomóc?",
           elmWorkAnswer: "Sam muszę zrozumieć, co właściwie próbuję osiągnąć. Ale dziękuję za propozycję. Będę pamiętał.",
         }
+      }
+    },
+    hazelWorkshopByHazel: {
+      table: {
+        examine: "Wszystkie stworzone przeze mnie rośliny obumarły. Muszę zaprojektować je na nowo. Myślę, że znalazłam metodę która mi na to pozwoli. [en]"
       }
     }
   },

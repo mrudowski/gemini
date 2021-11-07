@@ -77,6 +77,14 @@ export type IGotoSceneAction = (payload: IGotoSceneActionPayload) => ISpecifiedA
 
 // -------------
 
+export interface ILookCloserActionPayload extends IActionPayload {
+  scene: ISceneId;
+}
+
+export type ILookCloserAction = (payload: ILookCloserActionPayload) => ISpecifiedAction<ILookCloserActionPayload>;
+
+// -------------
+
 export interface ISetWorldStateActionPayload extends IActionPayload {
   state: Partial<IWorldState>;
 }
@@ -117,6 +125,7 @@ const getSpecificAction = (actionName: IActionName, payload: IActionPayload = {}
 
 export const ACTIONS_NAMES = {
   GOTO_SCENE: 'GOTO_SCENE',
+  LOOK_CLOSER: 'LOOK_CLOSER',
   SET_WORLD_STATE: 'SET_WORLD_STATE',
   SET_SCENE_STATE: 'SET_SCENE_STATE',
   SET_CURRENT_SCENE_STATE: 'SET_CURRENT_SCENE_STATE',
@@ -126,9 +135,10 @@ export const ACTIONS_NAMES = {
   WAIT: 'WAIT',
 } as const; // wow
 
-type IActionName = keyof typeof ACTIONS_NAMES;
+export type IActionName = keyof typeof ACTIONS_NAMES;
 
 const gotoScene: IGotoSceneAction = payload => getSpecificAction(ACTIONS_NAMES.GOTO_SCENE, payload);
+const lookCloser: ILookCloserAction = payload => getSpecificAction(ACTIONS_NAMES.LOOK_CLOSER, payload);
 const setWorldState: ISetWorldStateAction = payload => getSpecificAction(ACTIONS_NAMES.SET_WORLD_STATE, payload);
 const setSceneState: ISetSceneStateAction = payload => getSpecificAction(ACTIONS_NAMES.SET_SCENE_STATE, payload);
 const setCurrentSceneState = <T>(
@@ -146,6 +156,7 @@ const wait = (payload?: IWaitActionPayload): ISpecifiedAction<IWaitActionPayload
 
 const ACTIONS = {
   gotoScene,
+  lookCloser,
   setWorldState,
   setSceneState,
   setCurrentSceneState,

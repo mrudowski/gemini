@@ -21,6 +21,7 @@ import verbMenuReducer from '../VerbMenu/verbMenuSlice';
 import scriptPlayerReducer from '../scriptPlayer/scriptPlayerSlice';
 import talkActionReducer from '../scriptPlayer/talkActionSlice';
 import waitActionReducer from '../scriptPlayer/waitActionSlice';
+import lookCloserActionReducer from '../Closeup/lookCloserActionSlice';
 
 const rootReducer = combineReducers({
   gem: gemSliceReducer,
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   scriptPlayer: scriptPlayerReducer,
   talkAction: talkActionReducer,
   waitAction: waitActionReducer,
+  lookCloserAction: lookCloserActionReducer,
 });
 
 const getMigrations = (ver: number, migrations = {}) => {
@@ -44,7 +46,7 @@ const getMigrations = (ver: number, migrations = {}) => {
   };
 };
 
-const persistedStoreVersion = 4;
+const persistedStoreVersion = 5;
 const persistConfig = {
   key: 'gemTOS3',
   storage,

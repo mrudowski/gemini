@@ -15,12 +15,12 @@ import {getCurrentActorId} from '../redux/worldSlice';
 
 // import portrait from '../../game/assets/images/portraits/salammon.png';
 
-interface IDialogue {
+interface IDialogueWidget {
   action: ISpecifiedAction<ITalkActionPayload> | ISpecifiedAction<ITalkOptionsActionPayload>;
   onClick: (e, next?: string, actorId?: IActorId) => void;
 }
 
-const DialogueWidget: React.FC<IDialogue> = props => {
+const DialogueWidget: React.FC<IDialogueWidget> = props => {
   const {
     action, // TODO push payload as props
     onClick,

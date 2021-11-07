@@ -6,10 +6,7 @@ import {getNextSceneId} from '../redux/tempSlice';
 import './styles/SceneViewer.scss';
 import SceneAnimation from '../SceneAnimation/SceneAnimation';
 import Spinner from '../components/Spinner/Spinner';
-
-const capitalizeFirstLetter = (str: string) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
+import {capitalizeFirstLetter} from '../utils/utils';
 
 const SceneLoading = ({onReady}) => {
   useEffect(() => {

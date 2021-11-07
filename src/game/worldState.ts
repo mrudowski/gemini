@@ -22,6 +22,7 @@ export interface IWorldState {
     [SCENES.elmWorkshopByElm];
     [SCENES.hazelWorkshopByHazel]: IHazelWorkshopByHazelSceneState;
     [SCENES.hazelWorkshopByElm];
+    [SCENES.hazelTableByHazel];
     test: {
       test1: number;
     };
@@ -66,6 +67,7 @@ export const worldInitialState: IWorldState = {
     [SCENES.elmWorkshopByElm]: null,
     [SCENES.hazelWorkshopByHazel]: hazelWorkshopByHazelSceneInitialState,
     [SCENES.hazelWorkshopByElm]: null,
+    [SCENES.hazelTableByHazel]: null,
     test: {
       test1: 1,
     },

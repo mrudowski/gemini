@@ -6,6 +6,7 @@ import hazelWorkshop from './assets/images/hazelWorkshop.jpg';
 import elmImage from '../../assets/images/portraits/elm.png';
 import hazelImage from '../../assets/images/portraits/hazel.png';
 import PreloadImages from '../../../engine/Preload/PreloadImages';
+import TablePoi from './pois/TablePoi';
 
 const imagesToPreload = [elmImage, hazelImage];
 
@@ -15,6 +16,7 @@ const HazelWorkshopByHazelScene = () => {
   return (
     <Scene id={SCENES.hazelWorkshopByHazel} image={hazelWorkshop}>
       <PreloadImages images={imagesToPreload} />
+      <TablePoi />
     </Scene>
   );
 };

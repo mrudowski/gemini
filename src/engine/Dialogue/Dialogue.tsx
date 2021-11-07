@@ -6,11 +6,11 @@ import {endAction, getNextActiveAction} from '../scriptPlayer/scriptPlayerSlice'
 import DialogueWidget from './DialogueWidget';
 import {ACTIONS_NAMES, ISpecifiedAction, ITalkActionPayload} from '../actions';
 
-interface IDialogueWindow {}
+interface IDialogue {}
 
 let timeoutId;
 
-const Dialogue: React.FC<IDialogueWindow> = () => {
+const Dialogue: React.FC<IDialogue> = () => {
   // const {
   // } = props;
 
