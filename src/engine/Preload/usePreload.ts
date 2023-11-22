@@ -1,10 +1,9 @@
-import imageCache from '../imageCache';
+import imageCache from './imageCache';
+import {IImage} from './types';
 
 /**
  * not used
  */
-
-type IImage = string;
 
 type IUsePreload = (images: IImage[]) => void;
 

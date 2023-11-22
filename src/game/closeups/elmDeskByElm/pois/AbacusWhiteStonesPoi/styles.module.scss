@@ -1,0 +1,39 @@
+.whiteStones {
+	transition: background-position .25s ease-in-out;
+
+	$startX: 36px;
+	$startY: 38px;
+	$deltaX: 42px;
+	$deltaY: -5px;
+
+	@function getStone($param) {
+		$result: '';
+		@for $index from 0 through 3 {
+			$pos: $index;
+			@if $index > 3 - $param {
+				$pos: $index + 2;
+			}
+			$result: $result + 'url(../../assets/images/stone.png) ' + ($startX + $pos * $deltaX) + ' ' + ($startY + $pos * $deltaY) + ' scroll no-repeat';
+			@if $index < 3 {
+				$result: $result + ', ';
+			}
+		}
+		@return #{$result};
+	}
+
+	&--0 {
+		background: getStone(0);
+	}
+	&--1 {
+		background: getStone(1);
+	}
+	&--2 {
+		background: getStone(2);
+	}
+	&--3 {
+		background: getStone(3);
+	}
+	&--4 {
+		background: getStone(4);
+	}
+}

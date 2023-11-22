@@ -1,0 +1,8 @@
+@import "../../commons/sass/variables";
+
+.UIWidget--Notebook {
+	width: $gem-notebook-width;
+	height: $gem-notebook-height;
+	background: transparent url(../assets/images/background.jpg) 0 0 scroll no-repeat;
+	display: flex;
+}

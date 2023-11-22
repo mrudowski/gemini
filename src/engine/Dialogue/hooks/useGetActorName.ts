@@ -1,7 +1,7 @@
 import useActorNameCondition from './useActorNameCondition';
-import {IActorId} from '../../../game/actors';
 import {useTypedSelector} from '../../redux/store';
-import {getCurrentActorId} from '../../redux/worldSlice';
+import {getCurrentActorId} from '../../World/worldSlice';
+import {IActorId} from '../types';
 
 type IUseGetActorNameToDisplay = (args: {actorId?: IActorId; actorName?: string}) => string;
 

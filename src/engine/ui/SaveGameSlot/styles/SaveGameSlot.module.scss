@@ -1,0 +1,44 @@
+@import "../../../commons/sass/variables";
+
+.root {
+	width: 130px;
+	font-size: 13px;
+
+	&:not(.isAuto):hover .thumb {
+		opacity: 1;
+	}
+}
+
+.title {
+	overflow-wrap: break-word; // works in chrome/edge and firefox
+	word-wrap: break-word; // works in safari
+}
+
+.date {
+	color: $gem-text-color-disabled;
+}
+
+.disabled {
+	opacity: .5;
+}
+
+.thumb {
+	background-color: rgba($gem-color-white, .75);
+	border: 1px dashed rgba($gem-color-black, .5);
+	margin-bottom: $gem-gap-xs;
+	padding: $gem-gap-xs;
+	opacity: .85;
+	height: 94px;
+
+	:global {
+		.saveThumb {
+			overflow: hidden;
+			height: 100%;
+			background-color: transparent;
+			background-position: 50% 50%;
+			background-attachment: scroll;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+	}
+}

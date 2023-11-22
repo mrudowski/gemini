@@ -1,0 +1,10 @@
+@import "../../../../commons/sass/variables";
+
+.hudButton--herbarium {
+	top: $gem-gap;
+	right: $gem-gap + 46 + $gem-gap + 46 + $gem-gap;
+
+	.hudButton__icon {
+		background-position: -250px 0;
+	}
+}

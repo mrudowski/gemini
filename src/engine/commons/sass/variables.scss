@@ -1,0 +1,84 @@
+$gem-viewport-width: 1280px;
+$gem-viewport-height: 720px;
+
+$gem-UIWindow-width: 640px;
+// $gem-UIWindow-height: 480px;
+
+$gem-inventory-width: 1028px;
+$gem-inventory-height: 580px;
+
+$gem-notebook-width: $gem-inventory-width;
+$gem-notebook-height: $gem-inventory-height;
+
+$gem-herbarium-width: $gem-inventory-width;
+$gem-herbarium-height: $gem-inventory-height;
+
+$gem-closeup-width: $gem-inventory-width;
+$gem-closeup-height: $gem-inventory-height;
+
+$gem-inGameMenu-width: 240px;
+
+$gem-autoSaveOverwriteConfirmation-width: 440px;
+$gem-saveGameTitleModal-width: 440px;
+
+$gem-gap-xs: 5px;
+$gem-gap-sm: 10px;
+$gem-gap: 15px;
+
+$gem-font-size-sm: 14px;
+$gem-font-size: 16px;
+$gem-font-size-lg: 24px;
+$gem-line-height: 1.4; // === 19,6
+$gem-line-height-dense: 1.2;
+
+$gem-color-black: #000;
+$gem-color-white: #fff;
+$gem-color-debug: deeppink;
+$gem-color-red: #ba1c16;
+
+$gem-color-success: #538020;
+$gem-color-error: $gem-color-red;
+
+$gem-text-color: $gem-color-black;
+$gem-text-color-secondary: rgba($gem-text-color, .8);
+$gem-text-color-disabled: rgba($gem-text-color, .5);
+
+$gem-text-color-inverse: $gem-color-white;
+
+$filterDropShadow: drop-shadow(5px 5px 5px rgba(0, 0, 0, .5));
+
+// --------------------------------
+
+$z-index-secondSceneViewer: 0;
+// scene stable in js: 1;
+$z-index-poiHelper: 1; // to be on top of all pois (and its images)
+// scene fadingIn in js: 2
+// $z-index-lightEffectOverGUI: 3;
+$z-index-gemLock: 5;
+$z-index-gemSkippable: 5;
+$z-index-gemSuspense: 5;
+
+// --------------------------------
+
+@mixin gemUIBorders(
+	$dialogue: false
+) {
+	$negativeMargin: -10px;
+	position: absolute;
+	@if ($dialogue) {
+		top: $negativeMargin;
+		left: 0;
+		right: 0;
+		border: 0 none; // needed in safari
+		border-top: 30px solid; // was 30px solid transparent but safari doesn't like it
+    } @else {
+		top: $negativeMargin;
+		bottom: $negativeMargin;
+		left: $negativeMargin;
+		right: $negativeMargin;
+		border: 30px solid; // was 30px solid transparent but safari doesn't like it
+	}
+	border-image: url(../../ui/assets/images/leafsBorder.png) 30 repeat;
+	pointer-events: none;
+}
+

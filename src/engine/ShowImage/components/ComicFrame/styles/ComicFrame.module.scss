@@ -1,0 +1,21 @@
+@import "../../../../commons/sass/variables";
+
+.root {
+	position: absolute;
+	// pointer-events: none;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	// filter: $filterDropShadow; // very slow when we animate 5 or more images on top of previous ones
+}
+
+.border {
+	$negativeMargin: -10px;
+	position: absolute;
+	top: $negativeMargin;
+	bottom: $negativeMargin;
+	left: $negativeMargin;
+	right: $negativeMargin;
+	border: 60px solid; // was 30px solid transparent but safari doesn't like it
+	border-image: url(../../../../ui/assets/images/comicBorder.png) 60 repeat;
+	// pointer-events: none;
+}

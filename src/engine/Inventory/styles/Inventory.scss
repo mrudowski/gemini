@@ -1,0 +1,31 @@
+@import "../../commons/sass/variables";
+
+.UIWidget--Inventory {
+	width: $gem-inventory-width;
+	height: $gem-inventory-height;
+	display: flex;
+
+	.InventoryHerbsSlots {
+		position: absolute;
+		top: 40px;
+		right: 0;
+		bottom: 40px;
+		width: 240px;
+		border-left: 2px dashed rgba(#784c2e, 0.2);
+
+		div {
+			position: absolute;
+			inset: 45px 0 0 60px;
+			opacity: 0.4;
+			background: url(../assets/images/flowerIcon.png) 5px 0 scroll no-repeat,
+			url(../assets/images/leafIcon.png) 0 138px + 10px scroll no-repeat,
+			url(../assets/images/stalkIcon.png) 0 2 * 138px + 10px scroll no-repeat;
+		}
+	}
+
+	.InventoryItems {
+		flex: 1 1 auto;
+		margin: $gem-gap * 2 240px $gem-gap * 2 $gem-gap * 2;
+		position: relative;
+	}
+}

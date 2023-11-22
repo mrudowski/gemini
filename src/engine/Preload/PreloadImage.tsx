@@ -1,7 +1,6 @@
 import React from 'react';
-import imageCache from '../imageCache';
-
-type IImage = string;
+import imageCache from './imageCache';
+import {IImage} from './types';
 
 interface IPreloadImage {
   image: IImage;

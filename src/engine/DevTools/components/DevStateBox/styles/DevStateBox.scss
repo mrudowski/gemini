@@ -29,6 +29,22 @@
 }
 .devStateList ul li.parent {
 	color: #ccc;
+
+	&.currentScene {
+		border-left: 5px solid deeppink;
+		margin-left: -10px;
+		padding-left: 5px;
+	}
+
+	& > ul {
+		display: none;
+	}
+
+	&.parentVisible {
+		& > ul {
+			display: block;
+		}
+	}
 }
 .devStateList ul li.arrayElement {
 	color: #999;
@@ -48,5 +64,17 @@
 .devStateList ul li.string {
 	cursor: pointer;
 	color: #ecc04e;
+}
+
+.devStateInputContainer {
+	inset: 0;
+	display: flex;
+	place-items: center;
+}
+
+.devStateInput {
+	border: 3px solid #ecc04e;
+	padding: 8px;
+	font-size: 14px;
 }
 

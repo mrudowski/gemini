@@ -1,2 +1,3 @@
-# Ignore all HTML files:
-src/game/i18n/*.ts
+# Ignore lang ts files:
+# - not needed because we now overwrite prettier config inside config file
+# src/game/i18n/*.ts

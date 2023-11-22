@@ -4,32 +4,18 @@
     "react-app",
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:import/recommended"
   ],
   "rules": {
     // react/recommended override
     "jsx-a11y/anchor-is-valid": "off",
     "react/prop-types": "off",
-    // replace by typescript because of interfaces and types
+    // replace by typescript rule because of interfaces and types
     "no-unused-vars": "off",
-    //adding ignoreRestSiblings
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      {
-        "ignoreRestSiblings": true
-      }
-    ],
-    // ignore some of plugin:@typescript-eslint/recommended:
-    "@typescript-eslint/no-empty-function": "off",
-    "@typescript-eslint/ban-ts-comment": "off",
-    "@typescript-eslint/no-empty-interface": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
     // our own
     "no-mixed-spaces-and-tabs": "warn",
-    // https://github.com/typescript-eslint/typescript-eslint/issues/2483
+    // replace by typescript rule because of https://github.com/typescript-eslint/typescript-eslint/issues/2483
     // "no-shadow": "warn",
-    "@typescript-eslint/no-shadow": "warn",
     "import/no-useless-path-segments": "warn",
     "import/order": [
       "warn",
@@ -48,11 +34,16 @@
         ]
       }
     ],
+    // maybe in next project
+    "import/no-cycle": "off",
+    "import/no-named-as-default": "off",
+    "import/no-named-as-default-member": "off",
     // "max-len": ["warn", { "code": 100, "ignoreComments": true }], //turn off by mr for jul
-    "quotes": [
-      "warn",
-      "single"
-    ],
+    // "I'm alive" - prettier know that, eslint don't, so we turn off this rule here
+    //    "quotes": [
+    //      "warn",
+    //      "single"
+    //    ],
     "jsx-quotes": ["warn", "prefer-double"],
     "consistent-return": "warn",
     "func-names": "warn",
@@ -78,19 +69,40 @@
     "array-bracket-spacing": ["warn", "never"],
     "computed-property-spacing": ["warn", "never"],
     "no-param-reassign": "warn",
-// prettier will handle this
-//    "indent": [
-//      "warn",
-//      2,
-//      {
-//        "SwitchCase": 1
-//      }
-//    ], // decided in group
-    "react-hooks/exhaustive-deps": ["warn", { "additionalHooks": "(useCurrentCallback|useCurrentEffect)" }],
+    // prettier will handle this
+    //    "indent": [
+    //      "warn",
+    //      2,
+    //      {
+    //        "SwitchCase": 1
+    //      }
+    //    ], // decided in group
+    "react-hooks/exhaustive-deps": ["warn", { "additionalHooks": "(useCurrentCallback|useCurrentEffect)" }]
     // "react/jsx-indent": ["warn", 4]
     // "react/jsx-indent-props": ["warn", "tab"]
     // "no-console": "off"
-    // new ones
-    "import/no-cycle": "warn"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts?(x)"],
+      "extends": ["plugin:@typescript-eslint/recommended", "plugin:import/typescript"],
+      "rules": {
+        //adding ignoreRestSiblings
+        "@typescript-eslint/no-unused-vars": [
+          "warn",
+          {
+            "ignoreRestSiblings": true
+          }
+        ],
+        // ignore some of plugin:@typescript-eslint/recommended:
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-shadow": "warn"
+      }
+    }
+  ]
 }

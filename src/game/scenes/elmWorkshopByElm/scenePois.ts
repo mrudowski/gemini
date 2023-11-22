@@ -1,6 +1,7 @@
 const SCENE_POIS = {
-  elm: 'elm',
+  hazel: 'hazel',
   elmDesk: 'elmDesk',
+  desk: 'desk',
   hazelExit: 'hazelExit',
   hazelSit: 'hazelSit',
   stairs: 'stairs',

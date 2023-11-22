@@ -1,0 +1,12 @@
+@import "../../../../commons/sass/variables";
+
+.NotebookPage {
+	&--gridLayout {
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: column;
+		height: 100%;
+		align-content: flex-start;
+		gap: $gem-gap-sm * 2;
+	}
+}

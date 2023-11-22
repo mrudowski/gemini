@@ -1,24 +1,21 @@
-import {useTypedSelector} from '../../redux/store';
-import {getActorState, getSceneState} from '../../redux/worldSlice';
-import SCENES from '../../../game/scenes';
 import {useTranslation} from '../../translation';
-import ACTORS, {IActorId} from '../../../game/actors';
-import {ITeaShopSceneState} from '../../../game/scenes/teaShop/state';
+import {IActorId} from '../types';
 
+// TODO we leave it here for future use
 const useActorNameCondition = (actor: IActorId) => {
   const t = useTranslation();
-  const teaShopSceneState = useTypedSelector(getSceneState(SCENES.teaShop)) as ITeaShopSceneState;
-  const actorState = useTypedSelector(getActorState(actor));
+  // const teaShopSceneState = useTypedSelector(state => getSceneState(state, SCENES.teaShop)) as ITeaShopSceneState;
+  // const actorState = useTypedSelector(state => getActorState(state, actor));
 
-  switch (actor) {
-    case ACTORS.salammon: {
-      if (teaShopSceneState.tableDishesExamineCounter % 2) {
-        return t.actors.salammonUnpleasant;
-      }
-      if (actorState.salammon) return t.actors.salammon;
-      return t.actors.unknown;
-    }
-  }
+  // switch (actor) {
+  // case ACTORS.salammon: {
+  //   if (teaShopSceneState.tableDishesExamineCounter % 2) {
+  //     return t.actors.salammonUnpleasant;
+  //   }
+  //   if (actorState.salammon) return t.actors.salammon;
+  //   return t.actors.unknown;
+  // }
+  // }
 
   return t.actors[actor];
 };

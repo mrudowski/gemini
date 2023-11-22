@@ -1,0 +1,15 @@
+import {IActionPayload} from '../types';
+
+export interface ISetCurrentSceneStateActionPayload<T> extends IActionPayload {
+  stateName: keyof T;
+  stateValue: T[keyof T];
+}
+
+/**
+ * not used
+ * see setSceneState for better choice
+ */
+// const setCurrentSceneState = <T>(
+//   payload: ISetCurrentSceneStateActionPayload<T>
+// ): ISpecifiedAction<ISetCurrentSceneStateActionPayload<T>> =>
+//   getSpecificAction(ACTIONS_NAMES.SET_CURRENT_SCENE_STATE, payload);

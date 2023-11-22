@@ -1,0 +1,29 @@
+@import "../../../../commons/sass/variables";
+
+.PoiHelper {
+	$size: 20px;
+
+	position: absolute;
+	z-index: $z-index-poiHelper; // to be on top of all pois (and its images)
+	top: 50%;
+	left: 50%;
+	width: $size;
+	height: $size;
+	border-radius: $size;
+	margin-left: -$size * 0.5;
+	margin-top: -$size * 0.5;
+	background-color: rgba(255,255,255, 0.5);
+	border: 2px solid rgba($gem-color-white, .75);
+	box-shadow: 0 0 4px 1px rgba($gem-color-black, .75);
+	pointer-events: none;
+
+	.Scene-elmWorkshopByElm &,
+	.Scene-elmWorkshopByElm2 &,
+	.Scene-hazelWorkshopByElm &,
+	.Closeup-elmDeskByElm &,
+	.Closeup-hazelTableByElm & {
+		border-color: $gem-color-red
+	}
+}
+
+

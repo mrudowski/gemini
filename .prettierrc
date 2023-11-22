@@ -3,5 +3,15 @@
   "arrowParens": "avoid",
   "semi": true,
   "singleQuote": true,
-  "bracketSpacing": false
+  "bracketSpacing": false,
+
+  "overrides": [
+    {
+      "files": "src/game/i18n/*.ts",
+      "options": {
+        "singleQuote": false,
+        "printWidth": 1000
+      }
+    }
+  ]
 }

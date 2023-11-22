@@ -1,0 +1,18 @@
+@import "../../../commons/sass/variables";
+
+.Scene {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: $gem-color-black;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+
+	&--withCloseup {
+		.PoiHelper {
+			display: none;
+		}
+	}
+}

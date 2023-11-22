@@ -1,0 +1,26 @@
+@import "../../commons/sass/variables";
+
+.ShowTextWidget {
+	$root: &;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	color: $gem-color-white;
+	font-size: $gem-font-size-lg;
+	line-height: 1.2;
+	font-weight: 300;
+
+	&--center {
+		display: grid;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&--custom #{$root}__balloon {
+		position: absolute;
+	}
+
+}

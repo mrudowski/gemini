@@ -1,12 +1,12 @@
 import React from 'react';
-import Poi from '../../../../engine/Poi';
+import Poi from '../../../../engine/Poi/Poi';
 import hazelSitImage from '../assets/images/hazelSit.png';
 import SCENE_POIS from '../scenePois';
-import {useSceneState} from '../../../../engine/stateHooks/stateHooks';
-import SCENES from '../../../scenes';
+import {useGlobalState} from '../../../../engine/stateHooks/stateHooks';
+import SCENES from '../../scenes';
 
-const HazelExitPoi = () => {
-  const sceneState = useSceneState(SCENES.elmWorkshopByHazel);
+const HazelSitPoi = () => {
+  const globalState = useGlobalState();
 
   return (
     <Poi
@@ -18,9 +18,9 @@ const HazelExitPoi = () => {
         height: 369,
       }}
       image={hazelSitImage}
-      when={sceneState.hazelOnDesk}
+      when={globalState.hazelLocation === SCENES.elmWorkshopByHazel}
     />
   );
 };
 
-export default HazelExitPoi;
+export default HazelSitPoi;

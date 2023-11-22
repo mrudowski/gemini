@@ -1,0 +1,31 @@
+@import "../commons/sass/variables";
+
+.root {
+	position: fixed;
+	right: $gem-gap;
+	bottom: $gem-gap;
+	padding: $gem-gap*2;
+	background-color: rgba($gem-color-black, .75);
+	max-width: 320px;
+	color: $gem-color-white;
+
+	.close {
+		width: 50px;
+		height: 40px;
+		line-height: 40px;
+		opacity: 0.75;
+		position: absolute;
+		right: 0;
+		top: 0;
+		text-align: center;
+	}
+
+	.prompt {
+		font-weight: 300;
+		font-size: $gem-font-size-sm;
+	}
+
+	&:hover .close {
+		opacity: 1;
+	}
+}

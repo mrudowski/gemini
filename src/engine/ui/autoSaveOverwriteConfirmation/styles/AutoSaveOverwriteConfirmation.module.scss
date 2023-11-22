@@ -1,0 +1,14 @@
+@import "../../../commons/sass/variables";
+
+.root {
+	width: $gem-autoSaveOverwriteConfirmation-width;
+	padding: $gem-gap * 2;
+}
+
+.buttons {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: $gem-gap-sm;
+}

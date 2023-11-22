@@ -1,4 +1,4 @@
-@import "../../sass/variables";
+@import "../../commons/sass/variables";
 
 /*-----------------------------------------------------
 	base
@@ -33,7 +33,7 @@ body {
 	-webkit-touch-callout: none;
 
 	cursor: url(../assets/images/cursor_arrow.png), default;
-	background: #000 url(../assets/images/background.jpg) center scroll no-repeat;
+	background: #0b1420 url(../assets/images/background.jpg) center scroll no-repeat;
 	background-size: cover;
 
 	font-family: 'Kalam', cursive;
@@ -53,6 +53,10 @@ body {
 	user-select: none;
 }
 
+::selection {
+	background: #333;
+	color: #fff;
+}
 
 /*-----------------------------------------------------
 	forms
@@ -66,9 +70,8 @@ input, select, textarea, button {
 }
 
 input, textarea {
-	margin: 0 0 $gem-gap 0;
 	width: 100%;
-	padding: 3px 5px;
+	padding: $gem-gap-xs;
 	border: 0 none;
 	border-top: 1px solid rgba(0,0,0,0.25);
 	border-left: 1px solid rgba(0,0,0,0.25);
@@ -78,8 +81,17 @@ input, textarea {
 	}
 }
 
+input {
+	margin: 0 0 ($gem-gap-sm * 2) 0;
+}
+
+input[type=text] {
+	height: 28px;
+}
+
 textarea {
 	resize: none;
+	margin: 0 0 ($gem-gap * 2) 0;
 }
 
 /*-----------------------------------------------------
@@ -97,7 +109,7 @@ h2,h3,h4,h5,h6 {
 }
 
 p,h1,h2,h3,h4,h5,h6,ul,ol,blockquote,code {
-	margin-bottom: $gem-gap;
+	margin-bottom: $gem-gap * 2;
 }
 
 em {

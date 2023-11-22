@@ -1,0 +1,33 @@
+@import "../../../sass/variables";
+
+.UIWindow {
+	position: absolute;
+	inset: 0;
+	display: grid;
+	place-items: center;
+
+	&__dimmed {
+		position: absolute;
+		inset: 0;
+	}
+
+	&__box {
+		width: $gem-UIWindow-width;
+		min-height: 40px;
+		background-color: $gem-color-black;
+		position: relative;
+
+		filter: $filterDropShadow;
+
+		// all other then closeup
+		&--default {
+			background: transparent url(../../../../ui/assets/images/oldPaperBg.jpg) 0 0 scroll no-repeat;
+			background-size: 100% 100%;
+			color: $gem-text-color-secondary;
+		}
+	}
+
+	&__border {
+		@include gemUIBorders();
+	}
+}

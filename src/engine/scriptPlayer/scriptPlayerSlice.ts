@@ -1,15 +1,26 @@
-import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice, original, PayloadAction} from '@reduxjs/toolkit';
 import {batch} from 'react-redux';
 // import {original} from 'immer';
-import {ACTIONS_NAMES, IAction, IActionName} from '../actions';
-import {IRootState, IThunk} from '../redux/store';
-import {endTalkAction, startTalkAction} from './talkActionSlice';
-import {endSetCurrentSceneStateAction, startSetCurrentSceneStateAction} from './setCurrentSceneStateActionThunk';
-import {endWaitAction, startWaitAction} from './waitActionSlice';
-import {endSetSceneStateAction, startSetSceneStateAction} from './setSceneStateActionThunk';
-import {endGotoSceneAction, startGotoSceneAction} from './setGotoSceneActionThunk';
-import {endSetWorldStateAction, startSetWorldStateAction} from './setWorldStateActionThunk';
-import {endLookCloserAction, startLookCloserAction} from '../Closeup/lookCloserActionSlice';
+import {IThunk} from '../redux/store';
+import {IAction} from '../actions/types';
+import {getActionByIndex, getActionSetter, getSkipToActionOnInterrupt} from './scriptPlayerSliceSelectors';
+import {getNextActionIndex} from './utils';
+import {ACTIONS_NAMES} from '../actions/actionsNames';
+import {getSceneState, setCurrentActorId, setGlobalMultiState, setSceneMultiState} from '../World/worldSlice';
+import {CUSTOM_ACTIONS_THUNKS} from '../../game/customActions';
+import {END} from '../actions/constants';
+import {saveCurrentGame} from '../Gem/gemSlice';
+import ACTIONS from '../actions/actions';
+import {ISceneId} from '../scene/Scene/types';
+import {ICloseupId} from '../closeup/Closeup/types';
+import {startSwitchOffSceneLight} from '../actions/switchLight/switchLightActionSlice';
+import {showHudThunk} from '../Hud/hudThunks';
+
+interface scriptInQueue {
+  script: IAction[];
+  sceneId: string;
+  poiId: string;
+}
 
 interface IScriptPlayerState {
   script: IAction[] | null;
@@ -17,6 +28,8 @@ interface IScriptPlayerState {
   sceneId: string;
   poiId: string;
   actionIndex: number;
+  skipToActionOnInterrupt: string | undefined;
+  scriptsQueue: scriptInQueue[];
 }
 
 const initialState: IScriptPlayerState = {
@@ -25,41 +38,8 @@ const initialState: IScriptPlayerState = {
   sceneId: '',
   poiId: '',
   actionIndex: 0,
-};
-
-const getIncrementedActionIndex = (script: IAction[], actionIndex: number) => {
-  // console.log('%c [mr] getIncrementedActionIndex', 'background-color:Gold; color: black', script, actionIndex);
-  const action = script[actionIndex];
-  // console.log('%c [mr] action.when', 'background-color:Gold; color: black', action.when);
-  if (action.when) {
-    return actionIndex;
-  } else {
-    if (actionIndex + 1 >= script.length) {
-      return -1;
-    }
-    // we ignore next param here - we assume it won't happen
-    const nextActionIndex = actionIndex + 1;
-    return getIncrementedActionIndex(script, nextActionIndex);
-  }
-};
-
-const getNextActionIndex = (script: IAction[] | null, actionIndex: number, next: string) => {
-  let nextActionIndex = -1;
-  if (!script) return nextActionIndex;
-
-  if (next) {
-    nextActionIndex = script.findIndex(scriptAction => scriptAction.id === next);
-    // console.log('%c [mr] if next state.script', 'background-color:green; color: white', script, next);
-    // console.log('%c [mr] if next nextActionIndex', 'background-color:green; color: white', nextActionIndex);
-  } else if (actionIndex + 1 < script.length) {
-    nextActionIndex = actionIndex + 1;
-  } else {
-    return nextActionIndex;
-  }
-
-  // console.log('%c [mr] getNextActionIndex ===', 'background-color:green; color: white', nextActionIndex);
-
-  return getIncrementedActionIndex(script, nextActionIndex);
+  skipToActionOnInterrupt: undefined,
+  scriptsQueue: [],
 };
 
 const scriptPlayerSlice = createSlice({
@@ -71,14 +51,36 @@ const scriptPlayerSlice = createSlice({
       action: PayloadAction<{script: IAction[]; sceneId: string; poiId: string}>
     ) => {
       const {script, sceneId, poiId} = action.payload;
-      console.log('%c [scriptPlayer] setScript', 'background-color:Gold; color: black', script);
+      if (state.script) {
+        const originalState = original(state);
+
+        // Should not happen anymore because of queue mechanizm
+        if (state.actionIndex < state.script.length - 1) {
+          console.log(
+            '%c [scriptPlayer] ERROR! overwriting NOT finished script with new one',
+            'background-color:red; color: white',
+            originalState?.actionIndex,
+            originalState?.script,
+            script
+          );
+        } else {
+          // Should not happen anymore
+          console.log(
+            '%c [scriptPlayer] WARNING? overwriting finished script with new one',
+            'background-color:orange; color: black',
+            originalState?.script,
+            script
+          );
+        }
+      }
       state.script = script;
       state.sceneId = sceneId;
       state.poiId = poiId;
       state.actionIndex = 0;
     },
     setNoScript: () => {
-      console.log('%c [scriptPlayer] setNoScript', 'background-color:Gold; color: black');
+      // console.log('%c [scriptPlayer] setNoScript', 'background-color:black; color: gold');
+
       return {
         ...initialState,
       };
@@ -94,6 +96,18 @@ const scriptPlayerSlice = createSlice({
         throw new Error('error when increaseActionIndex - out of range or no script');
       }
     },
+    setSkipToActionOnInterrupt: (state: IScriptPlayerState, action: PayloadAction<string | undefined>) => {
+      state.skipToActionOnInterrupt = action.payload;
+    },
+    addScriptToQueue: (
+      state: IScriptPlayerState,
+      action: PayloadAction<{script: IAction[]; sceneId: string; poiId: string}>
+    ) => {
+      state.scriptsQueue.push(action.payload);
+    },
+    removeScriptFromQueue: (state: IScriptPlayerState) => {
+      state.scriptsQueue.shift();
+    },
   },
 });
 
@@ -102,24 +116,127 @@ export default scriptPlayerSlice.reducer;
 const setScript = scriptPlayerSlice.actions.setScript;
 const setNoScript = scriptPlayerSlice.actions.setNoScript;
 const setNextActionIndex = scriptPlayerSlice.actions.setNextActionIndex;
+const addScriptToQueue = scriptPlayerSlice.actions.addScriptToQueue;
+const removeScriptFromQueue = scriptPlayerSlice.actions.removeScriptFromQueue;
+export const setSkipToActionOnInterrupt = scriptPlayerSlice.actions.setSkipToActionOnInterrupt;
+
+export const executeScriptAsOneSingleNotBlockingAction =
+  ({script}: {script: IAction[]}) =>
+  dispatch => {
+    batch(() => {
+      script.forEach(action => {
+        if (action.when) {
+          switch (action.actionName) {
+            case ACTIONS_NAMES.SET_SCENE_STATE: {
+              dispatch(setSceneMultiState({sceneId: action.payload.scene, stateToUpdate: action.payload.state}));
+              break;
+            }
+            case ACTIONS_NAMES.SET_GLOBAL_STATE: {
+              dispatch(setGlobalMultiState({stateToUpdate: action.payload.state}));
+              break;
+            }
+            case ACTIONS_NAMES.SWITCH_ACTOR: {
+              dispatch(setCurrentActorId(action.payload.actor));
+              break;
+            }
+            case ACTIONS_NAMES.SWITCH_LIGHT_OFF: {
+              dispatch(
+                startSwitchOffSceneLight({
+                  ...action,
+                  payload: {
+                    ...action.payload,
+                    switchOffDuration: 0,
+                  },
+                })
+              );
+              break;
+            }
+            case ACTIONS_NAMES.HIDE_HUD: {
+              dispatch(showHudThunk(true));
+              break;
+            }
+            case ACTIONS_NAMES.CUSTOM: {
+              dispatch(CUSTOM_ACTIONS_THUNKS[action.payload.action]());
+              break;
+            }
+            default: {
+              throw new Error('Action ' + action.actionName + ' not supported here! (in onBeforeEnter)');
+            }
+          }
+        }
+      });
+    });
+  };
 
 export const playScript =
-  ({script, sceneId, poiId}: {script: IAction[]; sceneId: string; poiId: string}): IThunk =>
-  dispatch => {
+  ({script, sceneId = '', poiId = ''}: {script: IAction[]; sceneId?: string; poiId?: string}): IThunk =>
+  (dispatch, getState) => {
+    const scriptPlayerState = getState().scriptPlayer;
+    if (scriptPlayerState.script) {
+      console.log(
+        '%c [scriptPlayer] we want to play new script but old script not finished yet so we queue new one',
+        'background-color:black; color: gold',
+        {
+          oldActionIndex: scriptPlayerState.actionIndex,
+          oldScript: scriptPlayerState.script,
+          newScript: script,
+        }
+      );
+      dispatch(addScriptToQueue({script, sceneId, poiId}));
+      return;
+    }
+
+    console.log('%c [scriptPlayer] setSCRIPT', 'background-color:black; color: gold', script);
+
     batch(() => {
       dispatch(setScript({script, sceneId, poiId}));
       dispatch(playNextAction());
     });
   };
 
+export const playOnEnterScript =
+  ({script, sceneId}: {script: IAction[]; sceneId: ISceneId | ICloseupId}): IThunk =>
+  (dispatch, getState) => {
+    const sceneState = getSceneState(getState(), sceneId);
+    // !sceneState because mainMenu was null before 18.11.2022
+    const markSceneAsVisitedScript: IAction[] =
+      !sceneState || sceneState.visited ? [] : [ACTIONS.setSceneState({scene: sceneId, state: {visited: true}})];
+    if (script.length > 0 || markSceneAsVisitedScript.length > 0) {
+      dispatch(playScript({script: [...script, ...markSceneAsVisitedScript], sceneId}));
+    }
+  };
+
+export const setNoScriptThunk = (): IThunk => (dispatch, getState) => {
+  const scriptPlayerState = getState().scriptPlayer;
+
+  console.log('%c [scriptPlayer] setNoSCRIPT', 'background-color:black; color: gold');
+  dispatch(setNoScript());
+
+  if (scriptPlayerState.scriptsQueue.length > 0) {
+    console.log(
+      '%c [scriptPlayer] scriptsQueue not empty so we play it now',
+      'background-color:black; color: gold',
+      scriptPlayerState.scriptsQueue
+    );
+    batch(() => {
+      dispatch(playScript({...scriptPlayerState.scriptsQueue[0]}));
+      dispatch(removeScriptFromQueue());
+    });
+  } else {
+    // it's safe to save!
+    dispatch(saveCurrentGame());
+  }
+};
+
 const playNextAction = (): IThunk => (dispatch, getState) => {
   const state = getState();
   const {actionIndex} = state.scriptPlayer; // selector?
-  const action = getActionByIndex(actionIndex)(state);
+  const action = getActionByIndex(state, actionIndex);
   if (action) {
     if (action.when) {
       // console.log('%c [playNextAction] when true', 'background-color:Gold; color: black', action.id);
-      dispatch(getActionSetter(action.actionName).startAction({action}) as any);
+      console.log('%c [scriptPlayer] playAction', 'background-color:black; color: gold', action);
+      dispatch(getActionSetter(action.actionName).startAction(action));
     } else {
       // console.log('%c [playNextAction] when false', 'background-color:Gold; color: black', action.id);
       dispatch(endAction());
@@ -144,49 +261,55 @@ export const endAction =
   (dispatch, getState) => {
     const {next, playNextOverCurrent = false} = endActionParamObject || {};
 
-    console.log('%c [endAction] playNextOverCurrent', 'background-color:Gold; color: black', playNextOverCurrent);
-    console.log('%c [endAction] endActionParamObject', 'background-color:Gold; color: black', endActionParamObject);
-
     const state = getState();
     const {script, actionIndex} = state.scriptPlayer; // selector
 
     if (!script) {
       // it's happened when we jump from talk options to action Set(World/Scene)State (without explicit call endTalk)
       // double dialogue onExitComplete
-      console.log('%c [endAction] no script (and further actions) found', 'background-color:RED; color: black');
+      //console.log('%c [endAction] no script (and further actions) found', 'background-color:RED; color: white');
       return;
     }
 
     const action = script?.[actionIndex]; // selector
     if (action) {
-      console.log('%c [endAction] action', 'background-color:Gold; color: black', action);
+      // console.log('%c [endAction] action', 'background-color:black; color: gold', action);
 
       if (!playNextOverCurrent) {
-        dispatch(getActionSetter(action.actionName).endAction() as any);
+        const actionSetter = getActionSetter(action.actionName);
+        if (actionSetter.endAction) {
+          // we have useWith and endUseWith endAction = null
+          dispatch(getActionSetter(action.actionName).endAction() as any);
+        }
       } else {
         notEndedActions.push(getActionSetter(action.actionName));
-        console.log('%c [notEndedActions]', 'background-color:RED; color: black', notEndedActions);
+        //console.log('%c [notEndedActions] AFTER PUSH', 'background-color:RED; color: white', notEndedActions);
       }
     } else {
       throw new Error('endAction cannot find `action`!');
     }
 
     const endMethod = () => {
-      console.log('%c [endAction] endMethod', 'background-color:Gold; color: black');
       // end not ended actions
       if (notEndedActions.length > 0) {
-        // TODO good enough?
         const notEndedAction = notEndedActions.pop();
-        console.log('%c [notEndedAction]', 'background-color:Gold; color: black', notEndedAction);
+        // console.log('%c [notEndedAction] POPPED ACTION', 'background-color:red; color: white', notEndedAction);
+        // console.log('%c [notEndedAction] AFTER POP', 'background-color:red; color: white', notEndedActions);
         dispatch(notEndedAction.endAction());
+        endMethod();
       } else {
-        dispatch(setNoScript());
+        const skipToActionOnInterrupt = getSkipToActionOnInterrupt(state);
+        batch(() => {
+          if (skipToActionOnInterrupt) {
+            dispatch(setSkipToActionOnInterrupt(undefined));
+          }
+          dispatch(setNoScriptThunk());
+        });
       }
     };
 
     const trueNext = next || action.payload.next || '';
-    // console.log('%c [mr] -------->', 'background-color:Gold; color: black', trueNext);
-    if (trueNext === 'end') {
+    if (trueNext === END) {
       endMethod();
       return;
     }
@@ -198,109 +321,28 @@ export const endAction =
     }
 
     batch(() => {
-      // console.log('%c [mr] batch', 'background-color:deeppink; color: black', next, action.payload.next);
-      if (trueNext) {
-        // console.log('%c [mr] -------- TODO validNext', 'background-color:red; color: black', trueNext);
-      }
       dispatch(setNextActionIndex({nextActionIndex}));
       dispatch(playNextAction());
     });
   };
 
-//
-// const executeAction = ({action}: {action: IAction}): IThunk => (dispatch, getState) => {
-//   const state = getState();
-//   console.log('%c [mr]', 'background-color:Gold; color: black');
-//
-//   switch (action.id) {
-//     case VERBS.TALK: {
-//       console.log('%c [executeAction]', 'background-color:Gold; color: black', 'talk');
-//       break;
-//     }
-//     default: {
-//       throw new Error('We do not know this `action`: ' + action.id);
-//     }
-//   }
-// };
+export const gotoAction =
+  ({actionId}: {actionId: string}): IThunk =>
+  dispatch => {
+    const endActionParamObject: IEndActionParamObject = {
+      next: actionId,
+    };
 
-// TODO move to actionsSlice?
+    dispatch(endAction(endActionParamObject));
+  };
 
-// export const talkActionInterpreter = ({text}: ITalkActionPayload): IThunk => (dispatch, getState) => {
-//   const state = getState();
-//   dispatch()
-//   console.log('%c [talkActionInterpreter]', 'background-color:Gold; color: black', text);
-// };
-
-const actionSettersMap: Record<IActionName, {startAction; endAction}> = {
-  [ACTIONS_NAMES.GOTO_SCENE]: {
-    startAction: startGotoSceneAction,
-    endAction: endGotoSceneAction,
-  },
-  [ACTIONS_NAMES.LOOK_CLOSER]: {
-    startAction: startLookCloserAction,
-    endAction: endLookCloserAction,
-  },
-  [ACTIONS_NAMES.SET_WORLD_STATE]: {
-    startAction: startSetWorldStateAction,
-    endAction: endSetWorldStateAction, // TODO could be without it
-  },
-  [ACTIONS_NAMES.SET_SCENE_STATE]: {
-    startAction: startSetSceneStateAction,
-    endAction: endSetSceneStateAction, // TODO could be without it
-  },
-  [ACTIONS_NAMES.SET_CURRENT_SCENE_STATE]: {
-    startAction: startSetCurrentSceneStateAction,
-    endAction: endSetCurrentSceneStateAction, // TODO could be without it
-  },
-  [ACTIONS_NAMES.TALK]: {
-    startAction: startTalkAction,
-    endAction: endTalkAction,
-  },
-  [ACTIONS_NAMES.TALK_OPTIONS]: {
-    startAction: startTalkAction,
-    endAction: endTalkAction,
-  },
-  [ACTIONS_NAMES.END_TALK]: {
-    startAction: endTalkAction, // TODO dirty
-    endAction: endTalkAction,
-  },
-  [ACTIONS_NAMES.WAIT]: {
-    startAction: startWaitAction,
-    endAction: endWaitAction,
-  },
-};
-
-// ------------ selectors
-
-const getActionSetter = (actionId: string) => actionSettersMap[actionId];
-// const getNextAction = () => {};
-
-export const getCurrentScript = (state: IRootState) => state.scriptPlayer.script;
-export const getCurrentActionIndex = (state: IRootState) => state.scriptPlayer.actionIndex;
-
-const getCurrentAction = createSelector(
-  [getCurrentScript, getCurrentActionIndex],
-  (currentScript, currentActionIndex) => {
-    return currentScript?.[currentActionIndex] || null;
+export const skipToActionOnInterruptThunk = (): IThunk => (dispatch, getState) => {
+  const skipToActionOnInterrupt = getSkipToActionOnInterrupt(getState());
+  if (!skipToActionOnInterrupt) {
+    throw new Error('cannot skip - action to skip is not defined');
   }
-);
-
-const getActionByIndex = (index: number) =>
-  createSelector([getCurrentScript], currentScript => {
-    return currentScript?.[index] || null;
+  batch(() => {
+    dispatch(gotoAction({actionId: skipToActionOnInterrupt}));
+    dispatch(setSkipToActionOnInterrupt(undefined));
   });
-
-export const getNextActiveAction = createSelector(
-  [getCurrentScript, getCurrentActionIndex, (state: IRootState) => state],
-  (currentScript, currentActionIndex, state) => {
-    const currentAction = getCurrentAction(state);
-    const when = currentAction?.payload.next || '';
-
-    const nextActionIndex = getNextActionIndex(state.scriptPlayer.script, state.scriptPlayer.actionIndex, when);
-
-    if (nextActionIndex === -1) {
-      return null;
-    }
-    return getActionByIndex(nextActionIndex)(state);
-  }
-);
+};

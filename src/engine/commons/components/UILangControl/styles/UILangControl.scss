@@ -1,0 +1,19 @@
+@import "../../../sass/variables";
+
+.UILangControl {
+	display: flex;
+
+	&--classic {
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&--text {
+		justify-content: flex-start;
+		align-items: flex-start;
+
+		.UILangControl__label {
+			min-width: 70px;
+		}
+	}
+}

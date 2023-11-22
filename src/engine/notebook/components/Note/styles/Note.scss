@@ -1,0 +1,30 @@
+@import "../../../../commons/sass/variables";
+
+.Note {
+
+	font-size: 14px;
+	line-height: $gem-line-height-dense;
+
+	h1 {
+		font-size: inherit;
+		line-height: inherit;
+		font-weight: 700;
+		margin-bottom: $gem-gap-sm;
+	}
+
+	p {
+		font-size: inherit;
+		line-height: inherit;
+		margin-bottom: $gem-gap-sm;
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+
+	&--done {
+		text-decoration-line: line-through;
+		text-decoration-thickness: 2px;
+		text-decoration-color: rgba($gem-color-black, 0.5);
+	}
+}

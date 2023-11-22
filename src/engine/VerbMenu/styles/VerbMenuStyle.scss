@@ -1,9 +1,9 @@
-@import "../../sass/variables";
+@import "../../commons/sass/variables";
 
 .VerbMenu {
 	position: absolute;
 	// box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, .5);
-	filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .5));
+	filter: $filterDropShadow;
 	background: transparent url(../../ui/assets/images/paperBg.jpg) 0 0 scroll no-repeat;
 	background-size: 100% 100%;
 	padding: 3px;
@@ -14,5 +14,9 @@
 
 	&--show {
 		opacity: 1;
+	}
+
+	&__border {
+		@include gemUIBorders();
 	}
 }

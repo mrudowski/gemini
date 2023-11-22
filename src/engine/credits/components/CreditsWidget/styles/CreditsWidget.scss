@@ -1,0 +1,76 @@
+@import "../../../../commons/sass/variables";
+
+.CreditsWidget {
+	position: absolute;
+	inset: 0;
+	background: transparent none 0 0 scroll no-repeat;
+	will-change: opacity;
+
+	&__container {
+		position: absolute;
+		inset: 0;
+		will-change: opacity;
+
+		&--dimmed {
+			background-color: rgba(black, .5);
+		}
+	}
+
+	&__content {
+		position: absolute;
+		inset: 0;
+		padding: 35px $gem-gap * 4 0;
+		color: rgba($gem-text-color-inverse, .75);
+		font-weight: 300;
+		font-size: 20px;
+		line-height: 1.3;
+		display: flex;
+		justify-content: space-between;
+
+		section {
+			margin-bottom: $gem-gap * 3;
+
+			@at-root .lang-de & {
+				margin-bottom: $gem-gap-sm * 4;
+			}
+		}
+
+		h2 {
+			margin: 0 0 $gem-gap-sm 0;
+			color: $gem-text-color-inverse;
+			font-size: inherit;
+			font-weight: inherit;
+		}
+
+		p {
+			color: rgba($gem-text-color-inverse, .6);
+			font-size: $gem-font-size;
+		}
+	}
+
+	&__left {
+		width: 42%;
+		text-align: left;
+	}
+
+	&__right {
+		width: 50%;
+		text-align: right;
+
+		h2 {
+			margin: 0;
+		}
+
+		section {
+			margin-left: 90px;
+
+			@at-root .lang-en & {
+				margin-left: 70px;
+			}
+			@at-root .lang-de & {
+				margin-left: 80px;
+			}
+		}
+	}
+
+}

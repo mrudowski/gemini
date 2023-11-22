@@ -1,0 +1,18 @@
+@import "../../../commons/sass/variables";
+
+.root {
+	display: flex;
+	flex-direction: column;
+	padding: $gem-gap * 2;
+}
+
+.slots {
+	margin-bottom: $gem-gap * 2;
+	display: flex;
+	gap: $gem-gap-sm * 2;
+}
+
+.disabled {
+	opacity: 0.25;
+}
+

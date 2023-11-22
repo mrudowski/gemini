@@ -1,0 +1,48 @@
+@import "../../../sass/variables";
+
+.UIButton {
+	display: inline-block;
+	opacity: .4;
+
+	&.gem-hotspot {
+		opacity: 0.85;
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+
+	&--active {
+		opacity: 1;
+	}
+}
+
+.UIButton--classic {
+	text-align: center;
+	min-width: 100px;
+	background-color: rgba($gem-color-white, .5);
+	border: 1px dashed rgba($gem-color-black, .5);
+	color: #333;
+	padding: 4px $gem-gap 2px;
+	border-radius: 5px;
+
+	&.gem-hotspot {
+		&:hover {
+			background-color: rgba($gem-color-white, .6);
+			border-color: rgba($gem-color-black, .6);
+		}
+	}
+
+	&.UIButton--active {
+		background-color: rgba($gem-color-black, .8);
+		color: $gem-color-white;
+	}
+}
+
+
+.UIButton--text {
+	&.UIButton--active {
+		line-height: 1.1;
+		border-bottom: 3px solid $gem-color-red;
+	}
+}

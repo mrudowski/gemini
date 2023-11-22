@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {motion, useAnimation} from 'framer-motion';
 import './styles/DialogueWidgetStyle.scss';
-import {IActorId} from '../../game/actors';
 import useGetActorNameToDisplay from './hooks/useGetActorName';
+import {IActorId} from './types';
 
 interface IDialogueActorNameWidget {
   actor: IActorId;

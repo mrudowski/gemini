@@ -1,10 +1,9 @@
-@import "../../sass/variables";
+@import "../../commons/sass/variables";
 
 // test drive
 // based on https://css-tricks.com/almanac/properties/s/scrollbar-color/
 
-
-// base and light
+// base and dark
 // -------------------------------
 
 $scrollbar-size: 10px;
@@ -12,7 +11,8 @@ $scrollbar-size: 10px;
 ::-webkit-scrollbar {
   width: $scrollbar-size;
   height: $scrollbar-size;
-  background-color: rgba(0,0,0,0.5);
+  background-color: transparent;
+  //background-color: rgba(0,0,0,0.5);
 }
 
 ::-webkit-scrollbar-track {
@@ -31,9 +31,9 @@ $scrollbar-size: 10px;
 ::-webkit-scrollbar-thumb {
   background-color: transparent;
   //background-color: rgba(255,255,255,0.25);
-  box-shadow: inset 0 0 0 ($scrollbar-size / 2) rgba(255,255,255,0.25);
+  box-shadow: inset 0 0 0 ($scrollbar-size * 0.5) rgba(255,255,255,0.25);
   border: 2px solid transparent;
-  border-radius: ($scrollbar-size / 2);
+  border-radius: ($scrollbar-size * 0.5);
 
   &:vertical {
     min-height: 32px;
@@ -44,20 +44,29 @@ $scrollbar-size: 10px;
   }
 }
 
-//::-webkit-scrollbar-corner {
-//  background-color: transparent;
-//  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
-//}
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+  // box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
+}
 
 // Firefox in 2020
 // ---------------
 
 :root {
-  // scrollbar-color: rgba(0,0,0,0.5) #ccc !important;
-  scrollbar-color: rgba(255,255,255,0.5) rgba(0,0,0,0.1) !important;
+  scrollbar-color: rgba(255,255,255,0.25) rgba(0,0,0,0);
   scrollbar-width: thin !important; // no effect in firefox on macOs
 }
 
-// dark mode
-// for specific elements and special className (for future use)
+// light mode
+// for specific elements and special className
 // -------------------------------
+
+.scrollbar--light {
+  // firefox
+  scrollbar-color: rgba(0,0,0,0.25) rgba(255,255,255,0);
+
+  &::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 0 ($scrollbar-size * 0.5) rgba(0,0,0,0.25);
+  }
+
+}

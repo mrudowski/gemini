@@ -1,0 +1,10 @@
+@import "../../../../commons/sass/variables";
+
+.hudButton--showPois {
+	bottom: $gem-gap;
+	right: $gem-gap;
+
+	.hudButton__icon {
+		background-position: -100px 0;
+	}
+}

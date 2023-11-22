@@ -1,22 +1,24 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {motion, useAnimation} from 'framer-motion';
 import './styles/DialogueWidgetStyle.scss';
-import {IActorId} from '../../game/actors';
-import portraits from '../../game/portraits';
+import portraits from '../../game/actors/portraits';
 import PreloadImage from '../Preload/PreloadImage';
+import {IActorId} from './types';
+import transparentImage from '../ui/assets/images/transparent.png';
 
 interface IDialoguePortraitWidget {
-  actor: IActorId;
+  actor: IActorId | string;
+  portrait?: string | null;
 }
 
-const DialoguePortraitWidget: React.FC<IDialoguePortraitWidget> = ({actor}) => {
+const DialoguePortraitWidget: React.FC<IDialoguePortraitWidget> = ({actor, portrait: portraitToSet}) => {
   const prevControls = useAnimation();
   const controls = useAnimation();
 
   const [prevPortrait, setPrevPortrait] = useState('');
   const [portrait, setPortrait] = useState('');
 
-  const nextPortrait = portraits[actor];
+  const nextPortrait = portraitToSet === null ? transparentImage : portraitToSet || portraits[actor];
   if (!nextPortrait) {
     throw new Error('missing actor "' + actor + '" portrait file or import declaration');
   }
@@ -57,7 +59,7 @@ const DialoguePortraitWidget: React.FC<IDialoguePortraitWidget> = ({actor}) => {
 
   useEffect(() => {
     if (portrait) {
-      console.log('%c [mr] play', 'background-color:pink; color: black');
+      // console.log('%c [mr] play', 'background-color:pink; color: black');
       play();
     }
   }, [portrait, play]);

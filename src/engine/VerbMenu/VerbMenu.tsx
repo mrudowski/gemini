@@ -1,13 +1,16 @@
 import React, {useEffect, useRef, useState} from 'react';
 import classNames from 'classnames';
 import {AnimatePresence, motion} from 'framer-motion';
-import './styles/VerbMenuStyle.scss';
+import {useHotkeys} from 'react-hotkeys-hook';
 import {useTypedDispatch, useTypedSelector} from '../redux/store';
-import Backdrop from '../helpers/Backdrop';
-import {closeVerbMenu, getVerbMenuData, interpretVerb, IVerb} from './verbMenuSlice';
+import Backdrop from '../commons/components/Backdrop';
+import {closeVerbMenu, interpretVerb, IVerb} from './verbMenuSlice';
 import getTopLeftPosition from './utils/getTopLeftPosition';
 import VerbItem from './VerbItem';
 import {variants} from '../commons/motion/variants';
+import {resolveWhen} from '../commons/utils/utils';
+import './styles/VerbMenuStyle.scss';
+import {getVerbMenuData} from './verbMenuSelectors';
 
 interface IVerbMenu {}
 
@@ -44,6 +47,17 @@ const VerbMenu: React.FC<IVerbMenu> = () => {
     dispatch(closeVerbMenu());
   };
 
+  useHotkeys(
+    'esc',
+    () => {
+      // method because useHotKeys have second hotkeysEvent param
+      closeMenu();
+    },
+    {
+      enabled: !!verbMenuData,
+    }
+  );
+
   const onVerbSelected = (verbIndex: number) => {
     if (verbMenuData) {
       //dispatch();
@@ -51,7 +65,11 @@ const VerbMenu: React.FC<IVerbMenu> = () => {
       if (selectedVerb) {
         dispatch(interpretVerb(selectedVerb));
       } else {
-        console.log('%c [onVerbSelected] error - verbDef is not defined', 'background-color:red; color: white', selectedVerb);
+        console.log(
+          '%c [onVerbSelected] error - verbDef is not defined',
+          'background-color:red; color: white',
+          selectedVerb
+        );
       }
     }
     closeMenu();
@@ -67,7 +85,7 @@ const VerbMenu: React.FC<IVerbMenu> = () => {
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap#For_adding_and_removing_items_during_a_map
   const getVerbs = (verbs: IVerb[]) =>
     verbs.flatMap((verb, index) => {
-      if (verb.when === undefined || verb.when) {
+      if (resolveWhen(verb.when)) {
         // index as id because we can have many `examine` verbs (hidden by `when` condition)
         return [<VerbItem id={index} key={verb.name} name={verb.name} onClick={onVerbSelected} />];
       }
@@ -93,7 +111,7 @@ const VerbMenu: React.FC<IVerbMenu> = () => {
             variants={variants}
             whileTap={{scale: 0.95}}
           >
-            <div className="gem-ui-borders" />
+            <div className="VerbMenu__border" />
             <div>{getVerbs(verbMenuData.verbs)}</div>
           </motion.div>
         </>

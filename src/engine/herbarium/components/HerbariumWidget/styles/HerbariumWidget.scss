@@ -1,0 +1,7 @@
+@import "../../../../commons/sass/variables";
+
+.UIWidget--Herbarium {
+	width: $gem-herbarium-width;
+	height: $gem-herbarium-height;
+	display: flex;
+}

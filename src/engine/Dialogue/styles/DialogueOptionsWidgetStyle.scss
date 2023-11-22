@@ -1,62 +1,50 @@
-@import "../../sass/variables";
+@import "../../commons/sass/variables";
 
 .DialogueOptionsWidget {
-	margin: -3px;
 	height: 100%;
-	display: grid;
-	gap: 3px $gem-gap;
-	// align-items: start;
 
-	.option {
-		.text {
-			padding: 3px 5px 1px;
-			border-radius: 5px;
-			display: block;
-			transition: background-color .25s ease-in-out;
-		}
-
-		// TODO
-		.check {
-			position: absolute;
-			top: 3px;
-			left: 3px;
-			display: block;
-			color: rgba(#b4962e, 0.5);
-
-			i {
-				opacity: 0;
-				color: #7a9b3f;
-				transition: opacity .25s ease-in-out;
-			}
-		}
-
-		&.asked .text {
-			color: $gem-text-color-disabled;
-		}
-
-		&:hover {
-			.text {
-				background-color: rgba(0,0,0,0.05);
-			}
-			.check i {
-				opacity: 1;
-			}
-		}
-
+	&--hidden {
+		display: none !important;
 	}
 
-	&--short {
-		grid-template-columns: repeat(4, 1fr);
-		grid-template-rows: repeat(4, 1fr);
-
+	&--short,
+	&--multiline {
 		.option {
 			float: left;
 			max-width: 100%;
-		}
 
-		.check {
-			display: none;
+			.text {
+				padding: 3px 5px 1px;
+				border-radius: 5px;
+				display: block;
+				transition: background-color .25s ease-in-out;
+			}
+
+			&.asked .text {
+				color: $gem-text-color-disabled;
+			}
+
+			&:hover {
+				.text {
+					background-color: rgba(0,0,0,0.05);
+				}
+				//.check i {
+				//	opacity: 1;
+				//}
+			}
 		}
+	}
+
+	&--short {
+		margin: -3px;
+		display: grid;
+		gap: 3px $gem-gap;
+		grid-template-columns: repeat(4, 1fr);
+		grid-template-rows: repeat(5, 1fr);
+
+		//.check {
+		//	display: none;
+		//}
 
 		.text {
 			overflow: hidden;
@@ -67,8 +55,52 @@
 
 	&--multiline {
 		.option {
-			position: relative;
-			padding-left: 24px;
+			margin-bottom: 8px;
+		}
+
+		//.check {
+		//	position: absolute;
+		//	top: 3px;
+		//	left: 3px;
+		//	display: block;
+		//	color: rgba(#b4962e, 0.5);
+		//
+		//	i {
+		//		opacity: 0;
+		//		color: #7a9b3f;
+		//		transition: opacity .25s ease-in-out;
+		//	}
+		//}
+	}
+
+	&--cinematic {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		font-size: $gem-font-size-lg;
+
+		.optionWrapper {
+			position: absolute;
+		}
+
+		.option {
+			//max-width: 100%;
+
+			.text {
+				color: rgba($gem-color-white, .8);
+				transition: color .25s ease-in-out;
+			}
+
+			&.asked .text {
+				color: rgba($gem-color-white, .4);
+			}
+
+			&:hover {
+				.text {
+					color: rgba($gem-color-white, 1);
+				}
+			}
 		}
 	}
 

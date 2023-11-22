@@ -1,0 +1,21 @@
+@import "../../../commons/sass/variables";
+
+.root {
+	display: flex;
+	flex-direction: column;
+	padding: $gem-gap * 2;
+}
+
+.textarea {
+	height: 150px;
+}
+
+.buttons {
+	display: flex;
+	justify-content: space-between;
+}
+
+.wrongAccessCode {
+	margin-right: $gem-gap;
+	color: $gem-color-error;
+}

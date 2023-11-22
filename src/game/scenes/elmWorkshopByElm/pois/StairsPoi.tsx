@@ -1,9 +1,9 @@
 import React from 'react';
-import Poi from '../../../../engine/Poi';
-import SCENE_POIS from '../scenePois';
-import ACTIONS from '../../../../engine/actions';
+import ACTIONS from '../../../../engine/actions/actions';
+import Poi from '../../../../engine/Poi/Poi';
 import {useTranslation} from '../../../../engine/translation';
-import SCENES from '../../../scenes';
+import SCENES from '../../scenes';
+import SCENE_POIS from '../scenePois';
 
 const StairsPoi = () => {
   const t = useTranslation();
@@ -17,14 +17,23 @@ const StairsPoi = () => {
         width: 186,
         height: 114,
       }}
+      hotspot={{
+        left: 80,
+        top: 10,
+        width: 80,
+        height: 100,
+      }}
       verbs={[
         {
           name: t.verbs.examine,
-          script: [ACTIONS.talk({text: t.scenes.elmWorkshopByHazel.stairs.examine})],
+          script: [ACTIONS.talk({text: t.scenes.elmWorkshopByElm.stairs.examine})],
         },
         {
           name: t.verbs.go,
-          script: [ACTIONS.gotoScene({scene: SCENES.hazelWorkshopByHazel})],
+          script: [
+            ACTIONS.setGlobalState({state: {elmLocation: SCENES.hazelWorkshopByElm}}),
+            ACTIONS.gotoScene({scene: SCENES.hazelWorkshopByElm}),
+          ],
         },
       ]}
     />

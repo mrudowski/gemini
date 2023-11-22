@@ -1,7 +1,8 @@
-@import "../../sass/variables";
+@import "../../commons/sass/variables";
+@import "../../../game/scenes/saveThumbs";
 @import "global";
 @import "scrollbars";
-@import "ui";
+@import "shake";
 
 .Gem {
 	position: relative;
@@ -16,6 +17,12 @@
 		height: $gem-viewport-height;
 		overflow: hidden;
 	}
+
+	&__viewport--shake {
+		// https://github.com/elrumordelaluz/csshake/blob/master/scss/csshake.scss
+		@include do-shake($name: 'viewportShake', $h: 10, $v: 5, $r: 0, $dur: 3000ms);
+	}
+
 }
 
 

@@ -1,0 +1,11 @@
+@import "../../../../../commons/sass/variables";
+
+.root {
+	margin-bottom: $gem-gap-sm;
+	text-align: right;
+}
+
+.accessCodeCopied {
+	color: $gem-color-success;
+	margin-right: $gem-gap-sm;
+}

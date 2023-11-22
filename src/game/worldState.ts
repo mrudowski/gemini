@@ -1,82 +1,80 @@
-import {ITeaShopSceneState, teaShopSceneInitialState} from './scenes/teaShop/state';
-import TALK_OPTIONS from './talkOptions';
-import ACTORS, {IActorId} from './actors';
-import SCENES from './scenes';
+import {IActorId} from '../engine/Dialogue/types';
+import {INotebookPageId} from '../engine/notebook/types';
+import ISceneState, {sceneInitialState} from '../engine/redux/SceneState';
+import {ISceneId} from '../engine/scene/Scene/types';
+import {actorsInitialState, IActorsState} from '../engine/World/worldStateUtils';
+import CLOSEUPS from './closeups/closeups';
+import {elmDeskByElmSceneInitialState, IElmDeskByElmSceneState} from './closeups/elmDeskByElm/state';
+import {elmDeskByHazelSceneInitialState, IElmDeskByHazelSceneState} from './closeups/elmDeskByHazel/state';
+import {hazelTableByElmSceneInitialState, IHazelTableByElmSceneState} from './closeups/hazelTableByElm/state';
+import {hazelTableByHazelSceneInitialState, IHazelTableByHazelSceneState} from './closeups/hazelTableByHazel/state';
 import {elmWorkshopByHazelSceneInitialState, IElmWorkshopByHazelSceneState} from './scenes/elmWorkshopByHazel/state';
 import {
   hazelWorkshopByHazelSceneInitialState,
   IHazelWorkshopByHazelSceneState,
 } from './scenes/hazelWorkshopByHazel/state';
+import {IIntroductionSceneState, introductionSceneInitialState} from './scenes/introduction/state';
+import SCENES from './scenes/scenes';
 import SETTINGS from './settings';
 
-// TODO - move all helpers inside engine
-//  worldState file have to be easy to manage!
-type IActorTalkOptions = {
-  [key in keyof typeof TALK_OPTIONS]: boolean;
-};
-
 export interface IWorldState {
-  scenes: {
-    [SCENES.teaShop]: ITeaShopSceneState;
-    [SCENES.elmWorkshopByHazel]: IElmWorkshopByHazelSceneState;
-    [SCENES.elmWorkshopByElm];
-    [SCENES.hazelWorkshopByHazel]: IHazelWorkshopByHazelSceneState;
-    [SCENES.hazelWorkshopByElm];
-    [SCENES.hazelTableByHazel];
-    test: {
-      test1: number;
-    };
-  };
+  currentSceneId: ISceneId;
+  previousSceneId: ISceneId | null;
   currentActorId: IActorId;
-  // TODO we have to decide later which we choose
-  actors: Record<IActorId, IActorTalkOptions>;
-  showElmHazelSwitch: boolean;
+  scenes: {
+    [SCENES.introduction]: IIntroductionSceneState;
+    [SCENES.mainMenu]: ISceneState;
+    [SCENES.elmWorkshopByHazel]: IElmWorkshopByHazelSceneState;
+    [SCENES.elmWorkshopByElm]: ISceneState;
+    [SCENES.hazelWorkshopByHazel]: IHazelWorkshopByHazelSceneState;
+    [SCENES.hazelWorkshopByElm]: ISceneState;
 
-  //   scenes: {
-  //     previously: {
-  //       //leafsClosed: true
-  //     }
-  //   },
-  //   inventory: {
-  //     //key: true
-  //   },
-  //
-  //   notebook: {
-  //     disabled: true
-  //   },
-  //
-  //   scene: 'previously',
-  //
-  //   save: {
-  //     title: '',
-  //     date: ''
-  //   }
+    [CLOSEUPS.hazelTableByHazel]: IHazelTableByHazelSceneState;
+    [CLOSEUPS.hazelTableByElm]: IHazelTableByElmSceneState;
+    [CLOSEUPS.elmDeskByElm]: IElmDeskByElmSceneState;
+    [CLOSEUPS.elmDeskByHazel]: IElmDeskByHazelSceneState;
+  };
+  actors: IActorsState;
+  global: {
+    showElmHazelSwitch: boolean;
+    showHerbariumTrigger: boolean;
+    herbariumActivePage: number;
+    hazelLocation: typeof SCENES.hazelWorkshopByHazel | typeof SCENES.elmWorkshopByHazel;
+    elmLocation: typeof SCENES.elmWorkshopByElm | typeof SCENES.hazelWorkshopByElm;
+    organizedNotebook: boolean;
+    organizedNotebookActivePage: INotebookPageId;
+    day: number;
+    day02MapUnlock: boolean;
+  };
 }
 
-const getActorTalkOptions = () =>
-  Object.keys(TALK_OPTIONS).reduce((talkOptionsAsState, talkOptionId) => {
-    talkOptionsAsState[talkOptionId] = false;
-    return talkOptionsAsState;
-  }, {} as IActorTalkOptions);
-
-// console.log('%c [mr] ACTORS', 'background-color:Gold; color: black', ACTORS);
 export const worldInitialState: IWorldState = {
-  scenes: {
-    [SCENES.teaShop]: teaShopSceneInitialState,
-    [SCENES.elmWorkshopByHazel]: elmWorkshopByHazelSceneInitialState,
-    [SCENES.elmWorkshopByElm]: null,
-    [SCENES.hazelWorkshopByHazel]: hazelWorkshopByHazelSceneInitialState,
-    [SCENES.hazelWorkshopByElm]: null,
-    [SCENES.hazelTableByHazel]: null,
-    test: {
-      test1: 1,
-    },
-  },
+  currentSceneId: SETTINGS.INTRO_SCENE,
+  previousSceneId: null,
   currentActorId: SETTINGS.DEFAULT_ACTOR,
-  // TODO ok but move it outside this file - worldState have to be easy to manage!
-  actors: Object.keys(ACTORS).reduce((actorsAsState, actorId) => {
-    actorsAsState[actorId] = getActorTalkOptions();
-    return actorsAsState;
-  }, {} as IWorldState['actors']),
-  showElmHazelSwitch: false,
+  scenes: {
+    [SCENES.introduction]: introductionSceneInitialState,
+    [SCENES.mainMenu]: sceneInitialState,
+    [SCENES.elmWorkshopByHazel]: elmWorkshopByHazelSceneInitialState,
+    [SCENES.elmWorkshopByElm]: sceneInitialState,
+    [SCENES.hazelWorkshopByHazel]: hazelWorkshopByHazelSceneInitialState,
+    [SCENES.hazelWorkshopByElm]: sceneInitialState,
+
+    [CLOSEUPS.hazelTableByHazel]: hazelTableByHazelSceneInitialState,
+    [CLOSEUPS.hazelTableByElm]: hazelTableByElmSceneInitialState,
+    [CLOSEUPS.elmDeskByElm]: elmDeskByElmSceneInitialState,
+    [CLOSEUPS.elmDeskByHazel]: elmDeskByHazelSceneInitialState,
+  },
+  actors: actorsInitialState, // we can remove it - and have smaller initial state
+  global: {
+    showElmHazelSwitch: false,
+    showHerbariumTrigger: false,
+    herbariumActivePage: 1,
+    hazelLocation: SCENES.hazelWorkshopByHazel,
+    elmLocation: SCENES.elmWorkshopByElm,
+    organizedNotebook: false,
+    organizedNotebookActivePage: 'todoList',
+    day02MapUnlock: false,
+    day: 0,
+  },
 };

@@ -1,0 +1,10 @@
+@import "../../../../commons/sass/variables";
+
+.hudButton--inGameMenu {
+	top: $gem-gap;
+	left: $gem-gap;
+
+	.hudButton__icon {
+		background-position: 0 0;
+	}
+}

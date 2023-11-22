@@ -1,7 +1,55 @@
+@import "../../commons/sass/variables";
+
 .GemLock {
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
+	//box-shadow: inset 0 0 10px red; // for debug
+	z-index: $z-index-gemLock;
+}
+
+//@keyframes backdropFadeIn {
+//	from {
+//		opacity: 0;
+//	}
+//
+//	to {
+//		opacity: 1;
+//	}
+//}
+
+.GemLoading {
+
+	//.backdrop {
+	//	position: absolute;
+	//	background-color: $gem-color-black;
+	//	width: 100%;
+	//	height: 100%;
+	//	animation-name: backdropFadeIn;
+	//	animation-duration: 1000ms;
+	//	animation-fill-mode: both;
+	//	animation-delay: 1000ms;
+	//}
+
+	.gemSpinner {
+		position: absolute;
+		bottom: $gem-gap * 3 - 10;
+		left: $gem-gap * 3;
+	}
+
+	//&--main {
+	//	position: absolute;
+	//	bottom: $gem-gap * 3 - 10;
+	//	left: $gem-gap * 3;
+	//}
+	//
+	//&--ui {
+	//	display: grid;
+	//	width: 100%;
+	//	height: 100%;
+	//	place-items: center;
+	//}
+
 }

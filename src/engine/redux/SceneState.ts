@@ -1,6 +1,9 @@
 interface ISceneState {
-  visited: boolean,
+  visited: boolean;
 }
 
-export default ISceneState;
+export const sceneInitialState = {
+  visited: false,
+};
 
+export default ISceneState;

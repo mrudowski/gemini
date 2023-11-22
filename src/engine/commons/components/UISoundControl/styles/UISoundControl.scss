@@ -1,0 +1,19 @@
+@import "../../../sass/variables";
+
+.UISoundControl {
+	display: flex;
+
+	&--classic {
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&--text {
+		justify-content: flex-start;
+		align-items: flex-start;
+
+		.UISoundControl__label {
+			min-width: 70px;
+		}
+	}
+}

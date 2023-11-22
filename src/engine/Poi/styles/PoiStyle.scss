@@ -1,4 +1,4 @@
-@import "../../sass/variables";
+@import "../../commons/sass/variables";
 
 .Poi {
 	position: absolute;
@@ -8,6 +8,9 @@
 
 	.Gem--debug--showPoi & {
 		box-shadow: 0 0 0 1px $gem-color-debug;
+	}
+
+	&--debug--hidden {
 	}
 
 	&__hotspot {
@@ -21,5 +24,12 @@
 		.Gem--debug--showHotspot & {
 			background-color: rgba($gem-color-debug, .5);
 		}
+	}
+
+	&__imageToShow {
+		position: absolute;
+		inset: 0;
+		background-position: 0 0;
+		background-repeat: no-repeat;
 	}
 }

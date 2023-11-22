@@ -5,20 +5,25 @@ import DevStateBox from './components/DevStateBox/DevStateBox';
 import {useTypedDispatch, useTypedSelector} from '../redux/store';
 import {
   getIsDebugMode,
+  getIsShowHiddenPoiActive,
   getIsShowHotspotActive,
   getIsShowPoiActive,
   setDebugMode,
+  toggleHiddenPoi,
   toggleHotspot,
   togglePoi,
 } from './devToolsSlice';
 import DevDialogueTree from './components/DevDialogueTree/DevDialogueTree';
 import DevLangBox from './components/DevLangBox/DevLangBox';
+import DevStateSnapshotBox from './components/DevStateSnapshotBox/DevStateSnapshotBox';
+import DevAdditionalStatesBoxes from './components/DevAdditionalStatesBoxes/DevAdditionalStatesBoxes';
 
 interface IDevTools {}
 
 const DevTools: React.FC<IDevTools> = () => {
   const isDebugMode = useTypedSelector(getIsDebugMode);
   const isShowPoiActive = useTypedSelector(getIsShowPoiActive);
+  const isShowHiddenPoiActive = useTypedSelector(getIsShowHiddenPoiActive);
   const isShowHotspotActive = useTypedSelector(getIsShowHotspotActive);
   const dispatch = useTypedDispatch();
 
@@ -29,12 +34,17 @@ const DevTools: React.FC<IDevTools> = () => {
 
   if (!isDebugMode) return null;
 
-  const togglePoiCallback = e => {
+  const toggleShowPoiCallback = e => {
     dispatch(togglePoi());
     e.preventDefault();
   };
 
-  const toggleHotspotCallback = e => {
+  const toggleShowHiddenPoiCallback = e => {
+    dispatch(toggleHiddenPoi());
+    e.preventDefault();
+  };
+
+  const toggleShowHotspotCallback = e => {
     dispatch(toggleHotspot());
     e.preventDefault();
   };
@@ -42,16 +52,20 @@ const DevTools: React.FC<IDevTools> = () => {
   return (
     <div className="DevTools">
       <div className="devPanel devToolBox">
-        <a href="#" onClick={togglePoiCallback}>
+        <a href="#" onClick={toggleShowPoiCallback}>
           [{isShowPoiActive ? '+' : '-'}] show pois
         </a>
-        {/*<a href="#" id="toolHiddenPoi">toggle hidden poi</a>*/}
-        <a href="#" onClick={toggleHotspotCallback}>
+        <a href="#" onClick={toggleShowHiddenPoiCallback}>
+          [{isShowHiddenPoiActive ? '+' : '-'}] show hidden poi
+        </a>
+        <a href="#" onClick={toggleShowHotspotCallback}>
           [{isShowHotspotActive ? '+' : '-'}] show hotspots
         </a>
       </div>
+      <DevAdditionalStatesBoxes />
       <DevDialogueTree />
       <DevStateBox />
+      <DevStateSnapshotBox />
       <DevLocationBox />
       <DevLangBox />
     </div>

@@ -1,0 +1,24 @@
+@import "../../../commons/sass/variables";
+
+.UIWidget--InGameMenu {
+	width: $gem-inGameMenu-width;
+	display: flex;
+	flex-direction: column;
+	padding: $gem-gap * 2;
+}
+
+.UIWidget--InGameMenu__buttons {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: $gem-gap-sm;
+
+	& > .UIButton {
+		width: 100%;
+	}
+}
+
+.UIWidget--InGameMenu .UISoundControl {
+	margin-top: $gem-gap * 2;
+}
+

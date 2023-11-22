@@ -1,26 +1,19 @@
 import React from 'react';
-import Scene from '../../../engine/Scene';
-import SCENES from '../../scenes';
-// import {useTranslation} from '../../../engine/translation';
+import Scene from '../../../engine/scene/Scene';
+import {SOUNDS_TRACKS} from '../../sounds/sounds';
+import SCENES from '../scenes';
 import elmWorkshop from './assets/images/elmWorkshop.jpg';
+import DeskPoi from './pois/DeskPoi';
 import ElmDeskPoi from './pois/ElmDeskPoi';
-import StairsPoi from './pois/StairsPoi';
 import ElmPoi from './pois/ElmPoi';
 import HazelExitPoi from './pois/HazelExitPoi';
 import HazelSitPoi from './pois/HazelSitPoi';
-import elmImage from '../../assets/images/portraits/elm.png';
-import hazelImage from '../../assets/images/portraits/hazel.png';
-import PreloadImages from '../../../engine/Preload/PreloadImages';
-
-const imagesToPreload = [elmImage, hazelImage];
+import StairsPoi from './pois/StairsPoi';
 
 const ElmWorkshopByHazelScene = () => {
-  // const t = useTranslation();
-
   return (
-    <Scene id={SCENES.elmWorkshopByHazel} image={elmWorkshop}>
-      <PreloadImages images={imagesToPreload} />
-
+    <Scene id={SCENES.elmWorkshopByHazel} image={elmWorkshop} sounds={SOUNDS_TRACKS.storyCombo}>
+      <DeskPoi />
       <ElmDeskPoi />
       <ElmPoi />
       <StairsPoi />

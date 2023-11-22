@@ -1,9 +1,9 @@
 import React from 'react';
-import Poi from '../../../../engine/Poi';
+import Poi from '../../../../engine/Poi/Poi';
+import {useSceneState} from '../../../../engine/stateHooks/stateHooks';
+import SCENES from '../../scenes';
 import hazelExitImage from '../assets/images/hazelExit.png';
 import SCENE_POIS from '../scenePois';
-import {useSceneState} from '../../../../engine/stateHooks/stateHooks';
-import SCENES from '../../../scenes';
 
 const HazelExitPoi = () => {
   const sceneState = useSceneState(SCENES.elmWorkshopByHazel);
@@ -18,7 +18,7 @@ const HazelExitPoi = () => {
         height: 72,
       }}
       image={hazelExitImage}
-      when={!sceneState.hazelOnDesk}
+      when={!sceneState.hazelOnDesk} // ten cały POI będzie chyba do wywalenia. Sprawdzic po pozostałych aktach
     />
   );
 };

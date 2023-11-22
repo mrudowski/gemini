@@ -1,16 +1,43 @@
-@import "../../../../sass/variables";
+@import "../../../../commons/sass/variables";
 
 .devDialogueTree {
-	position: fixed;
-	top: $gem-gap;
-	left: $gem-gap;
-	width: 200px;
-	border: 1px solid hotpink;
+	position: absolute;
+	top: 340px;
+	left: -260px;
+	width: 240px;
+	height: 380px;
 	overflow-wrap: break-word;
 	z-index: 1;
+	font-size: 10px;
+	display: flex;
+	flex-direction: column;
+
+	.devScrollContainer {
+		overflow: auto;
+	}
 
 	&__item {
 		margin-bottom: 5px;
+		position: relative;
+
+		&.indent-1 {
+			margin-left: $gem-gap;
+		}
+
+		&__bullet {
+			position: absolute;
+			top: 5px;
+			left: -12px;
+			width: 4px;
+			height: 4px;
+			border-radius: 4px;
+			background-color: #fff;
+		}
+	}
+
+	hr {
+		border: 0 none;
+		border-top: 1px solid rgba($gem-color-white, 0.35);
 	}
 }
 

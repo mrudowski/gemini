@@ -1,0 +1,8 @@
+@import "../../../../commons/sass/variables";
+
+.gemSuspenseFallback {
+	z-index: $z-index-gemSuspense;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}

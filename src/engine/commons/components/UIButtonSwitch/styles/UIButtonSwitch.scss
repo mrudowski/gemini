@@ -1,0 +1,20 @@
+@import "../../../sass/variables";
+
+.UIButtonSwitch {
+	.UIButton {
+		margin-left: $gem-gap-sm;
+
+		&--classic {
+			min-width: 50px;
+			padding-left: $gem-gap-sm;
+			padding-right: $gem-gap-sm;
+		}
+
+		&--text {
+			padding-left: 3px;
+			padding-right: 3px;
+		}
+	}
+
+}
+

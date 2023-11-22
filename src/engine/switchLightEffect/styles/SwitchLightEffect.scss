@@ -1,0 +1,11 @@
+@import "../../commons/sass/variables";
+
+.SwitchLightEffect {
+	background-color: $gem-color-black;
+	position: absolute;
+	inset: 0;
+
+	//&--app {
+	//	z-index: $z-index-lightEffectOverGUI;
+	//}
+}
