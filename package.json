@@ -23,6 +23,35 @@
     "redux-deep-persist": "^1.0.6",
     "redux-persist": "^6.0.0"
   },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@craco/craco": "^7.1.0",
+    "@testing-library/jest-dom": "^5.11.8",
+    "@testing-library/react": "^11.2.2",
+    "@testing-library/user-event": "^12.6.0",
+    "@types/howler": "^2.2.4",
+    "@types/jest": "^26.0.19",
+    "@types/node": "^14.14.19",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "babel-plugin-transform-remove-console": "^6.9.4",
+    "image-minimizer-webpack-plugin": "^3.8.3",
+    "imagemin": "^8.0.1",
+    "imagemin-gifsicle": "^7.0.0",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^9.0.2",
+    "imagemin-svgo": "^10.0.1",
+    "imagemin-webp": "^8.0.0",
+    "prettier": "^2.4.1",
+    "react-scripts": "^5.0.1",
+    "sass": "^1.46.0",
+    "svgo": "^3.0.4",
+    "typescript": "^4.4.4"
+  },
+  "resolutions": {
+    "postcss": "^8.4.31",
+    "nth-check": "^2.0.1"
+  },
   "scripts": {
     "start": "craco start",
     "build": "craco build",
@@ -43,22 +72,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@craco/craco": "^7.1.0",
-    "@testing-library/jest-dom": "^5.11.8",
-    "@testing-library/react": "^11.2.2",
-    "@testing-library/user-event": "^12.6.0",
-    "@types/howler": "^2.2.4",
-    "@types/jest": "^26.0.19",
-    "@types/node": "^14.14.19",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "babel-plugin-transform-remove-console": "^6.9.4",
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "prettier": "^2.4.1",
-    "react-scripts": "^5.0.1",
-    "sass": "^1.46.0",
-    "typescript": "^4.4.4"
   }
 }
