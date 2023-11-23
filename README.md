@@ -67,20 +67,20 @@ Open [http://localhost:3003/?debugMode=true](http://localhost:3003/?debugMode=tr
 
 ### image optimization
 
-https://www.smashingmagazine.com/2022/07/powerful-image-optimization-tools/
-https://tinypng.com/
+- https://www.smashingmagazine.com/2022/07/powerful-image-optimization-tools/
+- https://tinypng.com/
 
 ### css clip path generator
 
-https://www.cssportal.com/css-clip-path-generator/
-https://webdevpuneet.com/tools/css-clip-path-generator/
-https://bennettfeely.com/clippy/
+- https://www.cssportal.com/css-clip-path-generator/
+- https://webdevpuneet.com/tools/css-clip-path-generator/
+- https://bennettfeely.com/clippy/
 
 ### webm audio converter
 
-https://www.freeconvert.com/mp3-to-webm
-https://www.videoconverter.com/convert-mp3-to-webm.html (1 per day)
-https://www.video2edit.com/convert-to-webm
+- https://www.freeconvert.com/mp3-to-webm
+- https://www.videoconverter.com/convert-mp3-to-webm.html (1 per day)
+- https://www.video2edit.com/convert-to-webm
 
 - - -
 
